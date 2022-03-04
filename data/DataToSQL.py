@@ -6,6 +6,7 @@ mydb=mysql.connector.connect(
     user="root",
     password="AbC123456",
     database="Taipei_Scene",
+    auth_plugin="mysql_native_password"
 )
 
 mycursor=mydb.cursor()

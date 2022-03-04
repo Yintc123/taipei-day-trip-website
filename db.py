@@ -6,4 +6,5 @@ con_pool=MySQLConnectionPool(
     database="Taipei_Scene",
     pool_name="myPool",
     pool_size=20,
+    auth_plugin="mysql_native_password"
 )

@@ -120,7 +120,6 @@ def attraction(attractionId):
     try:
         data={
             "nextPage":None,
-            "atPage":None,
             "data":[]
         }
         data_detail=data["data"]
@@ -131,7 +130,7 @@ def attraction(attractionId):
         mycursor.execute(query_count %attractionId)
         count=mycursor.fetchone()
         atPage=math.ceil(count["COUNT(id)"]/12)-1
-        data["atPage"]=atPage
+        # data["atPage"]=atPage
         if atPage>=math.ceil(toatal_column_count()/12)-1:
             data["nextPage"]=None
         else:

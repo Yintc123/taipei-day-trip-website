@@ -82,10 +82,10 @@ def api_attractions():
         else:
             page=int(page)
             nextpage=page+1
-            if nextpage==math.ceil(count/12):
-                nextpage=None
-            elif nextpage>math.ceil(count/12):
-                return jsonify(data)
+        if nextpage==math.ceil(count/12):
+            nextpage=None
+        elif nextpage>math.ceil(count/12):
+            return jsonify(data)
         data["nextPage"]=nextpage
         location_starter=page*12
         query.extend([location_starter, 12])

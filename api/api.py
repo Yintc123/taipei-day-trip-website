@@ -86,7 +86,7 @@ def api_attractions():
             nextpage=None
         elif nextpage>math.ceil(count/12):
             FailMessage="輸入的頁數有誤，資料不足"
-            return redirect(url_for("error", fail_message=FailMessage))
+            return redirect(url_for("api.error", fail_message=FailMessage))
         data["nextPage"]=nextpage
         location_starter=page*12
         query.extend([location_starter, 12])
@@ -129,7 +129,7 @@ def attraction(attractionId):
         location=mycursor.fetchone()
         if location==None:
             FailMessage="您輸入的景點編號不存在，請重新輸入景點編號"
-            return redirect(url_for("error", fail_message=FailMessage))
+            return redirect(url_for("api.error", fail_message=FailMessage))
         mycursor.close()
         conn.close()
         data_detail.append(get_data(location))

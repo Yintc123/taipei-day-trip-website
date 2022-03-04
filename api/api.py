@@ -74,7 +74,7 @@ def api_attractions():
             query_count="SELECT COUNT(id) FROM scene_info WHERE name LIKE %s"
             mycursor.execute(query_count, ("%"+keyword+"%", ))
             count=mycursor.fetchone()["COUNT(id)"]
-            if count==None:
+            if count==0:
                 fail_message="您輸入的關鍵字查詢無果，請重新輸入其他關鍵字"
                 error={
                     "error":True,

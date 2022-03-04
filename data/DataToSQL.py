@@ -6,7 +6,7 @@ mydb=mysql.connector.connect(
     host="localhost",
     user="root",
     password="AbC123456",
-    database="Taipei_Scene",
+    database="taipei_Scene",
     auth_plugin="mysql_native_password"
 )
 

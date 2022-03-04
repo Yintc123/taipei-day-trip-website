@@ -1,6 +1,7 @@
 from mysql.connector.pooling import MySQLConnectionPool
 
 con_pool=MySQLConnectionPool(
+    host="localhost",
     user="root",
     password="AbC123456",
     database="Taipei_Scene",

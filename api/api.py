@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, redirect, url_for
 import db
 import math
 
@@ -85,7 +85,8 @@ def api_attractions():
         if nextpage==math.ceil(count/12):
             nextpage=None
         elif nextpage>math.ceil(count/12):
-            return jsonify(data)
+            FailMessage="輸入的頁數有誤，資料不足"
+            return redirect(url_for("error", fail_message=FailMessage))
         data["nextPage"]=nextpage
         location_starter=page*12
         query.extend([location_starter, 12])
@@ -127,9 +128,8 @@ def attraction(attractionId):
         mycursor.execute(query_location %attractionId)
         location=mycursor.fetchone()
         if location==None:
-            data["nextPage"]=None
-            data["atPage"]=None
-            raise
+            FailMessage="您輸入的景點編號不存在，請重新輸入景點編號"
+            return redirect(url_for("error", fail_message=FailMessage))
         mycursor.close()
         conn.close()
         data_detail.append(get_data(location))
@@ -137,6 +137,15 @@ def attraction(attractionId):
     except:
         error={
             "error":True,
-            "message":"景點的編號不正確，請重新輸入有效的號碼，謝謝!"
+            "message":"伺服器目前當機，請稍後連線"
         }
         return jsonify(error)
+    
+@app2.route("/error")
+def error():
+    fail_message=request.args.get("fail_message")
+    error={
+            "error":True,
+            "message":fail_message
+        }
+    return error

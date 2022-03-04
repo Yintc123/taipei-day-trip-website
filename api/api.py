@@ -2,21 +2,21 @@ from flask import Blueprint, request, jsonify
 import db
 import math
 
-def put_images(id):
-   queryforimg="SELECT images FROM scene_picture WHERE id=%s"
+def get_images(id):
+   query_img="SELECT images FROM scene_picture WHERE id=%s"
    conn=db.con_pool.get_connection()
    mycursor=conn.cursor()
-   mycursor.execute(queryforimg %id)
-   result=mycursor.fetchall()
-   mycursor.close()
-   conn.close()
+   mycursor.execute(query_img %id)
+   images=mycursor.fetchall()
+   mycursor.close()#cursor.close()釋放從資料庫取得的資源，兩個皆須關閉
+   conn.close()#connection.close()方法可關閉對連線池的連線，並釋放相關資源
    img_list=[]
-   for i in result:
-       img_list.append(i[0])
+   for url in images:
+       img_list.append(url[0])
    return img_list   
 
-def put_api(data1):
-    api={
+def get_data(data):
+    data_info={
             "id":None,
             "name":None,
             "category":None,
@@ -30,15 +30,15 @@ def put_api(data1):
                 None
             ]
         }
-    api_key=list(api.keys())
-    for key in api_key:
-        if key=="images":
-            api[key]=put_images(api["id"])
+    data_titles=list(data_info.keys())
+    for title in data_titles:
+        if title=="images":
+            data_info[title]=get_images(data_info["id"])
         else:
-            api[key]=data1[key] 
-    return api
+            data_info[title]=data[title] 
+    return data_info
 
-def calcutate_data_toatal_count():
+def toatal_column_count():
     conn=db.con_pool.get_connection()
     mycursor=conn.cursor()
     query_total_count="SELECT COUNT(id) FROM scene_info"
@@ -61,42 +61,40 @@ def api_attractions():
             "nextPage":None,
             "data":[]
         }
-        api_data=data["data"]
+        data_detail=data["data"]
         page=request.args.get("page") 
         keyword=request.args.get("keyword")
         conn=db.con_pool.get_connection()
         mycursor=conn.cursor(dictionary=True)#dictionary=True使fetchall()的檔案為dict
         query=[]
         if keyword=="" or keyword==None:
-            count=calcutate_data_toatal_count()
-            query_place="SELECT*FROM scene_info LIMIT %s, %s"
+            count=toatal_column_count()
+            query_locations="SELECT*FROM scene_info LIMIT %s, %s"
         else:
             query_count="SELECT COUNT(id) FROM scene_info WHERE name LIKE %s"
             mycursor.execute(query_count, ("%"+keyword+"%", ))
             count=mycursor.fetchone()["COUNT(id)"]
-            query_place="SELECT*FROM scene_info WHERE name LIKE %s LIMIT %s, %s"
+            query_locations="SELECT*FROM scene_info WHERE name LIKE %s LIMIT %s, %s"
             query.append("%"+keyword+"%")
         if page==None or page=="" or int(page)+1<=0:
             page=0
             nextpage=page+1
         else:
             page=int(page)
-        if page+1==math.ceil(count/12):
-            nextpage=None
-        elif page+1>math.ceil(count/12):
-            return jsonify(data)
-        else:
             nextpage=page+1
+            if nextpage==math.ceil(count/12):
+                nextpage=None
+            elif nextpage>math.ceil(count/12):
+                return jsonify(data)
         data["nextPage"]=nextpage
-        # query_place="SELECT*FROM scene_info LIMIT %s, %s"
-        start=page*12
-        query.extend([start, 12])
-        mycursor.execute(query_place, query)
+        location_starter=page*12
+        query.extend([location_starter, 12])
+        mycursor.execute(query_locations, query)
         locations=mycursor.fetchall()
         mycursor.close()
         conn.close()
         for where in locations:
-            api_data.append(put_api(where))
+            data_detail.append(get_data(where))
         return jsonify(data)
     except:
         error={
@@ -110,31 +108,31 @@ def attraction(attractionId):
     try:
         data={
             "nextPage":None,
-            "curPage":None,
+            "atPage":None,
             "data":[]
         }
-        api_data=data["data"]
+        data_detail=data["data"]
         conn=db.con_pool.get_connection()
         mycursor=conn.cursor(dictionary=True)#dictionary=True使fetchall()的檔案為dict
-        query_place="SELECT*FROM scene_info WHERE id=%s"
+        query_location="SELECT*FROM scene_info WHERE id=%s"
         query_count="SELECT COUNT(id) FROM scene_info WHERE id<=%s"
         mycursor.execute(query_count %attractionId)
         count=mycursor.fetchone()
-        curPage=math.ceil(count["COUNT(id)"]/12)-1
-        data["curPage"]=curPage
-        if curPage>=math.ceil(calcutate_data_toatal_count()/12)-1:
+        atPage=math.ceil(count["COUNT(id)"]/12)-1
+        data["atPage"]=atPage
+        if atPage>=math.ceil(toatal_column_count()/12)-1:
             data["nextPage"]=None
         else:
-            data["nextPage"]=curPage+1
-        mycursor.execute(query_place %attractionId)
+            data["nextPage"]=atPage+1
+        mycursor.execute(query_location %attractionId)
         location=mycursor.fetchone()
         if location==None:
             data["nextPage"]=None
-            data["curPage"]=None
+            data["atPage"]=None
             return jsonify(data)
         mycursor.close()
         conn.close()
-        api_data.append(put_api(location))
+        data_detail.append(get_data(location))
         return jsonify(data)
     except:
         error={

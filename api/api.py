@@ -129,7 +129,7 @@ def attraction(attractionId):
         if location==None:
             data["nextPage"]=None
             data["atPage"]=None
-            return jsonify(data)
+            raise
         mycursor.close()
         conn.close()
         data_detail.append(get_data(location))
@@ -137,6 +137,6 @@ def attraction(attractionId):
     except:
         error={
             "error":True,
-            "message":"request.header的content type請改為application/json"
+            "message":"景點的編號不正確，請重新輸入有效的號碼，謝謝!"
         }
         return jsonify(error)

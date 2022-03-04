@@ -3,12 +3,9 @@ import mysql.connector
 
 
 mydb=mysql.connector.connect(
-    host="localhost",
-    port="3400",
     user="root",
-    password="abc123456",
+    password="AbC123456",
     database="Taipei_Scene",
-    allow_local_infile=True#用於直接匯入csv檔
 )
 
 mycursor=mydb.cursor()

@@ -120,9 +120,8 @@ def attraction(attractionId):
     try:
         data={
             "nextPage":None,
-            "data":{}
+            "data":None
         }
-        data_detail=data["data"]
         conn=db.con_pool.get_connection()
         mycursor=conn.cursor(dictionary=True)#dictionary=True使fetchall()的檔案為dict
         query_location="SELECT*FROM scene_info WHERE id=%s"
@@ -146,7 +145,7 @@ def attraction(attractionId):
             return error
         mycursor.close()
         conn.close()
-        data_detail.append(get_data(location))
+        data["data"]=get_data(location)
         return jsonify(data)
     except:
         error={

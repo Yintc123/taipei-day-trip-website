@@ -120,7 +120,7 @@ def attraction(attractionId):
     try:
         data={
             "nextPage":None,
-            "data":[]
+            "data":{}
         }
         data_detail=data["data"]
         conn=db.con_pool.get_connection()

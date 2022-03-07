@@ -1,5 +1,5 @@
 from flask import *
-from api.api import app2
+# from api.api import app2
 
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
@@ -19,8 +19,9 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 
-app.register_blueprint(app2, url_prefix="/api")
+# app.register_blueprint(app2, url_prefix="/api")
 
 app.debug=True
-app.run(host="0.0.0.0", port=3000)#change port to 3000
+# app.run(host="0.0.0.0", port=3000)#change port to 3000
+app.run(port=3000) #test on my computer
 

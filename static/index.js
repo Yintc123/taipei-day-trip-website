@@ -87,6 +87,6 @@ button.addEventListener("click", () => {
     attraction=search.value;
     attraction=attraction.replace(/\s*/g, "");// 將多餘的空格去除
     keyword=attraction;
-    attraction="";
+    search.value="";
     create_content_keyword(url, keyword);
 })

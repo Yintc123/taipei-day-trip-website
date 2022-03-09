@@ -5,8 +5,8 @@ body{
     grid-template-columns: auto 1200px auto;
     grid-template-rows: 54px 320px auto 104px;
 }
+/* navigation */
 .navigation{
-    /* width:1200px; */
     display:flex;
     /* border:1px solid; */
     align-items:center;
@@ -31,11 +31,13 @@ body{
     list-style:none;
     margin:0px;
     font-size:16px;
+    font-family:'Noto Sans TC';
 }
 .navigation ul li:hover{
     color:red;
     cursor:pointer;
 }
+/* header */
 .header{
     /* background-color:#F8F8F8; */
     background:-webkit-linear-gradient(top, #AADDEE, #66AABB);
@@ -51,16 +53,14 @@ body{
     grid-template-rows: auto;
 }
 .header .d1{
-    /* width:1200px; */
     height:100%;
-    /* border:1px solid; */
+    border:1px solid;
     grid-column-start: 2;
     grid-column-end: span 1;
-    background-image: url(https://s3-alpha-sig.figma.com/img/7f11/61f9/05b5cacde05a250ac06b6807d14ef29b?Expires=1647820800&Signature=HiKPVuRkePCI6qsX46pmenyi8z-2jIetuwcP7jQtblgK7r1gKgyajRihIiRWxP24IJI~32uy3e0FqlFtMcQcEKuJ4F6HxJICVs8AYgH2zpED1h8FEiD9AouEAW8GLOuH2iUUQUnNpMAmiKUoD3Oemd6kbjbCg3upOQeMHSEGsZqjLwi8O3HgzDF2lbQfAmNR-xyzLZre-l5O17IRlUiYj5bSjfAOSWakLSLo9wP7~UXuM~yF6hLiuHmC~VDD~7toD8jrpVXIGTc5VpwAyOtijYtYEh1NczFiYfXDLHmnymOnWTDOOXVzWMr3-1URIOognFpTnMo0DLeo5ZEHoGx9qQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA);
+    background-image:url(https://s3-alpha-sig.figma.com/img/7f11/61f9/05b5cacde05a250ac06b6807d14ef29b?Expires=1647820800&Signature=HiKPVuRkePCI6qsX46pmenyi8z-2jIetuwcP7jQtblgK7r1gKgyajRihIiRWxP24IJI~32uy3e0FqlFtMcQcEKuJ4F6HxJICVs8AYgH2zpED1h8FEiD9AouEAW8GLOuH2iUUQUnNpMAmiKUoD3Oemd6kbjbCg3upOQeMHSEGsZqjLwi8O3HgzDF2lbQfAmNR-xyzLZre-l5O17IRlUiYj5bSjfAOSWakLSLo9wP7~UXuM~yF6hLiuHmC~VDD~7toD8jrpVXIGTc5VpwAyOtijYtYEh1NczFiYfXDLHmnymOnWTDOOXVzWMr3-1URIOognFpTnMo0DLeo5ZEHoGx9qQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA);
     background-repeat: no-repeat;
     background-position:right bottom;
     background-size:auto;
-    /* background-position-x: left 100px; */
     display:flex;
     align-items: center;
 }
@@ -70,6 +70,7 @@ body{
     padding-left:12px;
     margin:0px;
     font-size:28px;
+    font-family:'Noto Sans TC';
 }
 .header .d1 .text h4{
     color:#F8F8F8;
@@ -77,13 +78,14 @@ body{
     padding-left:12px;
     margin:25px 0px 25px 0px;
     font-size:16px;
+    font-family:'Noto Sans TC';
 }
 .header .d1 .text .frame{
     margin:0px;
     padding:0px;
     display:flex;
     align-items:center;
-    width:460px
+    width:460px;
 }
 .header .d1 .text .frame input{
     margin-left:12px;
@@ -91,6 +93,7 @@ body{
     width:400px;
     height:16px;
     font-size:16px;
+    font-family:'Noto Sans TC';
     border-radius:5px 0px 0px 5px;
 }
 .header .d1 .text .frame div{
@@ -111,9 +114,7 @@ body{
     cursor:pointer;
     transform: scale(1.3);
 }
-/* #cover{
-    display:inline-block;
-} */
+/* content */
 .content{
     /* height:816px; */
     margin:40px auto;
@@ -127,20 +128,6 @@ body{
     grid-column-end: span 1;
     grid-row-start: 3;
     grid-row-end: span 1;
-}
-.footer{
-    background-color:#757575;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    grid-column-start: 1;
-    grid-column-end: span 3;
-    grid-row-start: 4;
-    grid-row-end: span 1;
-}
-.footer h4{
-    font-size:16px;
-    margin:0px;
 }
 .content .item{
     width:270px;
@@ -160,6 +147,7 @@ body{
     font-size:16px;
     font-weight:700;
     margin:auto 10px 7px 10px;
+    font-family:'Noto Sans TC';
     /* display:inline-block; */
 }
 .item .intro{
@@ -168,11 +156,29 @@ body{
 }
 .item .intro .right{
     font-weight:400;
+    font-family:'Noto Sans TC';
     margin:0px 0px 0px auto;
 }
 .item .intro .left{
     font-weight:400;
+    font-family:'Noto Sans TC';
     margin:0px auto 0px 0px;
+}
+/* footer */
+.footer{
+    background-color:#757575;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    grid-column-start: 1;
+    grid-column-end: span 3;
+    grid-row-start: 4;
+    grid-row-end: span 1;
+}
+.footer h4{
+    font-size:16px;
+    font-family:'Noto Sans TC';
+    margin:0px;
 }
 @media screen and (max-width:1199px){
     body{
@@ -182,6 +188,9 @@ body{
     .header{
         grid-template-columns: auto 80% auto;
         height:300px;
+    }
+    .header .d1{
+        background-size:60%;
     }
     .header .d1 .text{
         width:100%;
@@ -203,7 +212,7 @@ body{
         height:280px;
     }
     .header .d1{
-        background-size: 50%;
+        background-size: 70%;
     }
     .header .d1 .text .frame{
         width:100%;

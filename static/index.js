@@ -1,7 +1,8 @@
 console.log("hi");
 let url="http://3.115.234.130:3000/api/attractions?keyword="
+// let url="http://127.0.0.1:3000/api/attractions?keyword="
 var nextpage=null;
-var keyword=null;
+var keyword="";
 let search=document.getElementById("search");
 let button=document.getElementById("button");
 
@@ -75,7 +76,7 @@ async function create_content_keyword(url, keyword){
 create_content(url).then(() => {
         let observer=new IntersectionObserver(entries => {
             if(entries[0].intersectionRatio <= 0 || nextpage==undefined) return;//當目標物出現於螢幕的比例<0就return
-            let url1=url+"&page="+nextpage;//當目標物出現於螢幕上開始執行以下程式碼
+            let url1=url+keyword+"&page="+nextpage;//當目標物出現於螢幕上開始執行以下程式碼
             create_content(url1);        
         });
         let footer=document.querySelector(".footer h4");
@@ -84,5 +85,7 @@ create_content(url).then(() => {
 
 button.addEventListener("click", () => {
     attraction=search.value;
+    attraction=attraction.replace(/\s*/g, "");// 將多餘的空格去除
+    keyword=attraction;
     create_content_keyword(url, attraction);
 })

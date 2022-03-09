@@ -1,5 +1,5 @@
 console.log("hi");
-let url="http://127.0.0.1:3000/api/attractions?keyword="
+let url="http://3.115.234.130:3000/api/attractions?keyword="
 var nextpage=null;
 var keyword=null;
 let search=document.getElementById("search");

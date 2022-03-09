@@ -26,6 +26,9 @@ function create_oneitem(data){
     attraction.textContent=data["name"];
     mrt.textContent=data["MRT"];
     category.textContent=data["category"];
+    if (attraction.textContent.length>15){
+        attraction.style.fontSize="15px";
+    }
     intro.appendChild(mrt);
     intro.appendChild(category);
     item.appendChild(img);

@@ -7,5 +7,7 @@ con_pool=MySQLConnectionPool(
     database="taipei_scene",
     pool_name="myPool",
     pool_size=20,
-    auth_plugin="mysql_native_password"
+    auth_plugin="mysql_native_password",
+    # port="3400",
+    # password="abc123456"
 )

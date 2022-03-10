@@ -23,4 +23,5 @@ app.register_blueprint(app2, url_prefix="/api")
 
 app.debug=True
 app.run(host="0.0.0.0", port=3000)#change port to 3000
+# app.run(port=3000) #test on my computer
 

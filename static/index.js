@@ -5,7 +5,7 @@ var nextpage=null;
 var keyword="";
 let search=document.getElementById("search");
 let button=document.getElementById("button");
-
+//-----------------------------------Function--------------------------------------
 function get_imge(images){
     count=images.length;
     index=Math.floor(Math.random()*count);
@@ -72,8 +72,11 @@ async function create_content_keyword(url, keyword){
         }  
     })
 }
-
+//-------------------------------------Run----------------------------------------
 create_content(url).then(() => {
+        //IntersectionObserver是「非同步」觸發，「相交與否」為一個瞬間，
+        //不會有不斷疊加的狀態，所以也就不會發生連續觸發導致的效能問題，
+        //也就是說儘管非常快速的來回捲動，它也不會將事件合併。
         let observer=new IntersectionObserver(entries => {
             if(entries[0].intersectionRatio <= 0 || nextpage==undefined) return;//當目標物出現於螢幕的比例<0就return
             let url1=url+keyword+"&page="+nextpage;//當目標物出現於螢幕上開始執行以下程式碼
@@ -87,6 +90,6 @@ button.addEventListener("click", () => {
     attraction=search.value;
     attraction=attraction.replace(/\s*/g, "");// 將多餘的空格去除
     keyword=attraction;
-    search.value="";
+    search.value="";//查詢後清除輸入欄
     create_content_keyword(url, keyword);
 })

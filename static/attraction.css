@@ -1,0 +1,106 @@
+body{
+    margin:0px;
+    width:100%;
+    display:grid;
+    grid-template-columns: auto 1200px auto;
+    grid-template-rows: 54px auto 104px;
+}
+/* navigation */
+.navigation{
+    display:flex;
+    align-items:center;
+    grid-column-start: 2;
+    grid-column-end: span 1;
+    grid-row-start: 1;
+    grid-row-end: span 1;
+}
+.navigation h3{
+    padding-left:12px;
+    font-size:30px;
+    margin:0px auto 0px 0px;
+    color:#448899;
+    font-family:'Noto Sans TC';
+}
+.navigation ul{
+    display:flex;
+    margin:0px 0px 0px auto;
+    padding-right:12px;
+    padding-left:0px;
+    gap:20px;
+    list-style:none;
+    margin:0px;
+    font-size:16px;
+    font-family:'Noto Sans TC';
+}
+.navigation ul li:hover{
+    color:red;
+    cursor:pointer;
+}
+/* content */
+.content{
+    grid-column-start:2;
+    grid-column-end: span 1;
+    grid-row-start:2;
+    grid-row-end: span 1;
+}
+.content .tour{
+    display:flex;
+}
+.content .tour .image{
+    position:relative;
+    border:1px solid;
+    height:406px;
+    width:540px;
+    display:flex;
+    align-items:center;
+    background-repeat:no-repeat;/*圖片不重複*/
+    background-size:cover;/*將背景圖片填滿*/
+}
+.content .tour .image .image_index{
+    margin:auto auto 0px auto;
+}
+#last_one{
+    position:absolute;
+    left:0px;
+    width:36px;
+    height:36px;
+}
+#next_one{
+    position:absolute;
+    right:0px;
+    width:36px;
+    height:36px;
+}
+.content .tour img{
+    height:36px;
+    width:36px;
+}
+.content .tour .book{
+    margin-left:auto;
+    border:1px solid;
+    width:600px;
+}
+.content .tour .book form{
+    border:1px solid;
+}
+.content .intro_frame{
+    border:1px solid;
+    height:442px;
+}
+/* footer */
+.footer{
+    background-color:#757575;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    grid-column-start: 1;
+    grid-column-end: span 3;
+    grid-row-start: 3;
+    grid-row-end: span 1;
+}
+.footer h4{
+    font-size:16px;
+    font-family:'Noto Sans TC';
+    margin:0px;
+    color:white;
+}

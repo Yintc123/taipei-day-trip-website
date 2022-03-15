@@ -28,7 +28,7 @@ def api_attractions():
         if count==0:#資料庫未找到資料，count會顯示為0而不是None
             fail_message="您輸入的關鍵字查詢無果，請重新輸入其他關鍵字"
             error["message"]=fail_message
-            return error 
+            return jsonify(error)
         if page<0:
             page=0
             con_db.page=page
@@ -38,7 +38,7 @@ def api_attractions():
         elif nextpage>math.ceil(count/12):
             fail_message="輸入的頁數有誤，資料不足"
             error["message"]=fail_message
-            return error
+            return jsonify(error)
         data["nextPage"]=nextpage
         locations=con_db.get_all_data()
         for where in locations:
@@ -67,7 +67,7 @@ def attraction(attractionId):
         if location==None:
             fail_message="您輸入的景點編號不存在，請重新輸入景點編號"
             error["message"]=fail_message
-            return error
+            return jsonify(error)
         data["data"]=con_db.get_needs(location)
         return jsonify(data)
     except:

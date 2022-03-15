@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel='stylesheet' href="{{url_for('static', filename='attraction.css')}}">
+    </head>
+    <body>
+        <div class='navigation'>
+            <h3>台北一日遊</h3>
+            <ul>
+                <li>預定行程</li>
+                <li>登入/註冊</li>
+            </ul>
+        </div>
+        <div class='content'>
+            <div class='tour'>
+                <div class='image'>
+                    <img id='last_one' src="{{url_for('static', filename='icon/btn_leftArrow.png')}}" />
+                    <img id='next_one' src="{{url_for('static', filename='icon/btn_rightArrow.png')}}"/>
+                    <div class='image_index'>
+                    </div>
+                </div>
+                <div class='book'>
+                    <h3 class='name'>abc</h3>
+                    <p><span class='cat'>123</span> at <span class='MRT'>123</span></p>
+                    <form>
+                        <h4>訂購導覽行程</h4>
+                        <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
+                        選擇日期：<input type='date' id='calendar' name='calendar' />
+                        <br/>
+                        選擇時間：<input type='radio' name='time'>上半天<input type='radio' name='time'>下半天
+                        <br/>
+                        導覽費用：<span id='cost'><span>
+                        <br/>
+                        <input type='submit' value='開始預訂行程'/>
+                    </form>
+                </div>
+            </div>
+            <hr/>
+            <div class='intro_frame'>
+                <p class='intro'>123</p>
+                <div class='frame'>
+                    <h4>景點地址：</h4>
+                    <p class='address'>123</p>
+                </div>
+                <div class='frame'>
+                    <h4>交通方式：</h4>
+                    <p class='transport'>123</p>
+                </div>
+            </div>
+        </div>
+        <div class='footer'>
+            <h4>COPYRIGHT@2021台北一日遊</h4>
+        </div>
+        <script type='text/javascript' src="{{url_for('static', filename='attraction.js')}}"></script>
+    </body>
+</html>

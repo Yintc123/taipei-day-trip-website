@@ -5,6 +5,12 @@ body{
     grid-template-columns: auto 1200px auto;
     grid-template-rows: 54px 320px auto 104px;
 }
+a{
+    text-decoration:None;
+}
+a:visited{
+    color:#448899;
+}
 /* navigation */
 .navigation{
     display:flex;

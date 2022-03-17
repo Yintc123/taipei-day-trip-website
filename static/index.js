@@ -1,6 +1,6 @@
 console.log("hi");
-// let url="http://3.115.234.130:3000/api/attractions?keyword="
-let url="http://127.0.0.1:3000/api/attractions?keyword="
+let url="http://3.115.234.130:3000/api/attractions?keyword="//EC2
+// let url="http://127.0.0.1:3000/api/attractions?keyword="
 var nextpage=null;
 var keyword="";
 
@@ -35,6 +35,7 @@ function create_oneitem(data){
     let intro=document.createElement("div");
     let mrt=document.createElement("h4");
     let category=document.createElement("h4");
+    let id_url=document.createElement("a");
     item.className="item";
     intro.className="intro";
     mrt.className="left";
@@ -43,13 +44,18 @@ function create_oneitem(data){
     attraction.textContent=data["name"];
     mrt.textContent=data["MRT"];
     category.textContent=data["category"];
+    // id_url.href="http://127.0.0.1:3000/attraction/"+data["id"];
+    id_url.href="http://3.115.234.130:3000/attraction/"+data["id"];//EC2
     if (attraction.textContent.length>15){
         attraction.style.fontSize="15px";
     }
+    id_url.appendChild(img);
+    id_url.appendChild(attraction);
     intro.appendChild(mrt);
     intro.appendChild(category);
-    item.appendChild(img);
-    item.appendChild(attraction);
+    item.appendChild(id_url);
+    // item.appendChild(img);
+    // item.appendChild(attraction);
     item.appendChild(intro);
     return item;
 }

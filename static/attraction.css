@@ -1,9 +1,20 @@
 body{
     margin:0px;
     width:100%;
+    font-family:'Noto Sans TC';
     display:grid;
     grid-template-columns: auto 1200px auto;
-    grid-template-rows: 54px auto 104px;
+    grid-template-rows: 54px 1fr 104px;
+}
+a{
+    text-decoration:None;
+}
+a:visited{
+    color:#448899;
+}
+hr{
+    margin:37px 0px 37px 0px;
+    border:1px solid #E8E8E8;
 }
 /* navigation */
 .navigation{
@@ -38,6 +49,7 @@ body{
 }
 /* content */
 .content{
+    min-height:920px;/*使footer置底*/
     grid-column-start:2;
     grid-column-end: span 1;
     grid-row-start:2;
@@ -45,51 +57,191 @@ body{
 }
 .content .tour{
     display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:47px;
 }
 .content .tour .image{
     position:relative;
-    border:1px solid;
+    /* border:1px solid; */
     height:406px;
-    width:540px;
+    width:47%;
     display:flex;
     align-items:center;
     background-repeat:no-repeat;/*圖片不重複*/
     background-size:cover;/*將背景圖片填滿*/
+    border-radius:5px;
 }
 .content .tour .image .image_index{
     margin:auto auto 0px auto;
+    /* border:1px solid; */
+}
+.content .tour .image .image_index img{
+    height:12px;
+    width:12px;
+    margin:0px 6px 0px 6px;
+    opacity:0.9;
 }
 #last_one{
+    opacity:0.7;
     position:absolute;
-    left:0px;
+    left:10px;
     width:36px;
     height:36px;
 }
+#last_one:hover{
+    cursor:pointer;
+}
 #next_one{
+    opacity:0.7;
     position:absolute;
-    right:0px;
+    right:10px;
     width:36px;
     height:36px;
+}
+#next_one:hover{
+    cursor:pointer;
 }
 .content .tour img{
     height:36px;
     width:36px;
 }
 .content .tour .book{
-    margin-left:auto;
-    border:1px solid;
-    width:600px;
+    margin-left:30px;
+    /* border:1px solid; */
+    width:47%;
+    color:#666666;
+}
+.content .tour .book .name{
+    font-size:24px;
+    font-weight:700;
+    margin:auto;
+}
+.content .tour .book .name_intro{
+    font-size:16px;
+    font-weight:400;
+    margin:15px auto 20px auto;
 }
 .content .tour .book form{
-    border:1px solid;
+    position:relative;
+    height:302px;
+    padding-top:15px;
+    padding-left:20px;
+    background-color:#E8E8E8;
+    /* border:1px solid; */
+    border-radius:5px;
+    color:#666666;
+    font-size:16px;
+    font-weight:700;
+}
+.content .tour .book form h4{
+    margin:0px 0px 15px 0px;
+    font-weight:bold 700;
+}
+.content .tour .book form p{
+    margin:0px 0px 15px 0px;
+    font-weight:400;
+}
+#calendar{
+    border:0px;
+    height:25px;
+    width:180px;
+    padding:5px 10px 5px 10px;
+    font-size:16px;
+}
+#calendar:hover{
+    cursor:pointer;
+}
+/*日曆的指標變成手指*/
+::-webkit-calendar-picker-indicator{
+    cursor:pointer;
+}
+.content .tour .book form span{
+    font-weight:400;
+}
+#tour_time{
+    position:relative;
+    top:6px;
+    width:22px;
+    height:22px;
+    margin-left:12px;
+    margin-bottom:24px;
+}
+/*::before為偽元素在原本的元素「之前」加入內容*/
+#tour_time::before{
+    content:'';
+    background-color:#ffffff;
+    width:22px;
+    height:22px;
+    top:0px;
+    left:0px;
+    border-radius:50%;
+    position:absolute;
+}
+/*::after為偽元素在原本的元素「之後」加入內容，
+同時偽元素也會「繼承」原本元素的屬性。以下方法
+修改input的radius圓點於原本圓點上覆蓋以下圖層*/
+#tour_time:checked::after{
+    content:'';
+    background-color:#448899;
+    width:18px;
+    height:18px;
+    top:2px;
+    left:2px;
+    border-radius:50%;
+    position:absolute;
+}
+label{
+    font-weight:400;
+}
+label:hover{
+    cursor:pointer;
+}
+#tour_time:hover{
+    cursor:pointer;
+}
+#button{
+    margin:25px 0px auto 0px;
+    width:154px;
+    height:36px;
+    border-radius:5px;
+    border:0;
+    background-color:#448899;
+    font-size:19px;
+    color:#ffffff;
+    font-weight:400;
+}
+#button:hover{
+    cursor:pointer;
 }
 .content .intro_frame{
-    border:1px solid;
-    height:442px;
+    /* border:1px solid; */
+    height:auto;
+    padding:0px 15px 0px 15px;
+    font-size:16px;
+    font-weight:400;
+    color:#666666;
+}
+.content .intro_frame .intro{
+    margin:13px 0px 0px 0px;
+}
+.content .intro_frame .frame{
+    margin-top:20px;
+}
+.content .intro_frame .frame .frame1{
+    font-weight:700;
+    margin:0px;
+}
+.content .intro_frame .frame .address{
+    margin:0px;
+}
+.content .intro_frame .frame .transport{
+    margin:0px auto 120px auto;;
 }
 /* footer */
 .footer{
     background-color:#757575;
+    bottom:0px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -103,4 +255,34 @@ body{
     font-family:'Noto Sans TC';
     margin:0px;
     color:white;
+}
+
+@media screen and (max-width:1199px){
+    body{
+        grid-template-columns: auto 100% auto;
+    }
+}
+
+@media screen and (max-width:899px){
+    .content .tour{
+        justify-content:center;
+    }
+    .content .tour .image{
+        width:95%;
+    }
+    .content .tour .book{
+        width:95%;
+        margin-left:0px;
+        margin-top:40px;
+    }
+}
+
+@media screen and (max-width:599px){
+    .content .tour .image{
+        width:100%;
+    }
+    .content .tour .book{
+        width:95%;
+        margin-top:20px;
+    }
 }

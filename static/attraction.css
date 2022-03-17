@@ -18,6 +18,17 @@ hr{
     border:1px solid #E8E8E8;
 }
 /* navigation */
+.nav_frame{
+    z-index:99;
+    background-color:#ffffff;
+    grid-column-start: 1;
+    grid-column-end: span 3;
+    grid-row-start: 1;
+    grid-row-end: span 1;
+    display:grid;
+    grid-template-columns: auto 1200px auto;
+    grid-template-rows: auto;
+}
 .navigation{
     z-index:100;
     background-color:#ffffff;
@@ -25,8 +36,8 @@ hr{
     top:0px;
     display:flex;
     align-items:center;
-    grid-column-start: 1;
-    grid-column-end: span 3;
+    grid-column-start: 2;
+    grid-column-end: span 1;
     grid-row-start: 1;
     grid-row-end: span 1;
 }

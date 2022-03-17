@@ -19,6 +19,7 @@ hr{
 }
 /* navigation */
 .navigation{
+    z-index:100;
     background-color:#ffffff;
     position:sticky;
     top:0px;

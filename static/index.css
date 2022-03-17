@@ -20,8 +20,8 @@ a:visited{
     background-color:#ffffff;
     display:flex;
     align-items:center;
-    grid-column-start: 2;
-    grid-column-end: span 1;
+    grid-column-start: 1;
+    grid-column-end: span 3;
     grid-row-start: 1;
     grid-row-end: span 1;
 }

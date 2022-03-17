@@ -104,7 +104,7 @@ tour_time.forEach(time => {//依input的物件創造兩個"change"監聽事件
 })
 
 last.addEventListener("click", function(){
-    timer.reset(1000);
+    timer.reset(5000);
     img_index--;
     count=data["images"].length;
     if(img_index<0){
@@ -114,7 +114,7 @@ last.addEventListener("click", function(){
 });
 
 next.addEventListener("click", function(){
-    timer.reset(1000);
+    timer.reset(5000);
     img_index++;
     count=data["images"].length;
     if(img_index>data["images"].length-1){
@@ -165,7 +165,7 @@ function my_timer(t){
 //-------------------------------------Run----------------------------------------
 init();
 
-let timer=new my_timer(3000);
+let timer=new my_timer(5000);
 
 // let timer=setInterval(function(){
 //     img_index++;

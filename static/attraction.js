@@ -127,11 +127,16 @@ function get_image(image, index){
 //-------------------------------------Run----------------------------------------
 init();
 
-setInterval(function(){
+let timer=setInterval(function(){
+    let image_frame=document.querySelector(".image");
+    image_frame.addEventListener("change", function(){
+        clearInterval(timer);
+        timer;
+    })
     img_index++;
     count=data["images"].length;
     if(img_index>data["images"].length-1){
         img_index=0;
     }
     load_image(data, img_index);
-}, 5000);
+}, 3000);

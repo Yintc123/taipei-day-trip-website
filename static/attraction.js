@@ -104,8 +104,7 @@ tour_time.forEach(time => {//依input的物件創造兩個"change"監聽事件
 })
 
 last.addEventListener("click", function(){
-    clearInterval(timer);
-    timer;
+    timer.reset(1000);
     img_index--;
     count=data["images"].length;
     if(img_index<0){
@@ -115,8 +114,7 @@ last.addEventListener("click", function(){
 });
 
 next.addEventListener("click", function(){
-    clearInterval(timer);
-    timer;
+    timer.reset(1000);
     img_index++;
     count=data["images"].length;
     if(img_index>data["images"].length-1){
@@ -128,14 +126,52 @@ next.addEventListener("click", function(){
 function get_image(image, index){
     return image[index];
 }
+
+function my_timer(t){
+    let timer_obj=setInterval(function(){
+        img_index++;
+        count=data["images"].length;
+        if(img_index>data["images"].length-1){
+            img_index=0;
+        }
+        load_image(data, img_index);
+    }, t)
+    this.stop=function(){
+        if(timer_obj){
+            clearInterval(timer_obj);
+            timer_obj=null;
+        }
+        return this;
+    }
+    this.start=function(){
+        if(!timer_obj){
+            this.stop();
+            timer_obj=setInterval(function(){
+                img_index++;
+                count=data["images"].length;
+                if(img_index>data["images"].length-1){
+                    img_index=0;
+                }
+                load_image(data, img_index);
+            }, t)
+        }
+        return this;
+    }
+    this.reset=function(new_timer){
+        t=new_timer;
+        return this.stop().start();
+    }
+}
 //-------------------------------------Run----------------------------------------
 init();
 
-let timer=setInterval(function(){
-    img_index++;
-    count=data["images"].length;
-    if(img_index>data["images"].length-1){
-        img_index=0;
-    }
-    load_image(data, img_index);
-}, 3000);
+let timer=new my_timer(3000);
+
+// let timer=setInterval(function(){
+//     img_index++;
+//     count=data["images"].length;
+//     if(img_index>data["images"].length-1){
+//         img_index=0;
+//     }
+//     load_image(data, img_index);
+// }, 3000);

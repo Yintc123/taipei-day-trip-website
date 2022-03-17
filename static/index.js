@@ -1,9 +1,9 @@
 console.log("hi");
 let url="http://3.115.234.130:3000/api/attractions?keyword="//EC2
 // let url="http://127.0.0.1:3000/api/attractions?keyword="
-var nextpage=null;
-var keyword="";
-
+let nextpage=null;
+let keyword="";
+let flag=0;//避免重複讀取資料的旗幟；0：可執行程式；1：程式未執行完，不可再執行程式
 let button=document.getElementById("button");
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
@@ -16,18 +16,15 @@ function init(){//網頁初始化
         //不會有不斷疊加的狀態，所以也就不會發生連續觸發導致的效能問題，
         //也就是說儘管非常快速的來回捲動，它也不會將事件合併。
         let observer=new IntersectionObserver(entries => {
-            console.log("1");
-            if(entries[0].intersectionRatio <= 0 || nextpage==undefined) return;//當目標物出現於螢幕的比例<0就return
+            if(entries[0].intersectionRatio <= 0 || nextpage==undefined || flag==1) return;//當目標物出現於螢幕的比例<0就return
+            flag=1;
             let nextpage_url=url+keyword+"&page="+nextpage;//當目標物出現於螢幕上開始執行以下程式碼
             let nextpage_data=get_data(nextpage_url);//處理data
-            console.log("2");
             nextpage_data.then(result => {
-                console.log("3");
                 create_content(result);//處理畫面
-                console.log("4");
+                flag=0;
             })        
         });
-        console.log("0");
         let footer=document.querySelector(".footer h4");
         observer.observe(footer);
     })
@@ -96,6 +93,7 @@ button.addEventListener("click", () => {
         nextpage=result["nextPage"];
         clean_content();
         create_content(result);
+        flag=0;
     });
 })
 //--------------------------------處理data(M)-------------------------------//

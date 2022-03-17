@@ -218,6 +218,9 @@ a:visited{
         grid-template-columns: auto 80% auto;
         grid-template-rows: 54px 300px auto 104px; 
     }
+    .nav_frame{
+        grid-template-columns: auto 80% auto;
+    }
     #img{
         height:80%;
         right:-100px;
@@ -241,6 +244,9 @@ a:visited{
     body{
         grid-template-columns: auto 100% auto;
         grid-template-rows: 54px 280px auto 104px;
+    }
+    .nav_frame{
+        grid-template-columns: auto 100% auto;
     }
     #img{
         height:60%;

@@ -279,6 +279,9 @@ label:hover{
     body{
         grid-template-columns: auto 100% auto;
     }
+    .nav_frame{
+        grid-template-columns: auto 100% auto;
+    }
 }
 
 @media screen and (max-width:899px){

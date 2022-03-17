@@ -5,6 +5,8 @@ var nextpage=null;
 var keyword="";
 
 let button=document.getElementById("button");
+
+let k=0;
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){//網頁初始化
@@ -16,9 +18,11 @@ function init(){//網頁初始化
         //不會有不斷疊加的狀態，所以也就不會發生連續觸發導致的效能問題，
         //也就是說儘管非常快速的來回捲動，它也不會將事件合併。
         let observer=new IntersectionObserver(entries => {
+            console.log(k);
             if(entries[0].intersectionRatio <= 0 || nextpage==undefined) return;//當目標物出現於螢幕的比例<0就return
             let nextpage_url=url+keyword+"&page="+nextpage;//當目標物出現於螢幕上開始執行以下程式碼
             let nextpage_data=get_data(nextpage_url);//處理data
+            k++;
             nextpage_data.then(result => {
                 create_content(result);//處理畫面
             })        

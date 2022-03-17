@@ -33,8 +33,9 @@ function load_image(data, index){
     let image_frame=document.querySelector(".image");
     if(data["images"].length==1){//僅有一張照片就不顯示圓點及左右按鈕
         image_frame.style.backgroundImage="url('"+get_image(data["images"], index)+"')";
-        image_frame.removeChild(last);
-        image_frame.removeChild(next);
+        while(image_frame.firstChild){
+            image_frame.removeChild(image_frame.firstChild);
+        }
     }else{
         image_frame.style.backgroundImage="url('"+get_image(data["images"], index)+"')";
         load_img_index(data, index);

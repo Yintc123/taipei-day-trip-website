@@ -19,6 +19,8 @@ hr{
 }
 /* navigation */
 .nav_frame{
+    position:sticky;
+    top:0px;
     z-index:99;
     background-color:#ffffff;
     grid-column-start: 1;
@@ -32,8 +34,8 @@ hr{
 .navigation{
     z-index:100;
     background-color:#ffffff;
-    position:sticky;
-    top:0px;
+    /* position:sticky;
+    top:0px; */
     display:flex;
     align-items:center;
     grid-column-start: 2;

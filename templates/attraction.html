@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel='stylesheet' href="{{url_for('static', filename='attraction.css')}}">
+    </head>
+    <body>
+        <div class='nav_frame'>
+            <div class='navigation'>
+                <h3><a href="http://3.115.234.130:3000/">台北一日遊</a></h3>
+                <!--<h3><a href="http://127.0.0.1:3000/">台北一日遊</a></h3>-->
+                <ul>
+                    <li>預定行程</li>
+                    <li>登入/註冊</li>
+                </ul>
+            </div>
+        </div>
+        <div class='content'>
+            <div class='tour'>
+                <div class='image'>
+                    <img id='last_one' src="{{url_for('static', filename='icon/btn_leftArrow.png')}}" />
+                    <img id='next_one' src="{{url_for('static', filename='icon/btn_rightArrow.png')}}"/>
+                    <div class='image_index'>
+                    </div>
+                </div>
+                <div class='book'>
+                    <h3 class='name'>abc</h3>
+                    <p class='name_intro'><span class='cat'>123</span> at <span class='MRT'>123</span></p>
+                    <form>
+                        <h4>訂購導覽行程</h4>
+                        <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
+                        選擇日期：<input type='date' id='calendar' name='calendar'/>
+                        <br/>
+                        選擇時間：<label><input type='radio' id='tour_time' name='time' value='2000' checked>上半天</label><label><input id='tour_time' type='radio' name='time' value='2500'>下半天</label>
+                        <br/>
+                        導覽費用：<span id='cost'></span>
+                        <br/>
+                        <input id='button' type='submit' value='開始預訂行程'/>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <div class='intro_frame'>
+                <p class='intro'>123</p>
+                <div class='frame'>
+                    <h4 class='frame1'>景點地址：</h4>
+                    <p class='address'>123</p>
+                </div>
+                <div class='frame'>
+                    <h4 class='frame1'>交通方式：</h4>
+                    <p class='transport'>123</p>
+                </div>
+            </div>
+        </div>
+        <div class='footer'>
+            <h4>COPYRIGHT © 2021台北一日遊</h4>
+        </div>
+        <script type='text/javascript' src="{{url_for('static', filename='attraction.js')}}"></script>
+    </body>
+</html>

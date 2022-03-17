@@ -1,4 +1,5 @@
 body{
+    position:relative;
     margin:0px;
     width:100%;
     font-family:'Noto Sans TC';
@@ -18,6 +19,9 @@ hr{
 }
 /* navigation */
 .navigation{
+    background-color:#ffffff;
+    position:sticky;
+    top:0px;
     display:flex;
     align-items:center;
     grid-column-start: 2;

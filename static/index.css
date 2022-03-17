@@ -240,7 +240,7 @@ a:visited{
         width:45%;
     }
 }
-@media screen and (max-width:599px){
+@media screen and (max-width:659px){
     body{
         grid-template-columns: auto 100% auto;
         grid-template-rows: 54px 280px auto 104px;

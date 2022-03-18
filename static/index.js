@@ -87,7 +87,7 @@ function clean_content(){
 //--------------------------------監聽事件-------------------------------//
 window.addEventListener("keydown", function(e){
     console.log("0");
-    if(e==13){
+    if(e.code==13){
         console.log("1");
         button.click();
     }

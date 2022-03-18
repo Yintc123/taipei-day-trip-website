@@ -86,7 +86,8 @@ function clean_content(){
 
 //--------------------------------監聽事件-------------------------------//
 window.addEventListener("keydown", function(e){
-    if(e.code=="Enter" || e.code=="NumpadEnter"){
+    let search=document.getElementById("search");
+    if(search.hasFocuse() && (e.code=="Enter" || e.code=="NumpadEnter")){
         button.click();
     }
 });

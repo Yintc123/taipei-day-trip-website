@@ -85,9 +85,9 @@ function clean_content(){
 }
 
 //--------------------------------監聽事件-------------------------------//
-window.addEventListener("keydown", function(e){
+window.addEventListener("keydup", function(e){
     let search=document.getElementById("search");
-    let isFocused=document.activeElement===search;
+    let isFocused=document.activeElement===search;//判斷游標是否在輸入框
     if(isFocused && (e.code=="Enter" || e.code=="NumpadEnter")){
         button.click();
     }

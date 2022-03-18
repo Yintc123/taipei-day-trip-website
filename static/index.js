@@ -86,8 +86,8 @@ function clean_content(){
 
 //--------------------------------監聽事件-------------------------------//
 window.addEventListener("keydown", function(e){
-    console.log("0");
-    if(e.code==13){
+    console.log(e.code);
+    if(e.code==13){//enter的key.code為13
         console.log("1");
         button.click();
     }

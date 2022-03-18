@@ -85,6 +85,12 @@ function clean_content(){
 }
 
 //--------------------------------監聽事件-------------------------------//
+window.addEventListener("keydown", function(e){
+    if(e==13){
+        button.click();
+    }
+});
+
 button.addEventListener("click", () => {
     keyword=search_attraction();
     let specific_attraction_url=url+keyword;

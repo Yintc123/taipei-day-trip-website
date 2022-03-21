@@ -20,6 +20,7 @@ hr{
 /* navigation */
 .nav_frame{
     position:sticky;
+    border-bottom: 1px solid #EFF3F5;
     top:0px;
     z-index:99;
     background-color:#ffffff;

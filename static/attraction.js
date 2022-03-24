@@ -23,7 +23,6 @@ function init(){
         }
         import("./sign_module.js").then(func=>{
             func.get_user_info().then(user => {
-                console.log(user);
                 if(user["data"]!=null){//確認使用者登入狀況
                     func.sign_in_view(user);
                 }else{

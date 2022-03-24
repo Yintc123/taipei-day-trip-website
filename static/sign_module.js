@@ -66,7 +66,6 @@ export async function delete_sign(){
     return await fetch(url_sign, {method:"DELETE"}).then((response) => {
         return response.json();
     }).then((result) => {
-        console.log(result);
         sign_out_view()
         return result;
     })
@@ -100,7 +99,6 @@ export async function SignIn(email, password){
         let fail_message=document.getElementById("fail_message");
         email_input.value="";
         password_input.value="";
-        console.log(result);
         if(result["error"]==true){
             fail_message.textContent=result["message"]+" ";
             fail_message.style.color="red";

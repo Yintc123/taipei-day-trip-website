@@ -415,7 +415,7 @@ label:hover{
     }
 }
 
-@media screen and (max-width:385px){
+@media screen and (max-width:415px){
     .navigation ul{
         gap:5px;
         align-items:center;

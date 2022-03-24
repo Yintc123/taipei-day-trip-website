@@ -7,19 +7,35 @@
         <link rel='stylesheet' href="{{url_for('static', filename='index.css')}}">
     </head>
     <body>
+        <div id='background' class='background'>
+        </div>
+        <form id='sign'>
+            <div class='sign_bar'></div>
+            <div class='sign_title'>
+                <h3>登入會員帳號</h3>
+                <img id='close_sign' src="{{url_for('static', filename='icon/icon_close.png')}}" />
+            </div>
+            <input id='sign_up_name' type='text' name='name' placeholder='輸入姓名'/>
+            <input type='text' name='email' placeholder='輸入電子信箱'/>
+            <input type='password' name='password' placeholder='輸入密碼'/>
+            <button id='sign_button'type='button'>登入帳戶</button>
+            <br/>
+            <p><span id='fail_message'>還沒有帳戶？</span><span id='click_sign_up'>點此註冊</span></p>
+        </form>
         <div class='nav_frame'>
             <div class='navigation'>
                 <h3><a href="http://3.115.234.130:3000/">台北一日遊</a></h3>
                 <!--<h3><a href="http://127.0.0.1:3000/">台北一日遊</a></h3>-->
                 <ul>
-                    <li>預定行程</li>
-                    <li>登入/註冊</li>
+                    <li id='greet'></li>
+                    <li id='schedule'></li>
+                    <li id='sign_in_or_up'></li>
                 </ul>
             </div>
         </div>
         <div class='header'>   
             <div class='d1'>
-                <img id="img" src="https://s3-alpha-sig.figma.com/img/7f11/61f9/05b5cacde05a250ac06b6807d14ef29b?Expires=1647820800&Signature=HiKPVuRkePCI6qsX46pmenyi8z-2jIetuwcP7jQtblgK7r1gKgyajRihIiRWxP24IJI~32uy3e0FqlFtMcQcEKuJ4F6HxJICVs8AYgH2zpED1h8FEiD9AouEAW8GLOuH2iUUQUnNpMAmiKUoD3Oemd6kbjbCg3upOQeMHSEGsZqjLwi8O3HgzDF2lbQfAmNR-xyzLZre-l5O17IRlUiYj5bSjfAOSWakLSLo9wP7~UXuM~yF6hLiuHmC~VDD~7toD8jrpVXIGTc5VpwAyOtijYtYEh1NczFiYfXDLHmnymOnWTDOOXVzWMr3-1URIOognFpTnMo0DLeo5ZEHoGx9qQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
+                <img id="img" src="{{url_for('static', filename='icon/welcome_1.png')}}" />
                 <div class='text'>
                     <h3>輕鬆享受台北一日悠閒</h3>
                     <h4>探索每個角落，體驗城市的深度旅遊行程</h4>

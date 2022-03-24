@@ -21,6 +21,15 @@ function init(){
             // window.location='http://127.0.0.1:3000/';//回首頁
             window.location='http://3.115.234.130:3000/';//回首頁，EC2
         }
+        import("./sign_module.js").then(func=>{
+            func.get_user_info().then(user => {
+                if(user["data"]!=null){//確認使用者登入狀況
+                    func.sign_in_view(user);
+                }else{
+                    func.sign_out_view();
+                }
+            });
+        })
         load_image(data, img_index);
         load_book_info(data);
         load_attraction_info(data);
@@ -104,6 +113,12 @@ function set_date(){
     calendar.min=calendar.value;
 }
 //--------------------------------監聽事件-------------------------------//
+let sign_in_or_up=document.getElementById("sign_in_or_up");
+let background=document.getElementById("background");
+let close_sign=document.getElementById("close_sign");
+let sign_button=document.getElementById("sign_button");
+let switch_sign_up=document.getElementById("click_sign_up");
+
 tour_time.forEach(time => {//依input的物件創造兩個"change"監聽事件
     time.addEventListener("change", function(){
         tour_cost();
@@ -129,6 +144,52 @@ next.addEventListener("click", function(){
     }
     load_image(data, img_index);
 });
+
+sign_in_or_up.addEventListener("click", function(){
+    import("./sign_module.js").then(func => {
+        if(sign_in_or_up.textContent=="登出系統"){
+            func.delete_sign();
+            // func.sign_out_view();//重新整理會直接抓sign_out_view()
+        }else{
+            func.init_sign_in()
+            background.style.display="block";
+            sign.style.display="block";
+        } 
+    })
+    
+});
+
+background.addEventListener("click", function(){
+    background.style.display="none";
+    sign.style.display="none";
+})
+
+close_sign.addEventListener("click", function(){
+    background.style.display="none";
+    sign.style.display="none";
+})
+
+sign_button.addEventListener("click", function(){
+    if(sign_button.textContent=="登入帳戶"){
+        import("./sign_module.js").then(func => {
+            func.SignIn();
+        })
+    }else{
+        import("./sign_module.js").then(func => {
+            func.create_user();
+        })
+    } 
+})
+
+switch_sign_up.addEventListener("click", function(){
+    import("./sign_module.js").then(func => {
+        if(switch_sign_up.textContent=="點此註冊"){
+            func.init_sign_up()
+        }else{
+            func.init_sign_in()
+        }
+    })
+})
 //--------------------------------處理data(M)-------------------------------//
 function get_image(image, index){
     return image[index];
@@ -173,12 +234,3 @@ function my_timer(t){
 init();
 
 let timer=new my_timer(5000);
-
-// let timer=setInterval(function(){
-//     img_index++;
-//     count=data["images"].length;
-//     if(img_index>data["images"].length-1){
-//         img_index=0;
-//     }
-//     load_image(data, img_index);
-// }, 3000);

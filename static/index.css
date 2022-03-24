@@ -388,11 +388,11 @@ a:visited{
 
 @media screen and (max-width:385px){
     .navigation ul{
-        gap:5px;
+        gap:10px;
         align-items:center;
     }
     #sign_in_or_up{
-        margin-left:15px;
+        margin-left:10px;
     }
     #greet{
         font-size:12px;

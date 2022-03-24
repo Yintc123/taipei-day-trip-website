@@ -12,6 +12,110 @@ a{
 a:visited{
     color:#448899;
 }
+#sign{
+    display:none;
+    position:fixed;
+    background-color:#ffffff;
+    z-index:1000;
+    width:340px;
+    height:275px;
+    border:1px solid;
+    margin-top:80px;
+    left:50%;
+    transform: translateX(-50%);/* 使form置中 */
+    font-family:'Noto Sans TC';
+    text-align:center;
+    border-radius:6px;
+    border:0px;
+    color:#666666;
+    animation-name:drop;
+    animation-duration:1s;
+}
+@keyframes drop{
+    from{ top:-300px;}
+    to{ top:0px;}
+}
+.sign_bar{
+    width:100%;
+    height:10px;
+    background:-webkit-linear-gradient(left, #66AABB, #337788);
+    border-radius:6px 6px 0px 0px;
+    border:0px;
+}
+#sign .sign_title{
+    /* border:1px solid; */
+    width:310px;
+    margin:15px auto 15px auto;
+    display:flex;
+    justify-content:center;
+    /* align-items:center; */
+    position:relative;
+}
+#sign .sign_title h3{ 
+    font-size:24px;
+    font-weight:700;
+    margin:0px 0px 0px 0px;
+}
+#sign .sign_title img{
+    width:16px;
+    height:16px;
+    position:absolute;
+    right:0px;
+}
+#sign .sign_title img:hover{
+    cursor:pointer;
+}
+#sign input{
+    width:280px;
+    height:17px;
+    margin:0px auto 10px auto;
+    padding:15px;
+    font-size:16px;
+    border-radius:5px;
+    border:1px solid #cccccc;
+}
+#sign_button{
+    width:310px;
+    height:47px;
+    border-radius:5px;
+    font-size:19px;
+    color:#ffffff;
+    background-color: #448899;
+    border:0;
+    margin-bottom:10px;
+}
+#sign_button:hover{
+    cursor:pointer;
+}
+#sign p{
+    font-size:16px;
+    margin:0px;
+}
+#click_sign_up:hover{
+    cursor:pointer;
+    color:red;
+}
+#sign_up_name{
+    display:none;
+}
+/* background */
+.background{
+    display:none;
+    position:relative;
+    z-index:999;
+    background-color:black;
+    opacity:0.25;
+    grid-column-start: 1;
+    grid-column-end: span 3;
+    grid-row-start: 1;
+    grid-row-end: span 4;
+    animation-name:bg;
+    animation-duration:2s;
+}
+@keyframes bg{
+    from{opacity:0;}
+    to{opacity:0.25;}
+}
 /* navigation */
 .nav_frame{
     position:sticky;
@@ -126,6 +230,7 @@ a:visited{
     height:16px;
     font-size:16px;
     font-family:'Noto Sans TC';
+    border:0px;
     border-radius:5px 0px 0px 5px;
 }
 .header .d1 .text .frame div{
@@ -278,5 +383,18 @@ a:visited{
     .header .d1 .text .frame input{
         margin-right:0px;
         width:230px;
+    }
+}
+
+@media screen and (max-width:399px){
+    .navigation ul{
+        gap:5px;
+        align-items:center;
+    }
+    #sign_in_or_up{
+        margin-left:15px;
+    }
+    #greet{
+        font-size:5px;
     }
 }

@@ -6,13 +6,29 @@
         <link rel='stylesheet' href="{{url_for('static', filename='attraction.css')}}">
     </head>
     <body>
+        <div id='background' class='background'>
+        </div>
+        <form id='sign'>
+            <div class='sign_bar'></div>
+            <div class='sign_title'>
+                <h3>登入會員帳號</h3>
+                <img id='close_sign' src="{{url_for('static', filename='icon/icon_close.png')}}" />
+            </div>
+            <input id='sign_up_name' type='text' name='name' placeholder='輸入姓名'/>
+            <input type='text' name='email' placeholder='輸入電子信箱'/>
+            <input type='text' name='password' placeholder='輸入密碼'/>
+            <button id='sign_button'type='button'>登入帳戶</button>
+            <br/>
+            <p><span id='fail_message'>還沒有帳戶？</span><span id='click_sign_up'>點此註冊</span></p>
+        </form>
         <div class='nav_frame'>
             <div class='navigation'>
                 <h3><a href="http://3.115.234.130:3000/">台北一日遊</a></h3>
                 <!--<h3><a href="http://127.0.0.1:3000/">台北一日遊</a></h3>-->
                 <ul>
-                    <li>預定行程</li>
-                    <li>登入/註冊</li>
+                    <li id='greet'></li>
+                    <li id='schedule'></li>
+                    <li id='sign_in_or_up'></li>
                 </ul>
             </div>
         </div>

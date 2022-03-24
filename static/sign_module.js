@@ -65,7 +65,8 @@ export async function delete_sign(){
     return await fetch(url_sign, {method:"DELETE"}).then((response) => {
         return response.json();
     }).then((result) => {
-        sign_out_view()
+        window.location=window.location.href;
+        // sign_out_view()
         return result;
     })
 }
@@ -102,9 +103,10 @@ export async function SignIn(email, password){
             fail_message.textContent=result["message"]+" ";
             fail_message.style.color="red";
         }else{
-            get_user_info().then(user => {
-                sign_in_view(user);
-            });
+            window.location=window.location.href;
+            // get_user_info().then(user => {
+            //     sign_in_view(user);
+            // });
         }
         return result;
     })

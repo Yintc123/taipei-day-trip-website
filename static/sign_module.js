@@ -121,7 +121,7 @@ export function sign_in_view(user){
     greet.textContent="Hi ~ "+user["data"]["name"];
     greet.style.color="blue";
     greet.style.fontWeight="700";
-    sign_in_or_up.textContent="登出";
+    sign_in_or_up.textContent="登出系統";
     fail_message.textContent="登入成功! ";
     fail_message.style.color="blue";
     schedule.textContent="預定行程";

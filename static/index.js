@@ -122,7 +122,7 @@ button.addEventListener("click", () => {
 
 sign_in_or_up.addEventListener("click", function(){
         import("./sign_module.js").then(func => {
-            if(sign_in_or_up.textContent=="登出"){
+            if(sign_in_or_up.textContent=="登出系統"){
                 func.delete_sign();
                 func.sign_out_view();
             }else{

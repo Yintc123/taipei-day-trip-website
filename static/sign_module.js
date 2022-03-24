@@ -47,7 +47,6 @@ export async function create_user(){
         return response.json();
     }).then((result) => {
         let fail_message=document.getElementById("fail_message");
-        console.log(result);
         if(result["error"]==true){
             name_input.value="";
             email_input.value="";

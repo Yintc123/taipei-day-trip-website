@@ -419,11 +419,15 @@ label:hover{
     .navigation ul{
         gap:5px;
         align-items:center;
+        position:relative;
     }
     #sign_in_or_up{
         margin-left:15px;
     }
     #greet{
+        position:absolute;
         font-size:10px;
+        right:15px;
+        top:-15px;
     }
 }

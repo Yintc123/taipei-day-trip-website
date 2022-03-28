@@ -1,6 +1,6 @@
 console.log("hi");
-let url="http://3.115.234.130:3000/api/attractions?keyword="//EC2
-// let url="http://127.0.0.1:3000/api/attractions?keyword="
+// let url="http://3.115.234.130:3000/api/attractions?keyword="//EC2
+let url="http://127.0.0.1:3000/api/attractions?keyword="
 let nextpage=null;
 let keyword="";
 let flag=0;//避免重複讀取資料的旗幟；0：可執行程式；1：程式未執行完，不可再執行程式
@@ -55,8 +55,8 @@ function create_oneitem(data){
     attraction.textContent=data["name"];
     mrt.textContent=data["MRT"];
     category.textContent=data["category"];
-    // id_url.href="http://127.0.0.1:3000/attraction/"+data["id"];
-    id_url.href="http://3.115.234.130:3000/attraction/"+data["id"];//EC2
+    id_url.href="http://127.0.0.1:3000/attraction/"+data["id"];
+    // id_url.href="http://3.115.234.130:3000/attraction/"+data["id"];//EC2
     if (attraction.textContent.length>15){
         attraction.style.fontSize="15px";
     }

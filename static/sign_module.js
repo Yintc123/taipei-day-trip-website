@@ -1,5 +1,5 @@
-// let url_sign="http://127.0.0.1:3000/api/user";
-let url_sign="http://3.115.234.130:3000/api/user";//EC2
+let url_sign="http://127.0.0.1:3000/api/user";
+// let url_sign="http://3.115.234.130:3000/api/user";//EC2
 
 export async function get_user_info(){
     return await fetch(url_sign).then((response) => {

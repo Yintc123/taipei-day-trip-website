@@ -1,6 +1,8 @@
 console.log("hi");
-// let url="http://127.0.0.1:3000/api/attraction/";
-let url="http://3.115.234.130:3000/api/attraction/"//EC2
+let url_home='http://127.0.0.1:3000/'
+// let url_home='http://3.115.234.130:3000/'//EC2
+let url="http://127.0.0.1:3000/api/attraction/";
+// let url="http://3.115.234.130:3000/api/attraction/"//EC2
 let last=document.getElementById("last_one");
 let next=document.getElementById("next_one");
 let tour_time=document.getElementsByName("time");
@@ -18,8 +20,7 @@ function init(){
         data=result["data"]
         if(data==undefined){//網頁偵錯
             // window.history.go(-1);//回上一頁
-            // window.location='http://127.0.0.1:3000/';//回首頁
-            window.location='http://3.115.234.130:3000/';//回首頁，EC2
+            window.location=url_home;//回首頁
         }
         import("./sign_module.js").then(func=>{
             func.get_user_info().then(user => {

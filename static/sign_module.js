@@ -65,7 +65,7 @@ export async function delete_sign(){
     return await fetch(url_sign, {method:"DELETE"}).then((response) => {
         return response.json();
     }).then((result) => {
-        // window.location=window.location.href;//重新整理
+        window.location=window.location.href;//重新整理
         // sign_out_view()
         return result;
     })

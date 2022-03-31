@@ -1,6 +1,6 @@
 console.log("hi");
 // let url="http://127.0.0.1:3000/api/attractions?keyword="
-// let url_booking="http://127.0.0.1:3000/booking";
+// let booking="http://127.0.0.1:3000/booking";
 // let url_attraction_id="http://127.0.0.1:3000/attraction/";
 let url_attraction_id="http://3.115.234.130:3000/attraction/";//EC2
 let url="http://3.115.234.130:3000/api/attractions?keyword=";//EC2
@@ -182,7 +182,7 @@ schedule.addEventListener("click", function(){
     if(user_status==0){
         sign_in_or_up.click();
     }else{
-        window.location=url_booking;
+        window.location=booking;
     }
 })
 //--------------------------------處理data(M)-------------------------------//

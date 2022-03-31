@@ -143,7 +143,7 @@ booking_button.addEventListener("click", function(){
     else{
         import("./booking_module.js").then(func => {
             func.booking_tour(id);
-            window.location=func.booking;
+            // window.location=func.booking;
         });
     }
     // import("./booking_module.js").then(func => {

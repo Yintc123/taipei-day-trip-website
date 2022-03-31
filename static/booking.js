@@ -20,7 +20,7 @@ function init(){
             }else{
                 console.log("2");
                 user_status=0;
-                window.location=last_page;
+                window.location=url_home;
             }
         })
     });
@@ -29,10 +29,8 @@ function init(){
         func.get_booking().then(data=>{
             if(data==null){
                 console.log("4");
-                console.log(data);
                 without_booking();
             }else{
-                console.log(data);
                 load_booking_info(data);
                 load_total_cost(data);
             }

@@ -211,8 +211,6 @@ sign_button.addEventListener("click", function(){
                     console.log(flag);
                     // booking_button.click();
                     // window.location=booking;
-                }else{
-                    window.location=window.location.href;//重新整理頁面
                 }
             }).catch(()=>{
                 console.log("error");

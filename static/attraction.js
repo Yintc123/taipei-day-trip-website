@@ -13,7 +13,7 @@ let img_index=0;
 let cur_url=window.location.href;
 let id=cur_url.split("/")[4];
 let user_status=0;
-let flag=0;
+let booking_flag=0;
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
@@ -143,7 +143,7 @@ tour_time.forEach(time => {//依input的物件創造兩個"change"監聽事件
 
 booking_button.addEventListener("click", function(){
     if(user_status==0){
-        flag+=1000;
+        booking_flag=1;
         sign_in_or_up.click();
     }
     else{
@@ -182,7 +182,6 @@ sign_in_or_up.addEventListener("click", function(){
             func.delete_sign().then(result=>{
                 window.location=window.location.href;
             });
-            // func.sign_out_view();//重新整理會直接抓sign_out_view()
         }else{
             func.init_sign_in()
             background.style.display="block";
@@ -203,13 +202,12 @@ close_sign.addEventListener("click", function(){
 })
 
 sign_button.addEventListener("click", function(){
-    flag+=1;
     if(sign_button.textContent=="登入帳戶"){
         import("./sign_module.js").then(func => {
-            func.SignIn(flag).then((result)=>{
+            func.SignIn(booking_flag).then((result)=>{
                 if(result["error"]==true){
                     return ;
-                }else if(flag>500){
+                }else if(booking_flag>0){
                     user_status=1;
                     booking_button.click();
                 }

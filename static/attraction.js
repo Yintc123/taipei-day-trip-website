@@ -194,11 +194,13 @@ sign_in_or_up.addEventListener("click", function(){
 background.addEventListener("click", function(){
     background.style.display="none";
     sign.style.display="none";
+    booking_flag=0;
 })
 
 close_sign.addEventListener("click", function(){
     background.style.display="none";
     sign.style.display="none";
+    booking_flag=0;
 })
 
 sign_button.addEventListener("click", function(){

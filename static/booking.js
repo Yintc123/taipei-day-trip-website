@@ -4,7 +4,6 @@ console.log("hi");
 let url_home='http://3.115.234.130:3000/';//EC2
 let url="http://3.115.234.130:3000/api/attraction/";//EC2
 let user_status=0;
-let last_page=document.referrer != window.location.href ? document.referrer : url_home;
 
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//

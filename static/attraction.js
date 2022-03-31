@@ -127,6 +127,13 @@ let switch_sign_up=document.getElementById("click_sign_up");
 let booking_button=document.getElementById("booking_button");
 let schedule=document.getElementById("schedule");
 
+window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事件
+    let password=document.getElementsByName("password")[0];
+    if(document.activeElement===password && (e.code=="Enter" || e.code=="NumpadEnter")){
+        sign_button.click();
+    }
+});
+
 tour_time.forEach(time => {//依input的物件創造兩個"change"監聽事件
     time.addEventListener("change", function(){
         tour_cost();

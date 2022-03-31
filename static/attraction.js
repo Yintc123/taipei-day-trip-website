@@ -208,10 +208,10 @@ sign_button.addEventListener("click", function(){
         import("./sign_module.js").then(func => {
             func.SignIn().then(()=>{
                 if(flag>1000){
-                    // booking_button.click()
-                    window.location=booking;
+                    booking_button.click()
+                    // window.location=booking;
                 }else{
-                    return;
+                    window.location=window.location.href;//重新整理頁面
                 }
             });
         })

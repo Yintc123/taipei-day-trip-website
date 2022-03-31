@@ -208,7 +208,8 @@ sign_button.addEventListener("click", function(){
         import("./sign_module.js").then(func => {
             func.SignIn().then(()=>{
                 if(flag>1000){
-                    booking_button.click()
+                    // booking_button.click()
+                    window.location=booking;
                 }else{
                     return;
                 }

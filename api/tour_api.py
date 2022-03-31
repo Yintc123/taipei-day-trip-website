@@ -52,7 +52,6 @@ def booking():
     date=request.form["date"]
     time=request.form["time"]
     con_db=handle()
-    
     if time=="上半天":
         cost="2000"
     else:

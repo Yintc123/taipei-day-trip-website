@@ -152,7 +152,7 @@ delete_tour.addEventListener("click", function(){
         func.delete_booking();
         setTimeout(function(){
             window.location=window.location.href;
-        }, 1000);
+        }, 100);
         
     });
 })

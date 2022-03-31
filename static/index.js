@@ -134,8 +134,9 @@ button.addEventListener("click", () => {
 sign_in_or_up.addEventListener("click", function(){
         import("./sign_module.js").then(func => {
             if(sign_in_or_up.textContent=="登出系統"){
-                func.delete_sign();
-                // window.location=window.location.href;
+                func.delete_sign().then(result=>{
+                    window.location=window.location.href;
+                })
             }else{
                 func.init_sign_in()
                 background.style.display="block";

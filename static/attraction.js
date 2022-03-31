@@ -149,8 +149,9 @@ booking_button.addEventListener("click", function(){
     }
     else{
         import("./booking_module.js").then(func => {
-            func.booking_tour(id);
-            window.location=func.booking;
+            func.booking_tour(id).then(result=>{
+                window.location=func.booking;
+            })
         });
     }
     // import("./booking_module.js").then(func => {
@@ -183,7 +184,7 @@ sign_in_or_up.addEventListener("click", function(){
     import("./sign_module.js").then(func => {
         if(sign_in_or_up.textContent=="登出系統"){
             func.delete_sign();
-            window.location=window.location.href;
+            // window.location=window.location.href;
             // func.sign_out_view();//重新整理會直接抓sign_out_view()
         }else{
             func.init_sign_in()

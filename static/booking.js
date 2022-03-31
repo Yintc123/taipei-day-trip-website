@@ -100,8 +100,9 @@ let delete_tour=document.getElementById("delete_tour");
 sign_in_or_up.addEventListener("click", function(){
     import("./sign_module.js").then(func => {
         if(sign_in_or_up.textContent=="登出系統"){
-            func.delete_sign();
-            window.location=document.referrer;//退回上一頁
+            func.delete_sign().then(result=>{
+                window.location=document.referrer;//退回上一頁
+            });
         }else{
             func.init_sign_in()
             background.style.display="block";

@@ -149,7 +149,7 @@ schedule.addEventListener("click", function(){
 delete_tour.addEventListener("click", function(){
     console.log("de tour");
     import("./booking_module.js").then(func=>{
-        await func.delete_booking();
+        func.delete_booking();
         window.location=window.location.href;
         // setTimeout(function(){
         //     window.location=window.location.href;

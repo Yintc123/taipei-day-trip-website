@@ -104,10 +104,12 @@ export async function SignIn(flag=0){
         }else{
             if(flag>500){
                 return resolved;
+            }else{
+                window.location=window.location.href;//重新整理頁面
+                return resolved;
             }
-            window.location=window.location.href;//重新整理頁面
         }
-        return resolved;
+        // return resolved;
     })
 }
 

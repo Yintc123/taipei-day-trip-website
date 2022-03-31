@@ -102,7 +102,7 @@ export async function SignIn(flag){
             fail_message.style.color="red";
         }else{
             if(flag>500){
-                return resolved;
+                return result;
             }
             window.location=window.location.href;//重新整理頁面
         }

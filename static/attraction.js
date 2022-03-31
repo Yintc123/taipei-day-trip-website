@@ -206,7 +206,7 @@ sign_button.addEventListener("click", function(){
     flag+=1;
     if(sign_button.textContent=="登入帳戶"){
         import("./sign_module.js").then(func => {
-            func.SignIn(flag).then((resolved)=>{
+            func.SignIn(flag).then(()=>{
                 if(flag>500){
                     console.log(flag);
                     // booking_button.click();
@@ -214,7 +214,7 @@ sign_button.addEventListener("click", function(){
                 }else{
                     window.location=window.location.href;//重新整理頁面
                 }
-            }).catch((rejected)=>{
+            }).catch(()=>{
                 console.log("error");
             });
         })

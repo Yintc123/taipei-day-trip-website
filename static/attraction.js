@@ -206,7 +206,7 @@ sign_button.addEventListener("click", function(){
     flag+=1;
     if(sign_button.textContent=="登入帳戶"){
         import("./sign_module.js").then(func => {
-            func.SignIn(flag).then(()=>{
+            func.SignIn(flag).then((result)=>{
                 if(result["error"]==true){
                     return ;
                 }else if(flag>500){

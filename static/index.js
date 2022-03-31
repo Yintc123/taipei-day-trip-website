@@ -1,9 +1,14 @@
 console.log("hi");
-// let url="http://3.115.234.130:3000/api/attractions?keyword="//EC2
-let url="http://127.0.0.1:3000/api/attractions?keyword="
+// let url="http://127.0.0.1:3000/api/attractions?keyword="
+// let url_booking="http://127.0.0.1:3000/booking";
+// let url_attraction_id="http://127.0.0.1:3000/attraction/";
+let url_attraction_id="http://3.115.234.130:3000/attraction/";//EC2
+let url="http://3.115.234.130:3000/api/attractions?keyword=";//EC2
+let booking="http://3.115.234.130:3000/booking";//EC2
 let nextpage=null;
 let keyword="";
 let flag=0;//避免重複讀取資料的旗幟；0：可執行程式；1：程式未執行完，不可再執行程式
+let user_status=0;
 
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
@@ -15,8 +20,10 @@ function init(){//網頁初始化
             func.get_user_info().then(user=>{
                 if(user["data"]!=null){//確認使用者登入狀況
                     func.sign_in_view(user);
+                    user_status=1;
                 }else{
                     func.sign_out_view();
+                    user_status=0;
                 }
             })
         })
@@ -51,12 +58,12 @@ function create_oneitem(data){
     intro.className="intro";
     mrt.className="left";
     category.className="right";
+    attraction.className="attraction_intro";
     img.src=get_imge(data["images"]);
     attraction.textContent=data["name"];
     mrt.textContent=data["MRT"];
     category.textContent=data["category"];
-    id_url.href="http://127.0.0.1:3000/attraction/"+data["id"];
-    // id_url.href="http://3.115.234.130:3000/attraction/"+data["id"];//EC2
+    id_url.href=url_attraction_id+data["id"];
     if (attraction.textContent.length>15){
         attraction.style.fontSize="15px";
     }
@@ -98,12 +105,16 @@ let close_sign=document.getElementById("close_sign");
 let sign=document.getElementById("sign");
 let sign_button=document.getElementById("sign_button");
 let switch_sign_up=document.getElementById("click_sign_up");
+let schedule=document.getElementById("schedule");
 
 window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事件
     let search=document.getElementById("search");
+    let password=document.getElementsByName("password")[0];
     let isFocused=document.activeElement===search;//判斷游標是否在輸入框
     if(isFocused && (e.code=="Enter" || e.code=="NumpadEnter")){
         button.click();
+    }else if(document.activeElement===password && (e.code=="Enter" || e.code=="NumpadEnter")){
+        sign_button.click();
     }
 });
 
@@ -124,6 +135,7 @@ sign_in_or_up.addEventListener("click", function(){
         import("./sign_module.js").then(func => {
             if(sign_in_or_up.textContent=="登出系統"){
                 func.delete_sign();
+                window.location=window.location.href;
                 // func.sign_out_view();//重新整理會直接抓sign_out_view()
             }else{
                 func.init_sign_in()
@@ -164,6 +176,14 @@ switch_sign_up.addEventListener("click", function(){
             func.init_sign_in()
         }
     })
+})
+
+schedule.addEventListener("click", function(){
+    if(user_status==0){
+        sign_in_or_up.click();
+    }else{
+        window.location=url_booking;
+    }
 })
 //--------------------------------處理data(M)-------------------------------//
 async function get_data(url){

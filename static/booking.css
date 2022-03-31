@@ -5,7 +5,8 @@ body{
     font-family:'Noto Sans TC';
     display:grid;
     grid-template-columns: auto 1200px auto;
-    grid-template-rows: 54px 1fr 104px;
+    grid-template-rows: 54px auto auto;
+    font-family:'Noto Sans TC';
 }
 a{
     text-decoration:None;
@@ -14,7 +15,7 @@ a:visited{
     color:#448899;
 }
 hr{
-    margin:37px 0px 37px 0px;
+    margin-top:40px;
     border:1px solid #E8E8E8;
 }
 #sign{
@@ -25,7 +26,7 @@ hr{
     z-index:1000;
     width:340px;
     height:275px;
-    border:1px solid;
+    /* border:1px solid; */
     margin-top:80px;
     left:50%;
     transform: translateX(-50%);/* 使form置中 */
@@ -173,207 +174,142 @@ hr{
 }
 /* content */
 .content{
-    min-height:920px;/*使footer置底*/
-    grid-column-start:2;
+    color:#666666;
+    font-family:'Noto Sans TC';
+    grid-column-start: 2;
     grid-column-end: span 1;
-    grid-row-start:2;
+    grid-row-start: 2;
     grid-row-end: span 1;
 }
-.content .tour{
+.content_container{
+    width:80%;
+    margin:0px auto 0px auto;
+    /* border:1px solid; */
+}
+.content_container p{
+    font-size:19px;
+    font-weight:700;
+    /* height:16px; */
+    margin:46px 0px 35px 0px;
+}
+.content_container_1 .p_container{
+    width:80%;
+    margin:0px auto 0px auto;
+}
+.content_container_1 .p_container p{
+    font-size:16px;
+    color:#666666;
+    padding-bottom:40px;
+    margin:0px;
+}
+.attraction_info{
+    width:80%;
+    /* border:1px solid; */
+    /* height:275px; */
     display:flex;
     flex-wrap:wrap;
-    justify-content:center;
-    margin-top:47px;
+    margin:0px auto 0px auto;
 }
-.content .tour .image{
-    position:relative;
+.attraction_info .attraction_img{
     /* border:1px solid; */
-    height:406px;
-    width:47%;
-    display:flex;
-    align-items:center;
-    background-repeat:no-repeat;/*圖片不重複*/
-    background-size:cover;/*將背景圖片填滿*/
-    border-radius:5px;
+    width:266px;
+    height:200px;
+    object-fit:cover;
+    background-size:100%;
+    background-repeat:no-repeat;
 }
-.content .tour .image .image_index{
-    margin:auto auto 0px auto;
-    /* border:1px solid; */
-}
-.content .tour .image .image_index img{
-    height:12px;
-    width:12px;
-    margin:0px 6px 0px 6px;
-    opacity:0.9;
-}
-#last_one{
-    opacity:0.7;
-    position:absolute;
-    left:10px;
-    width:36px;
-    height:36px;
-}
-#last_one:hover{
-    cursor:pointer;
-}
-#next_one{
-    opacity:0.7;
-    position:absolute;
-    right:10px;
-    width:36px;
-    height:36px;
-}
-#next_one:hover{
-    cursor:pointer;
-}
-.content .tour img{
-    height:36px;
-    width:36px;
-}
-.content .tour .book{
-    margin-left:30px;
-    /* border:1px solid; */
-    width:47%;
-    color:#666666;
-}
-.content .tour .book .name{
-    font-size:24px;
+.attraction_info .attraction_intro{
+    height:200px;
+    padding-left:25px;
     font-weight:700;
-    margin:auto;
-}
-.content .tour .book .name_intro{
-    font-size:16px;
-    font-weight:400;
-    margin:15px auto 20px auto;
-}
-.content .tour .book form{
-    position:relative;
-    height:302px;
-    padding-top:15px;
-    padding-left:20px;
-    padding-right:10px;
-    background-color:#E8E8E8;
     /* border:1px solid; */
-    border-radius:5px;
-    color:#666666;
+}
+.attraction_info .attraction_intro h3{
+    height:14px;
     font-size:16px;
+    color:#448899;
+    margin-top:5px;
+    margin-bottom:30px;
     font-weight:700;
 }
-.content .tour .book form h4{
-    margin:0px 0px 15px 0px;
-    font-weight:bold 700;
-}
-.content .tour .book form p{
-    margin:0px 0px 15px 0px;
-    font-weight:400;
-}
-#calendar{
-    border:0px;
-    height:25px;
-    width:180px;
-    padding:5px 10px 5px 10px;
+.attraction_info .attraction_intro h4{
+    height:14px;
     font-size:16px;
+    margin-top:0px;
+    margin-bottom:20px;
+    font-weight:700;
 }
-#calendar:hover{
-    cursor:pointer;
-}
-/*日曆的指標變成手指*/
-::-webkit-calendar-picker-indicator{
-    cursor:pointer;
-}
-.content .tour .book form span{
+.attraction_info .attraction_intro h4 span{
     font-weight:400;
+    padding-left:5px;
 }
-#tour_time{
-    position:relative;
-    top:6px;
-    width:22px;
-    height:22px;
-    margin-left:12px;
+.attraction_info img{
+    height:30px;
+    width:30px;
+    margin-left:auto;
+}
+.attraction_info img:hover{
+    cursor:pointer;
+    transform:scale(1.2);
+}
+.content_container_2{
+    width:80%;
+    /* border:1px solid; */
+    /* height:307px; */
+    font-family:'Noto Sans TC';
+    font-size:16px;
+    color:#666666;
+    margin:0px auto 0px auto;
+}
+.content_container_2 h3{
+    font-size:19px;
+    font-weight:700;
+    font-family:'Noto Sans TC';
+    margin-top:44px;
     margin-bottom:24px;
 }
-/*::before為偽元素在原本的元素「之前」加入內容*/
-#tour_time::before{
-    content:'';
-    background-color:#ffffff;
-    width:22px;
-    height:22px;
-    top:0px;
-    left:0px;
-    border-radius:50%;
-    position:absolute;
-}
-/*::after為偽元素在原本的元素「之後」加入內容，
-同時偽元素也會「繼承」原本元素的屬性。以下方法
-修改input的radius圓點於原本圓點上覆蓋以下圖層*/
-#tour_time:checked::after{
-    content:'';
-    background-color:#448899;
-    width:18px;
+.content_container_2 input{
+    width:180px;
     height:18px;
-    top:2px;
-    left:2px;
-    border-radius:50%;
-    position:absolute;
-}
-label{
-    font-weight:400;
-}
-label:hover{
-    cursor:pointer;
-}
-#tour_time:hover{
-    cursor:pointer;
-}
-#booking_button{
-    margin:25px 0px auto 0px;
-    width:154px;
-    height:36px;
-    border-radius:5px;
-    border:0;
-    background-color:#448899;
-    font-size:19px;
-    color:#ffffff;
-    font-weight:400;
-}
-#booking_button:hover{
-    cursor:pointer;
-    animation:blink 1s infinite;
-}
-@keyframes blink{
-    from{
-        transform:scale(1.0);
-    }
-    50%{
-        transform:scale(1.02);
-    }
-    to{
-        transform:scale(1.0);
-    }
-}
-.content .intro_frame{
-    /* border:1px solid; */
-    height:auto;
-    padding:0px 15px 0px 15px;
+    padding:10px;
+    margin-bottom:15px;
     font-size:16px;
-    font-weight:400;
-    color:#666666;
+    color:#000000;
+    border-radius:5px;
+    border:1px solid #E8E8E8;
 }
-.content .intro_frame .intro{
-    margin:13px 0px 0px 0px;
-}
-.content .intro_frame .frame{
-    margin-top:20px;
-}
-.content .intro_frame .frame .frame1{
+.content_container_2 p{
+    margin-top:5px;
+    font-size:16px;
     font-weight:700;
-    margin:0px;
 }
-.content .intro_frame .frame .address{
-    margin:0px;
+#card_verification{
+    margin-bottom:0px;
 }
-.content .intro_frame .frame .transport{
-    margin:0px auto 120px auto;;
+.confirmation{
+    width:80%;
+    /* border:1px solid; */
+    /* height:180px; */
+    text-align:right;
+    margin:0px auto 0px auto;
+}
+.confirmation p{
+    font-family:'Noto Sans TC';
+    font-size:16px;
+    font-weight:700;
+    margin-top:43px;
+    margin-bottom:25px;
+}
+.confirmation button{
+    font-family:'Noto Sans TC';
+    width:173px;
+    height:36px;
+    background-color:#448899;
+    color:#ffffff;
+    border-radius:5px;
+    border:0px;
+    font-size:19px;
+    margin-bottom:62px;
 }
 /* footer */
 .footer{
@@ -381,7 +317,7 @@ label:hover{
     bottom:0px;
     display:flex;
     justify-content:center;
-    align-items:center;
+    /* align-items:center; */
     grid-column-start: 1;
     grid-column-end: span 3;
     grid-row-start: 3;
@@ -390,10 +326,9 @@ label:hover{
 .footer h4{
     font-size:16px;
     font-family:'Noto Sans TC';
-    margin:0px;
+    margin:45px 0px 45px 0px;
     color:white;
 }
-
 @media screen and (max-width:1199px){
     body{
         grid-template-columns: auto 100% auto;
@@ -402,31 +337,31 @@ label:hover{
         grid-template-columns: auto 100% auto;
     }
 }
-
-@media screen and (max-width:899px){
-    .content .tour{
-        justify-content:center;
-    }
-    .content .tour .image{
+@media screen and (max-width:685px){
+    .content_container{
         width:95%;
+        height:auto;
     }
-    .content .tour .book{
+    .attraction_info{
         width:95%;
-        margin-left:0px;
-        margin-top:40px;
+        height:auto;
     }
-}
-
-@media screen and (max-width:599px){
-    .content .tour .image{
+    .attraction_info .attraction_img{
         width:100%;
+        margin-bottom:20px;
     }
-    .content .tour .book{
+    .attraction_info img{
+        margin-top:auto;
+    }
+    .content_container_2{
         width:95%;
-        margin-top:20px;
+        height:auto;
+    }
+    .confirmation{
+        width:95%;
+        height:auto;
     }
 }
-
 @media screen and (max-width:415px){
     .navigation ul{
         gap:5px;

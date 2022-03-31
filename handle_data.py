@@ -156,8 +156,4 @@ class Handle_member():
                 return 1 #註冊失敗，重複的 Email 或其他原因
         except:
             print("error in create_user")
-        
-        
-        
-        
             

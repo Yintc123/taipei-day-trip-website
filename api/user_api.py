@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import Blueprint, make_response, request, jsonify
 import jwt, datetime
-from handle_data import Handle_DB as handle, Handle_member as handle_user
+from handle_data import Handle_member as handle_user
 
 app3=Blueprint("user_api", __name__)
 
@@ -14,11 +14,11 @@ restful_api="/user"
 key="secret"
 @app3.route(restful_api, methods=["GET"])
 def get_user():
-    token=request.cookies.get("token")
-    if token==None:
+    token_user=request.cookies.get("token_user")
+    if token_user==None:
         return jsonify({"data":None})
     else:
-        user=jwt.decode(token, key, algorithms="HS256")
+        user=jwt.decode(token_user, key, algorithms="HS256")
         user.pop("exp")
         return jsonify(user)
 
@@ -63,10 +63,10 @@ def patch_user():
             user["data"][info]=user_info[info]
         payload=user
         payload["exp"]=datetime.datetime.utcnow()+datetime.timedelta(days=30) #設定token於30天到期
-        token=jwt.encode(payload, key, algorithm="HS256") #token加密
+        token_user=jwt.encode(payload, key, algorithm="HS256") #token加密
         resp.set_cookie(
-                key="token",
-                value=token,
+                key="token_user",
+                value=token_user,
                 expires=datetime.datetime.utcnow()+datetime.timedelta(days=30) #設定cookie於30天到期
             )
         return resp
@@ -78,5 +78,5 @@ def patch_user():
 @app3.route(restful_api, methods=["DELETE"])
 def delete_user():
     resp=make_response(jsonify({"ok":True}))
-    resp.set_cookie(key="token", expires=0) # 將cookie的到期時間設定為0，清除cookie
+    resp.set_cookie(key="token_user", expires=0) # 將cookie的到期時間設定為0，清除cookie
     return resp

@@ -1,5 +1,5 @@
-let url_sign="http://127.0.0.1:3000/api/user";
-// let url_sign="http://3.115.234.130:3000/api/user";//EC2
+// let url_sign="http://127.0.0.1:3000/api/user";
+let url_sign="http://3.115.234.130:3000/api/user";//EC2
 
 export async function get_user_info(){
     return await fetch(url_sign).then((response) => {
@@ -65,7 +65,7 @@ export async function delete_sign(){
     return await fetch(url_sign, {method:"DELETE"}).then((response) => {
         return response.json();
     }).then((result) => {
-        window.location=window.location.href;
+        // window.location=window.location.href;//重新整理
         // sign_out_view()
         return result;
     })
@@ -103,10 +103,7 @@ export async function SignIn(){
             fail_message.textContent=result["message"]+" ";
             fail_message.style.color="red";
         }else{
-            window.location=window.location.href;
-            // get_user_info().then(user => {
-            //     sign_in_view(user);
-            // });
+            window.location=window.location.href;//重新整理頁面
         }
         return result;
     })

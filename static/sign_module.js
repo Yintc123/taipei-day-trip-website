@@ -69,7 +69,7 @@ export async function delete_sign(){
     })
 }
 
-export async function SignIn(){
+export async function SignIn(flag=0){
     let email_input=document.getElementsByName("email")[0];
     let password_input=document.getElementsByName("password")[0];
     let email=email_input.value;
@@ -100,10 +100,12 @@ export async function SignIn(){
         if(result["error"]==true){
             fail_message.textContent=result["message"]+" ";
             fail_message.style.color="red";
+        }else{
+            if(flag>1000){
+                return result;
+            }
+            window.location=window.location.href;//重新整理頁面
         }
-        // else{
-        //     window.location=window.location.href;//重新整理頁面
-        // }
         return result;
     })
 }

@@ -159,9 +159,7 @@ close_sign.addEventListener("click", function(){
 sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){
         import("./sign_module.js").then(func => {
-            func.SignIn().then(()=>{
-                window.location=window.location.href;//重新整理頁面
-            });
+            func.SignIn();
         })
     }else{
         import("./sign_module.js").then(func => {

@@ -28,6 +28,7 @@ function init(){
                 console.log(data);
                 without_booking();
             }else{
+                console.log(data);
                 load_booking_info(data);
                 load_total_cost(data);
             }

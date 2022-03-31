@@ -279,4 +279,4 @@ x.addEventListener("change", function(){
     console.log("changed:" + x);
 })
 
-setTimeout(function(){x++;}, 2000);
+setTimeout(function(){x++;console.log(x);}, 2000);

@@ -100,16 +100,13 @@ export async function SignIn(flag=0){
         if(result["error"]==true){
             fail_message.textContent=result["message"]+" ";
             fail_message.style.color="red";
-            return rejected;
         }else{
             if(flag>500){
                 return resolved;
-            }else{
-                window.location=window.location.href;//重新整理頁面
-                return resolved;
             }
+            window.location=window.location.href;//重新整理頁面
         }
-        // return resolved;
+        return result;
     })
 }
 

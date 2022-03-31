@@ -107,7 +107,7 @@ export async function SignIn(flag=0){
             }
             window.location=window.location.href;//重新整理頁面
         }
-        return result;
+        return resolved;
     })
 }
 

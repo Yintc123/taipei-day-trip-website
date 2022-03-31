@@ -209,7 +209,7 @@ sign_button.addEventListener("click", function(){
             func.SignIn(flag).then((resolved)=>{
                 if(flag>500){
                     console.log(flag);
-                    booking_button.click();
+                    // booking_button.click();
                     // window.location=booking;
                 }else{
                     window.location=window.location.href;//重新整理頁面

@@ -9,7 +9,6 @@ let user_status=0;
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
     import("./sign_module.js").then(func=>{
-        console.log("1");
         func.get_user_info().then(user=>{
             if(user["data"]!=null){
                 func.sign_in_view(user);
@@ -17,17 +16,14 @@ function init(){
                 load_user_info(user);
                 user_status=1;
             }else{
-                console.log("2");
                 user_status=0;
                 window.location=url_home;
             }
         })
     });
     import("./booking_module.js").then(func=>{
-        console.log("3");
         func.get_booking().then(data=>{
             if(data==null){
-                console.log("4");
                 without_booking();
             }else{
                 load_booking_info(data);

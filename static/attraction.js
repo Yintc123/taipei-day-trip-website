@@ -142,22 +142,16 @@ tour_time.forEach(time => {//依input的物件創造兩個"change"監聽事件
 
 booking_button.addEventListener("click", function(){
     if(user_status==0){
-        sign_in_or_up.click();
-        // func.init_sign_in()
-        // background.style.display="block";
-        // sign.style.display="block";
+        sign_in_or_up.click().then(()=>console.log("123"));
     }
     else{
         import("./booking_module.js").then(func => {
             func.booking_tour(id).then(result=>{
                 window.location=func.booking;
+                return result;
             })
         });
     }
-    // import("./booking_module.js").then(func => {
-    //     func.booking_tour(id);
-    //     window.location=func.booking;
-    // }); 
 })
 
 last.addEventListener("click", function(){

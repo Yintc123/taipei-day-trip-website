@@ -25,6 +25,7 @@ function init(){
     import("./booking_module.js").then(func=>{
         func.get_booking().then(data=>{
             if(data==null){
+                console.log(data);
                 without_booking();
             }else{
                 load_booking_info(data);
@@ -147,7 +148,7 @@ schedule.addEventListener("click", function(){
 delete_tour.addEventListener("click", function(){
     import("./booking_module.js").then(func=>{
         func.delete_booking();
-        // window.location=window.location.href;
+        window.location=window.location.href;
     });
 })
 //-------------------------------------Run----------------------------------------

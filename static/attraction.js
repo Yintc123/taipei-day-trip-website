@@ -210,8 +210,8 @@ sign_button.addEventListener("click", function(){
                 console.log(flag);
                 if(flag>500){
                     console.log(flag);
-                    // booking_button.click();
-                    // window.location=booking;
+                    booking_button.click();
+                    window.location=booking;
                 }
             }).catch(()=>{
                 console.log("error");

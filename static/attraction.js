@@ -206,14 +206,16 @@ sign_button.addEventListener("click", function(){
     flag+=1;
     if(sign_button.textContent=="登入帳戶"){
         import("./sign_module.js").then(func => {
-            func.SignIn(flag).then(()=>{
+            func.SignIn(flag).then((resolved)=>{
                 if(flag>500){
                     console.log(flag);
-                    booking_button.click()
+                    booking_button.click();
                     // window.location=booking;
                 }else{
                     window.location=window.location.href;//重新整理頁面
                 }
+            }).catch((rejected)=>{
+                console.log("error");
             });
         })
     }else{

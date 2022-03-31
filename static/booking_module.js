@@ -38,6 +38,7 @@ export async function delete_booking(){
     return await fetch(url_booking, {
         method:"DELETE"
     }).then(response=>{
+        console.log(response);
         return response.json();
     })
 }

@@ -136,6 +136,9 @@ tour_time.forEach(time => {//依input的物件創造兩個"change"監聽事件
 booking_button.addEventListener("click", function(){
     if(user_status==0){
         sign_in_or_up.click();
+        // func.init_sign_in()
+        // background.style.display="block";
+        // sign.style.display="block";
     }
     else{
         import("./booking_module.js").then(func => {

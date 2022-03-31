@@ -81,5 +81,5 @@ def booking():
 @app4.route(booking_url, methods=["DELETE"])
 def delete_booking():
     resp=make_response({"ok":True})
-    resp.set_cookie(key="token_booking", expires=0) # 將cookie的到期時間設定為0，清除cookie
+    resp.delete_cookie(key="token_booking") # 清除cookie
     return resp

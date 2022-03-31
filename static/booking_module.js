@@ -38,8 +38,8 @@ export async function delete_booking(){
     return await fetch(url_booking, {
         method:"DELETE"
     }).then(response=>{
-        console.log(response);
-        console.log("123");
         return response.json();
+    }).then(result=>{
+        console.log(result);
     })
 }

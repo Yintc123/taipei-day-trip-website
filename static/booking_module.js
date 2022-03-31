@@ -41,5 +41,6 @@ export async function delete_booking(){
         return response.json();
     }).then(result=>{
         console.log(result);
+        return result;
     })
 }

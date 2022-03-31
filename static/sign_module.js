@@ -69,7 +69,7 @@ export async function delete_sign(){
     })
 }
 
-export async function SignIn(flag=0){
+export async function SignIn(flag){
     let email_input=document.getElementsByName("email")[0];
     let password_input=document.getElementsByName("password")[0];
     let email=email_input.value;

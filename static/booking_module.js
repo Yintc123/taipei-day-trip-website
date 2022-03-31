@@ -41,6 +41,7 @@ export async function delete_booking(){
         return response.json();
     }).then(result=>{
         console.log(result);
+        window.location=window.location.href;
         return result;
     })
 }

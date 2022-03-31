@@ -150,11 +150,6 @@ delete_tour.addEventListener("click", function(){
     console.log("de tour");
     import("./booking_module.js").then(func=>{
         func.delete_booking();
-        window.location=window.location.href;
-        // setTimeout(function(){
-        //     window.location=window.location.href;
-        // }, 100);
-        
     });
 })
 //-------------------------------------Run----------------------------------------

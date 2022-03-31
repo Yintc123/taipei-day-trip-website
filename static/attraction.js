@@ -207,14 +207,12 @@ sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){
         import("./sign_module.js").then(func => {
             func.SignIn(flag).then(()=>{
-                console.log(flag);
-                if(flag>500){
-                    console.log(flag);
+                if(result["error"]==true){
+                    return ;
+                }else if(flag>500){
                     user_status=1;
                     booking_button.click();
                 }
-            }).catch(()=>{
-                console.log("error");
             });
         })
     }else{

@@ -207,6 +207,7 @@ sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){
         import("./sign_module.js").then(func => {
             func.SignIn(flag).then(()=>{
+                console.log(flag);
                 if(flag>500){
                     console.log(flag);
                     // booking_button.click();

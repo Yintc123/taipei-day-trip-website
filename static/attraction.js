@@ -1,6 +1,10 @@
 console.log("hi");
+// let url_home='http://127.0.0.1:3000/';
+let url_home='http://3.115.234.130:3000/';//EC2
 // let url="http://127.0.0.1:3000/api/attraction/";
-let url="http://3.115.234.130:3000/api/attraction/"//EC2
+let url="http://3.115.234.130:3000/api/attraction/";//EC2
+// let booking="http://127.0.0.1:3000/booking";
+let booking="http://3.115.234.130:3000/booking";//EC2
 let last=document.getElementById("last_one");
 let next=document.getElementById("next_one");
 let tour_time=document.getElementsByName("time");
@@ -8,33 +12,34 @@ let data=null;
 let img_index=0;
 let cur_url=window.location.href;
 let id=cur_url.split("/")[4];
+let user_status=0;
+let booking_flag=0;
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
-    let id_url=url+id;
-    fetch(id_url).then((response)=>{
+    let url_id=url+id;
+    fetch(url_id).then((response)=>{
         return response.json();
     }).then((result)=>{
         data=result["data"]
         if(data==undefined){//網頁偵錯
             // window.history.go(-1);//回上一頁
-            // window.location='http://127.0.0.1:3000/';//回首頁
-            window.location='http://3.115.234.130:3000/';//回首頁，EC2
+            window.location=url_home;//回首頁
         }
         import("./sign_module.js").then(func=>{
             func.get_user_info().then(user => {
                 if(user["data"]!=null){//確認使用者登入狀況
                     func.sign_in_view(user);
+                    user_status=1;
                 }else{
                     func.sign_out_view();
+                    user_status=0;
                 }
             });
         })
         load_image(data, img_index);
         load_book_info(data);
         load_attraction_info(data);
-        tour_cost();
-        set_date();
     })
 }
 
@@ -58,6 +63,8 @@ function load_book_info(data){
     attraction_name.textContent=data["name"];
     attraction_cat.textContent=data["category"];
     attraction_MRT.textContent=data["MRT"];
+    tour_cost();
+    set_date();
 }
 
 function load_attraction_info(data){
@@ -91,9 +98,9 @@ function load_img_index(data, index){
 function tour_cost(){
     let cost=document.getElementById("cost");
     if(tour_time[0].checked){
-        cost.textContent="新台幣 " + tour_time[0].value + " 元";
+        cost.textContent="新台幣 " + "2000" + " 元";
     }else{
-        cost.textContent="新台幣 " + tour_time[1].value + " 元";
+        cost.textContent="新台幣 " + "2500" + " 元";
     }     
 }
 
@@ -118,11 +125,35 @@ let background=document.getElementById("background");
 let close_sign=document.getElementById("close_sign");
 let sign_button=document.getElementById("sign_button");
 let switch_sign_up=document.getElementById("click_sign_up");
+let booking_button=document.getElementById("booking_button");
+let schedule=document.getElementById("schedule");
+
+window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事件
+    let password=document.getElementsByName("password")[0];
+    if(document.activeElement===password && (e.code=="Enter" || e.code=="NumpadEnter")){
+        sign_button.click();
+    }
+});
 
 tour_time.forEach(time => {//依input的物件創造兩個"change"監聽事件
     time.addEventListener("change", function(){
         tour_cost();
     });
+})
+
+booking_button.addEventListener("click", function(){
+    if(user_status==0){
+        booking_flag=1;
+        sign_in_or_up.click();
+    }
+    else{
+        import("./booking_module.js").then(func => {
+            func.booking_tour(id).then(result=>{
+                window.location=func.booking;
+                return result;
+            })
+        });
+    }
 })
 
 last.addEventListener("click", function(){
@@ -148,8 +179,9 @@ next.addEventListener("click", function(){
 sign_in_or_up.addEventListener("click", function(){
     import("./sign_module.js").then(func => {
         if(sign_in_or_up.textContent=="登出系統"){
-            func.delete_sign();
-            // func.sign_out_view();//重新整理會直接抓sign_out_view()
+            func.delete_sign().then(result=>{
+                window.location=window.location.href;
+            });
         }else{
             func.init_sign_in()
             background.style.display="block";
@@ -162,17 +194,26 @@ sign_in_or_up.addEventListener("click", function(){
 background.addEventListener("click", function(){
     background.style.display="none";
     sign.style.display="none";
+    booking_flag=0;
 })
 
 close_sign.addEventListener("click", function(){
     background.style.display="none";
     sign.style.display="none";
+    booking_flag=0;
 })
 
 sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){
         import("./sign_module.js").then(func => {
-            func.SignIn();
+            func.SignIn(booking_flag).then((result)=>{
+                if(result["error"]==true){
+                    return ;
+                }else if(booking_flag>0){
+                    user_status=1;
+                    booking_button.click();
+                }
+            });
         })
     }else{
         import("./sign_module.js").then(func => {
@@ -189,6 +230,13 @@ switch_sign_up.addEventListener("click", function(){
             func.init_sign_in()
         }
     })
+})
+schedule.addEventListener("click", function(){
+    if(user_status==0){
+        sign_in_or_up.click();
+    }else{
+        window.location=booking;
+    }
 })
 //--------------------------------處理data(M)-------------------------------//
 function get_image(image, index){

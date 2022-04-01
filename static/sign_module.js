@@ -65,17 +65,15 @@ export async function delete_sign(){
     return await fetch(url_sign, {method:"DELETE"}).then((response) => {
         return response.json();
     }).then((result) => {
-        window.location=window.location.href;
-        // sign_out_view()
         return result;
     })
 }
 
-export async function SignIn(email, password){
+export async function SignIn(flag){
     let email_input=document.getElementsByName("email")[0];
     let password_input=document.getElementsByName("password")[0];
-    email=email_input.value;
-    password=password_input.value;
+    let email=email_input.value;
+    let password=password_input.value;
     let details = {
         'email':email,
         'password':password
@@ -103,10 +101,10 @@ export async function SignIn(email, password){
             fail_message.textContent=result["message"]+" ";
             fail_message.style.color="red";
         }else{
-            window.location=window.location.href;
-            // get_user_info().then(user => {
-            //     sign_in_view(user);
-            // });
+            if(flag>0){
+                return result;
+            }
+            window.location=window.location.href;//重新整理頁面
         }
         return result;
     })

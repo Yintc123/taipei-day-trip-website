@@ -452,7 +452,7 @@ label:hover{
     left:-115px;
     transform:translate(-50%, -50%);
     /* display:none; */
-    display:block;
+    display:inline-block;
   }
   .lds-ellipsis div {
     position: absolute;

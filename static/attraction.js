@@ -148,6 +148,7 @@ booking_button.addEventListener("click", function(){
         sign_in_or_up.click();
     }
     else{
+        console.log("1234");
         import("./booking_module.js").then(func => {
             func.booking_tour(id).then(result=>{
                 window.location=func.booking;

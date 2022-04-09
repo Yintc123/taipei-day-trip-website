@@ -119,6 +119,18 @@ function set_date(){
     calendar.value=year+"-"+month+"-"+day;
     calendar.min=calendar.value;
 }
+
+function loading_img(swch){
+    let booking_button=document.getElementById("booking_button");
+    let loading=document.getElementById("lds-ellipsis");
+    if (swch==1){
+        loading.style.display="inline-block";
+        booking_button.value="";
+    }else{
+        loading.style.display="none";
+        booking_button.value="開始預訂行程";
+    }
+}
 //--------------------------------監聽事件-------------------------------//
 let sign_in_or_up=document.getElementById("sign_in_or_up");
 let background=document.getElementById("background");
@@ -142,16 +154,17 @@ tour_time.forEach(time => {//依input的物件創造兩個"change"監聽事件
 })
 
 booking_button.addEventListener("click", function(){
-    console.log("123");
+    loading_img(1);
     if(user_status==0){
         booking_flag=1;
         sign_in_or_up.click();
+        loading_img(0);
     }
     else{
-        console.log("1234");
         import("./booking_module.js").then(func => {
             func.booking_tour(id).then(result=>{
                 window.location=func.booking;
+                loading_img(0);
                 return result;
             })
         });

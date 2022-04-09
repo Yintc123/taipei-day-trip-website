@@ -142,6 +142,7 @@ tour_time.forEach(time => {//依input的物件創造兩個"change"監聽事件
 })
 
 booking_button.addEventListener("click", function(){
+    console.log("123");
     if(user_status==0){
         booking_flag=1;
         sign_in_or_up.click();

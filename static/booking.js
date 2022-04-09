@@ -280,6 +280,17 @@ let phone_input=document.getElementById("phone");
 let name_input=document.getElementById("name");
 let email_input=document.getElementById("email");
 
+window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事件
+    let card_number=document.getElementById("card-number");
+    let card_expiration_date=document.getElementById("card-expiration-date");
+    let card_ccv=document.getElementById("card-ccv");
+    input_list=[phone_input, name_input, email_input, card_number, card_expiration_date, card_ccv]
+
+    if(document.activeElement in input_list && (e.code=="Enter" || e.code=="NumpadEnter")){
+        sign_button.click();
+    }
+});
+
 sign_in_or_up.addEventListener("click", function(){
     import("./sign_module.js").then(func => {
         if(sign_in_or_up.textContent=="登出系統"){

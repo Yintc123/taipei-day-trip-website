@@ -442,6 +442,10 @@ hr{
         width:95%;
         height:auto;
     }
+    .lds-roller{
+        left:50%;
+        top:50%;
+    }
 }
 @media screen and (max-width:415px){
     .navigation ul{

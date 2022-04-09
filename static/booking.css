@@ -561,7 +561,7 @@ hr{
   
   .lds-ellipsis {
     display: inline-block;
-    position: relative;
+    position: absolute;
     top: 30%;
     left:30%;
     transform:translate(-50%, -50%);

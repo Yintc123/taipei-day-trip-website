@@ -447,7 +447,7 @@ label:hover{
 /* loading */
 .lds-ellipsis {
     display: inline-block;
-    position: absolute;
+    position: relative;
     top:-5px;
     left:-5px;
     transform:translate(-50%, -50%);

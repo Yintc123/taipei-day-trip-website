@@ -124,7 +124,7 @@ function loading_img(swch){
     let booking_button=document.getElementById("booking_button");
     let loading=document.getElementById("lds-ellipsis");
     if (swch==1){
-        loading.style.display="block";
+        loading.style.display="inline-block";
         booking_button.value="";
     }else{
         loading.style.display="none";

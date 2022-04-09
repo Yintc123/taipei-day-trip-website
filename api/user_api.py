@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import Blueprint, make_response, request, jsonify
 import jwt, datetime
-from handle_data import Handle_member as handle_user
+from handle_user_data import Handle_member as handle_user
 
 app3=Blueprint("user_api", __name__)
 
@@ -27,6 +27,10 @@ def create_user():
     name=request.form["name"]
     email=request.form["email"]
     password=request.form["password"]
+    if "@" not in email:
+        fail_message="註冊失敗，Email格式有誤"
+        error["message"]=fail_message
+        return error
     con_user=handle_user()
     result=con_user.create_user(name=name, email=email, password=password)
     if result==0:
@@ -51,6 +55,11 @@ def patch_user():
         fail_message="請輸入帳號"
         error["message"]=fail_message
         return error
+    elif "@" not in email:
+        fail_message="登入失敗，Email格式有誤"
+        error["message"]=fail_message
+        return error
+        
     con_user=handle_user()
     user_info=con_user.get_user_info(email)
     if user_info==None: # 判斷帳號是否已申請

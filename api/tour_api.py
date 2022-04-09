@@ -1,7 +1,7 @@
 import datetime
 from flask import Blueprint, make_response, request, jsonify
 import jwt
-from handle_data import Handle_DB as handle
+from handle_attraction_data import Handle_DB as handle
 
 key_booking="secret_key" # jwt_key
 key_user="secret" # jwt_key

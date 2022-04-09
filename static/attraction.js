@@ -1,9 +1,9 @@
 console.log("hi");
 // let url_home='http://127.0.0.1:3000/';
-let url_home='http://3.115.234.130:3000/';//EC2
 // let url="http://127.0.0.1:3000/api/attraction/";
-let url="http://3.115.234.130:3000/api/attraction/";//EC2
 // let booking="http://127.0.0.1:3000/booking";
+let url_home='http://3.115.234.130:3000/';//EC2
+let url="http://3.115.234.130:3000/api/attraction/";//EC2
 let booking="http://3.115.234.130:3000/booking";//EC2
 let last=document.getElementById("last_one");
 let next=document.getElementById("next_one");
@@ -113,11 +113,23 @@ function set_date(){
     if(month<10){
         month="0"+month;
     }
-    if(date<10){
+    if(day<10){
         day="0"+day;
     }
     calendar.value=year+"-"+month+"-"+day;
     calendar.min=calendar.value;
+}
+
+function loading(swch){
+    let booking_button=document.getElementById("booking_button");
+    let loading=document.getElementById("lds-ellipsis");
+    if (swch==1){
+        loading.style.display="inline-block";
+        booking_button.value="";
+    }else{
+        loading.style.display="none";
+        booking_button.value="開始預訂行程";
+    }
 }
 //--------------------------------監聽事件-------------------------------//
 let sign_in_or_up=document.getElementById("sign_in_or_up");
@@ -142,14 +154,17 @@ tour_time.forEach(time => {//依input的物件創造兩個"change"監聽事件
 })
 
 booking_button.addEventListener("click", function(){
+    loading(1);
     if(user_status==0){
         booking_flag=1;
         sign_in_or_up.click();
+        loading(0);
     }
     else{
         import("./booking_module.js").then(func => {
             func.booking_tour(id).then(result=>{
                 window.location=func.booking;
+                loading(0);
                 return result;
             })
         });

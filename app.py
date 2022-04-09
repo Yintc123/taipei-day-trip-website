@@ -2,6 +2,7 @@ from flask import *
 from api.attractions_api import app2
 from api.user_api import app3
 from api.tour_api import app4
+from api.order_api import app5
 
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
@@ -24,6 +25,7 @@ def thankyou():
 app.register_blueprint(app2, url_prefix="/api")
 app.register_blueprint(app3, url_prefix="/api")
 app.register_blueprint(app4, url_prefix="/api")
+app.register_blueprint(app5, url_prefix="/api")
 
 app.debug=True
 app.run(host="0.0.0.0", port=3000)#change port to 3000

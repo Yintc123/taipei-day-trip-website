@@ -265,6 +265,16 @@ function control_confirmation_btn_loading(swch){
         lds_ellipsis.style.display="none";
         cfm_btn_txt.style.display="block";
     }
+    loading_for_confirmation(swch);
+}
+
+function loading_for_confirmation(swch){
+    let loading_confirmation=document.getElementById("loading_for_confirmation");
+    if(swch==0){
+        loading_confirmation.style.display="none";
+    }else{
+        loading_confirmation.style.display="block";
+    }
 }
 //--------------------------------監聽事件-------------------------------//
 

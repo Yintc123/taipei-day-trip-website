@@ -326,7 +326,6 @@ label:hover{
     cursor:pointer;
 }
 #booking_button{
-    position:relative;
     margin:25px 0px auto 0px;
     width:154px;
     height:36px;

@@ -120,7 +120,7 @@ function set_date(){
     calendar.min=calendar.value;
 }
 
-function loading_img(swch){
+function loading(swch){
     let booking_button=document.getElementById("booking_button");
     let loading=document.getElementById("lds-ellipsis");
     if (swch==1){
@@ -154,17 +154,17 @@ tour_time.forEach(time => {//依input的物件創造兩個"change"監聽事件
 })
 
 booking_button.addEventListener("click", function(){
-    loading_img(1);
+    loading(1);
     if(user_status==0){
         booking_flag=1;
         sign_in_or_up.click();
-        loading_img(0);
+        loading(0);
     }
     else{
         import("./booking_module.js").then(func => {
             func.booking_tour(id).then(result=>{
                 window.location=func.booking;
-                loading_img(0);
+                loading(0);
                 return result;
             })
         });

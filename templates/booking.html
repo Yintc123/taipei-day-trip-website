@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel='stylesheet' href="{{url_for('static', filename='booking.css')}}">
+        <script src="https://js.tappaysdk.com/tpdirect/v5.9.0"></script>
     </head>
     <body>
         <div id='background' class='background'>
@@ -23,8 +24,7 @@
         </form>
         <div class='nav_frame'>
             <div class='navigation'>
-                <h3><a href="http://3.115.234.130:3000/">台北一日遊</a></h3>
-                <!--<h3><a href="http://127.0.0.1:3000/">台北一日遊</a></h3>-->
+                <h3 id='taipei'></h3>
                 <ul>
                     <li id='greet'></li>
                     <li id='schedule'></li>
@@ -32,48 +32,48 @@
                 </ul>
             </div>
         </div>
-        <div class='content'>
-            <div class='content_container'>
-                <p>您好，<span id='user_name'>visitor</span>，待預定的行程如下：
-            </div>
-            <div class='content_container_1'>
-                <div class='attraction_info'>
-                    <div class='attraction_img'>
+        <div class='white_background'>
+            <div class='content'>
+                <div class='loading'><div class="lds-roller"><div></div><div></div><div></div></div></div>
+                <div class='content_container'>
+                    <p>您好，<span id='user_name'>visitor</span>，待預定的行程如下：</p>
+                </div>
+                <div class='content_container_1'>
+                    <div class='attraction_info'>
+                        <div class='attraction_img'>
+                        </div>
+                        <div class='attraction_intro'>
+                            <h3>台北一日遊：<span id='tour_name'>name</span></h3>
+                            <h4>日期：<span id='tour_date'>tour_date</span></h4>
+                            <h4>時間：<span id='tour_time'>tour_time</span></h4>
+                            <h4>費用：<span>新台幣<span id='tour_cost'>tour_cost</span> 元</span></h4>
+                            <h4>地點：<span id='tour_adrs'>tour_adrs</span></h4>
+                        </div>
+                        <img id='delete_tour' src="{{url_for('static', filename='icon/icon_delete.png')}}" />
                     </div>
-                    <div class='attraction_intro'>
-                        <h3>台北一日遊：<span id='tour_name'>name</span></h3>
-                        <h4>日期：<span id='tour_date'>tour_date</span></h4>
-                        <h4>時間：<span id='tour_time'>tour_time</span></h4>
-                        <h4>費用：<span>新台幣<span id='tour_cost'>tour_cost</span> 元</span></h4>
-                        <h4>地點：<span id='tour_adrs'>tour_adrs</span></h4>
+                    <hr/>
+                    <div class='content_container_2'>
+                        <h3>您的聯絡資訊</h3>
+                        <div class='user_info'>聯絡姓名：<input id='name' type='text' name='user_name' placeholder='請輸入姓名' /><p class='user_msg' id='name_msg'></p><img class='typing' id='typing_name' src="{{url_for('static', filename='icon/imessage-typing.webp')}}"></div>
+                        <div class='user_info'>聯絡信箱：<input id='email' type='text' name='user_email' placeholder='請輸入email' /><p class='user_msg' id='email_msg'></p><img class='typing' id='typing_email' src="{{url_for('static', filename='icon/imessage-typing.webp')}}"></div>
+                        <div class='user_info'>手機號碼：<input onkeyup="value=value.replace(/[^\d]/g,'')" id='phone' type='text' name='user_phone' placeholder='請輸入手機號碼' maxlength='10' /><p class='user_msg' id='phone_msg'></p><img class='typing' id='typing_phone' src="{{url_for('static', filename='icon/imessage-typing.webp')}}"></div>
+                        <p>請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，請務必留下正確的聯絡方式</p>
                     </div>
-                    <img id='delete_tour' src="{{url_for('static', filename='icon/icon_delete.png')}}" />
-                </div>
-                <hr/>
-                <div class='content_container_2'>
-                    <h3>您的聯絡資訊</h3>
-                    聯絡姓名：<input id='name' type='text' name='user_name' placeholder='請輸入姓名' />
-                    <br/>
-                    聯絡信箱：<input id='email' type='text' name='user_email' placeholder='請輸入email' />
-                    <br/>
-                    手機號碼：<input id='phone' type='text' name='user_phone' placeholder='請輸入手機號碼' />
-                    <br/>
-                    <p>請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，請務必留下正確的聯絡方式</p>
-                </div>
-                <hr/>
-                <div class='content_container_2'>
-                    <h3>信用卡付款資訊</h3>
-                    卡片號碼：<input id='card_number' type='text' name='card_number' placeholder='**** **** **** ****' />
-                    <br/>
-                    過期時間：<input id='card_expiration' type='text' name='card_expiration' placeholder='MM/YY' />
-                    <br/>
-                    驗證密碼：<input id='card_verification' type='text' name='card_verification' placeholder='CVV' />
-                    <br/>
-                </div>
-                <hr/>
-                <div class='confirmation'>
-                    <p>總價：新台幣 <span id='total_cost'>total_cost</span> 元</p>
-                    <button id='confirmation_button'>確認訂購並付款</button>
+                    <hr/>
+                    <div class='content_container_2'>
+                        <h3>信用卡付款資訊</h3>
+                        <div id='credit_card'>卡片號碼：<div class='tpfield' id='card-number'></div><p class='card_msg' id='num_msg'></p><img class='typing' id='typing_num' src="{{url_for('static', filename='icon/imessage-typing.webp')}}"></div>
+                        <br/>
+                        <div id='credit_card'>過期時間：<div class='tpfield' id='card-expiration-date'></div><p class='card_msg' id='date_msg'></p><img class='typing' id='typing_exp' src="{{url_for('static', filename='icon/imessage-typing.webp')}}"></div>
+                        <br/>
+                        <div id='credit_card'>驗證密碼：<div class='tpfield' id='card-ccv'></div><p class='card_msg' id='ccv_msg'></p><img class='typing' id='typing_ccv' src="{{url_for('static', filename='icon/imessage-typing.webp')}}"></div>
+                        <br/>
+                    </div>
+                    <hr/>
+                    <div class='confirmation'>
+                        <p>總價：新台幣 <span id='total_cost'>total_cost</span> 元</p>
+                        <button id='confirmation_button'><div id='lds-ellipsis' class="lds-ellipsis"><div></div><div></div><div></div></div><span id='cfm_btn_txt'>確認訂購並付款</span></button>
+                    </div>
                 </div>
             </div>
         </div>

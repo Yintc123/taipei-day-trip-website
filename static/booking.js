@@ -1,10 +1,166 @@
 console.log("hi");
 // let url_home='http://127.0.0.1:3000/';
 // let url="http://127.0.0.1:3000/api/attraction/";
+// let url_thanks="http://127.0.0.1:3000/thankyou";
 let url_home='http://3.115.234.130:3000/';//EC2
 let url="http://3.115.234.130:3000/api/attraction/";//EC2
+let url_thanks="http://3.115.234.130:3000/thankyou";//EC2
 let user_status=0;
+// ------------------------------使用Tappay的SDK-----------------------------------
+let confirmation_button=document.getElementById("confirmation_button");
+// TPDirect.setupSDK 設定參數
+app_key="app_K64GfXE4Bm18CcyVETTYS0e9PTZmjpVyBhGh6sHQaHiImNYSoJcGjvjM1OhT";
+TPDirect.setupSDK(123996, app_key, 'sandbox');
+// TPDirect.card.setup 設定外觀
+let fields = {
+    number: {
+        // css selector
+        element: '#card-number',
+        placeholder: '**** **** **** ****'
+    },
+    expirationDate: {
+        // DOM object
+        element: document.getElementById('card-expiration-date'),
+        placeholder: 'MM / YY'
+    },
+    ccv: {
+        element: '#card-ccv',
+        placeholder: '後三碼'
+    }
+}
 
+let styles={
+    // Style all elements
+    'input': {
+        'color': 'gray',
+        'border': '1px solid'
+    },
+    // Styling ccv field
+    'input.ccv': {
+        // 'font-size': '16px'
+    },
+    // Styling expiration-date field
+    'input.expiration-date': {
+        // 'font-size': '16px'
+    },
+    // Styling card-number field
+    'input.card-number': {
+        // 'font-size': '16px'
+    },
+    // style focus state
+    ':focus': {
+        // 'color': 'black'
+    },
+    // style valid state
+    '.valid': {
+        'color': 'green'
+    },
+    // style invalid state
+    '.invalid': {
+        'color': 'red'
+    },
+    // Media queries
+    // Note that these apply to the iframe, not the root window.
+    '@media screen and (max-width: 400px)': {
+        'input': {
+            'color': 'orange'
+        }
+    }
+}
+
+TPDirect.card.setup({
+    fields: fields,
+    styles: styles
+});
+// TPDirect.card.onUpdate，得知目前卡片資訊的輸入狀態
+TPDirect.card.onUpdate((update) => {
+    let num_msg=document.getElementById("num_msg");
+    let date_msg=document.getElementById("date_msg");
+    let ccv_msg=document.getElementById("ccv_msg");
+    let typing_num=document.getElementById("typing_num");
+    let typing_exp=document.getElementById("typing_exp");
+    let typing_ccv=document.getElementById("typing_ccv");
+
+    if(update.canGetPrime){
+        
+    }
+
+    if (update.status.number === 2) {
+        // setNumberFormGroupToError()
+        typing_num.style.display="none";
+        num_msg.style.color="red";
+        num_msg.textContent="信用卡的卡號有誤";
+    } else if (update.status.number === 0) {
+        // setNumberFormGroupToSuccess()
+        typing_num.style.display="none";
+        num_msg.style.color="green";
+        num_msg.textContent="Done!";
+    } else if (update.status.number === 3){
+        // setNumberFormGroupToNormal()
+        num_msg.textContent="";
+        typing_num.style.display="block";
+    }
+
+    if (update.status.expiry === 2) {
+        // setNumberFormGroupToError()
+        typing_exp.style.display="none";
+        date_msg.style.color="red";
+        date_msg.textContent="信用卡的到期日有誤";
+    } else if (update.status.expiry === 0) {
+        // setNumberFormGroupToSuccess()
+        typing_exp.style.display="none";
+        date_msg.style.color="green";
+        date_msg.textContent="Done!";
+    } else if (update.status.expiry === 3){
+        // setNumberFormGroupToNormal()
+        date_msg.textContent="";
+        typing_exp.style.display="block";
+    }
+
+    if (update.status.ccv === 2) {
+        // setNumberFormGroupToError()
+        typing_ccv.style.display="none";
+        ccv_msg.style.color="red";
+        ccv_msg.textContent="信用卡的驗證碼有誤";
+    } else if (update.status.ccv === 0) {
+        // setNumberFormGroupToSuccess()
+        typing_ccv.style.display="none";
+        ccv_msg.style.color="green";
+        ccv_msg.textContent="Done!";
+    } else if (update.status.ccv === 3){
+        // setNumberFormGroupToNormal()
+        ccv_msg.textContent="";
+        typing_ccv.style.display="block";
+    }
+
+});
+// TPDirect.card.getPrime 取得 Prime
+confirmation_button.addEventListener("click", function(){
+    control_confirmation_btn_loading(1);
+    TPDirect.card.getPrime((result)=>{
+        if (result.status !== 0 || !check_filled_user_info()) {
+            check_filled_card_info();
+            control_confirmation_btn_loading(0);
+            // alert('get prime error ' + result.msg);
+            return;
+        } 
+        // alert('get prime 成功，prime: ' + result.card.prime);
+        import('./order_module.js').then(func=>{
+            func.make_order(result.card.prime).then(result=>{
+                if (result["error"]){
+                    alert("Error: "+result["message"]+"\n請重新提交訂單!")
+                }else{
+                    import("./booking_module.js").then(func_booking=>{
+                        func_booking.delete_booking().then(()=>{
+                            window.location=url_thanks+"?number="+result["data"]["number"];
+                        });
+                    });
+                }
+                control_confirmation_btn_loading(0);
+            });
+        })
+    });
+})
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
@@ -41,6 +197,8 @@ function load_image(data){
     img.style.backgroundImage="url('"+data["attraction"]["image"]+"')";
 }
 function load_booking_info(data){
+    let content=document.querySelector(".content_container_1");
+    let loading=document.querySelector(".loading");
     let tour_name=document.getElementById("tour_name");
     let tour_date=document.getElementById("tour_date");
     let tour_time=document.getElementById("tour_time");
@@ -56,13 +214,24 @@ function load_booking_info(data){
         tour_time.textContent="下午4點到晚上9點";
     }
     load_image(data);
+    content.style.display="block";
+    loading.style.display="none";
 }
 
 function load_user_info(user){
     let user_name=document.getElementById("name");
     let user_email=document.getElementById("email");
+    let name_msg=document.getElementById("name_msg");
+    let email_msg=document.getElementById("email_msg");
+    if(user["data"]==null){
+        return ;
+    }
     user_name.value=user["data"]["name"];
     user_email.value=user["data"]["email"];
+    name_msg.style.color="green";
+    email_msg.style.color="green";
+    name_msg.textContent="Done!";
+    email_msg.textContent="Done!";
 }
 
 function load_total_cost(data){
@@ -71,6 +240,7 @@ function load_total_cost(data){
 }
 
 function without_booking(){
+    let loading=document.querySelector(".loading");
     let content_container_1=document.querySelector(".content_container_1");
     let container=document.createElement("div");
     let message=document.createElement("p");
@@ -81,9 +251,23 @@ function without_booking(){
     }
     container.appendChild(message);
     content_container_1.appendChild(container);
+    content_container_1.style.display="block";
+    loading.style.display="none";
+}
+
+function control_confirmation_btn_loading(swch){
+    let lds_ellipsis=document.getElementById("lds-ellipsis");
+    let cfm_btn_txt=document.getElementById("cfm_btn_txt");
+    if(swch==1){
+        cfm_btn_txt.style.display="none";
+        lds_ellipsis.style.display="inline-block";
+    }else{
+        lds_ellipsis.style.display="none";
+        cfm_btn_txt.style.display="block";
+    }
 }
 //--------------------------------監聽事件-------------------------------//
-let button=document.getElementById("button");
+
 let sign_in_or_up=document.getElementById("sign_in_or_up");
 let background=document.getElementById("background");
 let close_sign=document.getElementById("close_sign");
@@ -92,6 +276,9 @@ let sign_button=document.getElementById("sign_button");
 let switch_sign_up=document.getElementById("click_sign_up");
 let schedule=document.getElementById("schedule");
 let delete_tour=document.getElementById("delete_tour");
+let phone_input=document.getElementById("phone");
+let name_input=document.getElementById("name");
+let email_input=document.getElementById("email");
 
 sign_in_or_up.addEventListener("click", function(){
     import("./sign_module.js").then(func => {
@@ -146,8 +333,114 @@ schedule.addEventListener("click", function(){
 
 delete_tour.addEventListener("click", function(){
     import("./booking_module.js").then(func=>{
-        func.delete_booking();
+        func.delete_booking().then(()=>{
+            window.location=window.location.href;
+        });
     });
 })
+
+phone_input.addEventListener("input", function(){
+    let typing_phone=document.getElementById("typing_phone");
+    let phone_msg=document.getElementById("phone_msg");
+    phone_msg.style.display="none";
+    typing_phone.style.display="block";
+    if(phone_input.value.length==10){
+        typing_phone.style.display="none";
+        phone_msg.style.display="block";
+        if(phone_input.value[0]!=0 || phone_input.value[1]!=9){
+            phone_msg.style.color="red";
+            phone_msg.textContent="請填寫正確的手機號碼";
+        }else{
+            phone_msg.style.color="green";
+            phone_msg.textContent="Done!";
+        } 
+    }else{
+        phone_msg.style.color="red";
+        phone_msg.textContent="請填寫正確的手機號碼";
+    }
+})
+
+name_input.addEventListener("input", function(){
+    let typing_name=document.getElementById("typing_name");
+    let name_msg=document.getElementById("name_msg");
+    name_msg.style.display="none";
+    typing_name.style.display="block";
+})
+
+name_input.addEventListener("change", function(){
+    let typing_name=document.getElementById("typing_name");
+    let name_msg=document.getElementById("name_msg");
+    typing_name.style.display="none";
+    name_msg.style.display="block";
+    if(name_input.value==""){
+        name_msg.style.color="red";
+        name_msg.textContent="請輸入此欄位!";
+    }else{
+        name_msg.style.color="green";
+        name_msg.textContent="Done!";
+    }
+})
+
+email_input.addEventListener("input", function(){
+    let typing_email=document.getElementById("typing_email");
+    let email_msg=document.getElementById("email_msg");
+    email_msg.style.display="none";
+    typing_email.style.display="block";
+})
+
+email_input.addEventListener("change", function(){
+    let typing_email=document.getElementById("typing_email");
+    let email_msg=document.getElementById("email_msg");
+    typing_email.style.display="none";
+    email_msg.style.display="block";
+    if(email_input.value==""){
+        email_msg.style.color="red";
+        email_msg.textContent="請輸入此欄位!";
+    }else if (email_input.value.indexOf("@")==-1){
+        email_msg.style.color="red";
+        email_msg.textContent="請輸入正確的email!";
+    }else{
+        email_msg.style.color="green";
+        email_msg.textContent="Done!";
+    }
+})
+//------------------------------------data---------------------------------------
+function check_filled_user_info(){
+    let name=document.getElementById("name");
+    let email=document.getElementById("email");
+    let phone=document.getElementById("phone");
+    let name_msg=document.getElementById("name_msg");
+    let email_msg=document.getElementById("email_msg");
+    let phone_msg=document.getElementById("phone_msg");
+    if(name_msg.textContent=="Done!" && email_msg.textContent=="Done!" && phone_msg.textContent=="Done!"){
+        return true;
+    }else{
+        if (name.value=="" || email.value=="" || phone.value==""){
+            input=[name, email, phone]
+            for(index in input){
+                if(input[index].value==""){
+                    console.log(input[index]);
+                    input[index].focus();
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+}
+
+function check_filled_card_info(){
+    let num_msg=document.getElementById("num_msg");
+    let date_msg=document.getElementById("date_msg");
+    let ccv_msg=document.getElementById("ccv_msg");
+    msg=[num_msg, date_msg, ccv_msg];
+    for(index in msg){
+        if(msg[index].textContent!="Done!" && msg[index].textContent!="信用卡的卡號有誤"){
+            msg[index].style.color="red";
+            msg[index].textContent="請填寫此欄位!";
+
+        }
+    }
+}
 //-------------------------------------Run----------------------------------------
 init();

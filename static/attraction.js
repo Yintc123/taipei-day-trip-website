@@ -1,9 +1,9 @@
 console.log("hi");
 // let url_home='http://127.0.0.1:3000/';
-let url_home='http://3.115.234.130:3000/';//EC2
 // let url="http://127.0.0.1:3000/api/attraction/";
-let url="http://3.115.234.130:3000/api/attraction/";//EC2
 // let booking="http://127.0.0.1:3000/booking";
+let url_home='http://3.115.234.130:3000/';//EC2
+let url="http://3.115.234.130:3000/api/attraction/";//EC2
 let booking="http://3.115.234.130:3000/booking";//EC2
 let last=document.getElementById("last_one");
 let next=document.getElementById("next_one");
@@ -113,7 +113,7 @@ function set_date(){
     if(month<10){
         month="0"+month;
     }
-    if(date<10){
+    if(day<10){
         day="0"+day;
     }
     calendar.value=year+"-"+month+"-"+day;

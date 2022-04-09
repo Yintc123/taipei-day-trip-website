@@ -1,5 +1,9 @@
 // let url_sign="http://127.0.0.1:3000/api/user";
+// let url_home="http://127.0.0.1:3000/";
+// let url_thanks="http://127.0.0.1:3000/thankyou";
 let url_sign="http://3.115.234.130:3000/api/user";//EC2
+let url_home="http://3.115.234.130:3000/";//EC2
+let url_thanks="http://3.115.234.130:3000/thankyou";//EC2
 
 export async function get_user_info(){
     return await fetch(url_sign).then((response) => {
@@ -111,13 +115,21 @@ export async function SignIn(flag){
 }
 
 export function sign_in_view(user){
+    let taipei_navigation=document.getElementById("taipei");
     let greet=document.getElementById("greet");
     let sign_in_or_up=document.getElementById("sign_in_or_up");
     let fail_message=document.getElementById("fail_message");
     let schedule=document.getElementById("schedule");
-    greet.textContent="Hi ~ "+user["data"]["name"];
-    greet.style.color="blue";
-    greet.style.fontWeight="700";
+    let a=document.createElement("a");
+    let a2=document.createElement("a");
+    a.href=url_home;
+    a.textContent="台北一日遊";
+    taipei_navigation.appendChild(a);
+    a2.href=url_thanks;
+    a2.textContent="Hi ~ "+user["data"]["name"];
+    a2.style.color="blue";
+    a2.style.fontWeight="700";
+    greet.appendChild(a2);
     sign_in_or_up.textContent="登出系統";
     fail_message.textContent="登入成功! ";
     fail_message.style.color="blue";
@@ -129,6 +141,11 @@ export function sign_out_view(){
     let fail_message=document.getElementById("fail_message");
     let sign_in_or_up=document.getElementById("sign_in_or_up");
     let schedule=document.getElementById("schedule");
+    let taipei_navigation=document.getElementById("taipei");
+    let a=document.createElement("a");
+    a.href=url_home;
+    a.textContent="台北一日遊";
+    taipei_navigation.appendChild(a);
     greet.textContent="";
     fail_message.textContent="還沒有帳戶？";
     sign_in_or_up.textContent="登入/註冊";

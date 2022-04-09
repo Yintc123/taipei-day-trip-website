@@ -5,7 +5,7 @@ body{
     font-family:'Noto Sans TC';
     display:grid;
     grid-template-columns: auto 1200px auto;
-    grid-template-rows: 54px auto auto;
+    grid-template-rows: 54px minmax(200px, auto) auto;
     font-family:'Noto Sans TC';
     background-color:#757575;
 }

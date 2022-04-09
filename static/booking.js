@@ -286,6 +286,12 @@ window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事
     let card_ccv=document.getElementById("card-ccv");
     input_list=[phone_input, name_input, email_input, card_number, card_expiration_date, card_ccv]
 
+    for(index in input_list){
+        if(document.activeElement===input_list[index] && (e.code=="Enter" || e.code=="NumpadEnter")){
+            sign_button.click();
+        }
+    }
+
     if(document.activeElement in input_list && (e.code=="Enter" || e.code=="NumpadEnter")){
         sign_button.click();
     }

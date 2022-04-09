@@ -291,10 +291,6 @@ window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事
             confirmation_button.click();
         }
     }
-
-    // if(document.activeElement in input_list && (e.code=="Enter" || e.code=="NumpadEnter")){
-    //     sign_button.click();
-    // }
 });
 
 sign_in_or_up.addEventListener("click", function(){

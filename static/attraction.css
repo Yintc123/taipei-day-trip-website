@@ -451,7 +451,8 @@ label:hover{
     top:-15px;
     left:-115px;
     transform:translate(-50%, -50%);
-    display:none;
+    /* display:none; */
+    display:block;
   }
   .lds-ellipsis div {
     position: absolute;

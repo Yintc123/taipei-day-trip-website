@@ -35,7 +35,7 @@ function show_order_info(user){
                 for(index in result){
                     create_table_comp(result[index], index);
                 }
-                loading_finished(0);
+                // loading_finished(0);
                 return result;
             });
         })
@@ -54,7 +54,7 @@ function show_order_info(user){
                     order_text.textContent="";
                 }
                 show_user_name(user);
-                loading_finished(1);
+                // loading_finished(1);
             });
         })
     }

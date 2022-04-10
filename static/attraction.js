@@ -125,10 +125,10 @@ function loading(swch){
     let loading=document.getElementById("lds-ellipsis");
     if (swch==1){
         loading.style.display="inline-block";
-        booking_button.value="";
+        booking_button.textContent="";
     }else{
         loading.style.display="none";
-        booking_button.value="開始預訂行程";
+        booking_button.textContent="開始預訂行程";
     }
 }
 //--------------------------------監聽事件-------------------------------//
@@ -157,14 +157,14 @@ booking_button.addEventListener("click", function(){
     loading(1);
     if(user_status==0){
         booking_flag=1;
-        sign_in_or_up.click();
-        loading(0);
+        // sign_in_or_up.click();
+        // loading(0);
     }
     else{
         import("./booking_module.js").then(func => {
             func.booking_tour(id).then(result=>{
-                window.location=func.booking;
-                loading(0);
+                // window.location=func.booking;
+                // loading(0);
                 return result;
             })
         });

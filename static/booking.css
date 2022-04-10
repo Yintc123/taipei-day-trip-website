@@ -645,10 +645,10 @@ hr{
     /* .loading{
         top:50%;
     } */
-    .lds-roller{
+    /* .lds-roller{
         left:-40%;
         top:50%;
-    }
+    } */
 }
 @media screen and (max-width:415px){
     .navigation ul{

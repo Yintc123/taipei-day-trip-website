@@ -335,6 +335,7 @@ label:hover{
     font-size:19px;
     color:#ffffff;
     font-weight:400;
+    position:relative;
 }
 #booking_button:hover{
     cursor:pointer;

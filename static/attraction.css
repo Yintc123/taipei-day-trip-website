@@ -402,7 +402,7 @@ label:hover{
     top:33%;
     left:26%;
     transform:translate(-50%, -50%);
-    /* display:none; */
+    display:none;
     /* display:inline-block; */
   }
   .lds-ellipsis div {

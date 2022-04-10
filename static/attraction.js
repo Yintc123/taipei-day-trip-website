@@ -123,6 +123,7 @@ function set_date(){
 function loading(swch){
     let booking_button=document.getElementById("booking_button");
     let loading=document.getElementById("lds-ellipsis");
+    console.log(loading);
     if (swch==1){
         loading.style.display="inline-block";
         booking_button.textContent="";

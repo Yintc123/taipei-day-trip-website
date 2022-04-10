@@ -336,6 +336,7 @@ label:hover{
     color:#ffffff;
     font-weight:400;
     position:relative;
+    padding:0px;
 }
 #booking_button:hover{
     cursor:pointer;
@@ -396,7 +397,7 @@ label:hover{
 }
 /* loading */
 .lds-ellipsis {
-    display: inline-block;
+    /* display: inline-block; */
     position: absolute;
     top:33%;
     left:26%;
@@ -409,8 +410,8 @@ label:hover{
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: #000;
-    /* background: #fff; */
+    /* background: #000; */
+    background: #fff;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
   .lds-ellipsis div:nth-child(1) {

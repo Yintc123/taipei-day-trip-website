@@ -140,7 +140,7 @@ confirmation_button.addEventListener("click", function(){
     TPDirect.card.getPrime((result)=>{
         if (result.status !== 0 || !check_filled_user_info()) {
             check_filled_card_info();
-            control_confirmation_btn_loading(0);
+            // control_confirmation_btn_loading(0);
             // alert('get prime error ' + result.msg);
             return;
         } 
@@ -156,7 +156,7 @@ confirmation_button.addEventListener("click", function(){
                         });
                     });
                 }
-                control_confirmation_btn_loading(0);
+                // control_confirmation_btn_loading(0);
             });
         })
     });

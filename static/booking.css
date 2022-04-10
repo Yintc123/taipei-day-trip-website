@@ -442,13 +442,13 @@ hr{
         width:95%;
         height:auto;
     }
-    .loading{
-        top:50%;
-    }
-    /* .lds-roller{
-        left:-50%;
+    /* .loading{
         top:50%;
     } */
+    .lds-roller{
+        left:-50%;
+        top:50%;
+    }
 }
 @media screen and (max-width:415px){
     .navigation ul{

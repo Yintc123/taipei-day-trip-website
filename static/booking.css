@@ -475,6 +475,7 @@ hr{
     width:100%;
     min-width: 350px;
     max-width:1200px;
+    height:100%;
     top:40%;
 }
 .lds-roller {

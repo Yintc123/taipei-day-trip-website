@@ -470,7 +470,7 @@ hr{
     z-index:200;
     background-color: #000000;
     width:100%;
-    /* min-width: 600px; */
+    min-width: 350px;
     max-width:1200px;
     top:40%;
 }

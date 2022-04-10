@@ -43,7 +43,10 @@ function show_order_info(user){
     }else{
         import('./order_module.js').then(func=>{
             func.get_order_info(get_order_number()).then(result=>{
-                if(result["data"]["contact"]["email"]==user["data"]["email"]){
+                if(result["data"]==null){
+                    order_user.textContent="查無近期的訂單";
+                    order_text.textContent="";
+                }else if(result["data"]["contact"]["email"]==user["data"]["email"]){
                     let order_number=document.getElementById("order_number");
                     order_number.textContent=get_order_number();
                 }else{

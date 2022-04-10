@@ -569,6 +569,7 @@ hr{
 /* loading */
 
 .lds-ripple {
+  z-index:600px;
   display: inline-block;
   position: fixed;
   top:50%;

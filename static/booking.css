@@ -426,7 +426,7 @@ hr{
   height: 80px;
   /* left:38%; */
   left:50%;
-  top:50%;
+  top:60%;
   transform:translate(-50%, -50%);
 }
 .lds-roller div {

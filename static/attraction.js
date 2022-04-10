@@ -125,11 +125,11 @@ function loading(swch){
     let loading=document.getElementById("lds-ellipsis");
     console.log(loading);
     if (swch==1){
+        booking_button.textContent="";
         loading.style.display="inline-block";
-        // booking_button.textContent="";
     }else{
-        // loading.style.display="none";
-        // booking_button.textContent="開始預訂行程";
+        loading.style.display="none";
+        booking_button.textContent="開始預訂行程";
     }
 }
 //--------------------------------監聽事件-------------------------------//

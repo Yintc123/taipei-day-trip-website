@@ -180,10 +180,10 @@ function init(){
     import("./booking_module.js").then(func=>{
         func.get_booking().then(data=>{
             if(data==null){
-                without_booking();
+                // without_booking();
             }else{
-                load_booking_info(data);
-                load_total_cost(data);
+                // load_booking_info(data);
+                // load_total_cost(data);
             }
         });
     })
@@ -215,7 +215,7 @@ function load_booking_info(data){
     }
     load_image(data);
     content.style.display="block";
-    // loading.style.display="none";
+    loading.style.display="none";
 }
 
 function load_user_info(user){

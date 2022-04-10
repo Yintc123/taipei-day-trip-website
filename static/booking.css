@@ -566,10 +566,9 @@ hr{
     transform: translate(24px, 0);
   }
 }
-/* loading */
+/* loading3 */
 
 .lds-ripple {
-  z-index:600px;
   display: inline-block;
   position: fixed;
   top:50%;
@@ -577,7 +576,7 @@ hr{
   width: 80px;
   height: 80px;
   transform:translate(-50%, -50%);
-  display:none;
+  /* display:none; */
 }
 .lds-ripple div {
   position: absolute;

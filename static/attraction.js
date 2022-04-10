@@ -121,15 +121,15 @@ function set_date(){
 }
 
 function loading(swch){
-    let booking_button=document.getElementById("booking_button");
+    let booking_button_text=document.getElementById("booking_button_text");
     let loading=document.getElementById("lds-ellipsis");
     console.log(loading);
     if (swch==1){
-        booking_button.textContent="";
+        booking_button_text.style.display="none";
         loading.style.display="inline-block";
     }else{
         loading.style.display="none";
-        booking_button.textContent="開始預訂行程";
+        booking_button_text.style.display="block";
     }
 }
 //--------------------------------監聽事件-------------------------------//

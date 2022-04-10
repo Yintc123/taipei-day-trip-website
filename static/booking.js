@@ -215,7 +215,7 @@ function load_booking_info(data){
     }
     load_image(data);
     content.style.display="block";
-    loading.style.display="none";
+    // loading.style.display="none";
 }
 
 function load_user_info(user){

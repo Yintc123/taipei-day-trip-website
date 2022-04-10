@@ -192,6 +192,7 @@ hr{
     grid-row-start: 1;
     grid-row-end: span 1;
     background-color: #ffffff;
+    position:relative;
     /* display:none; */
 }
 .content_container{

@@ -569,6 +569,7 @@ hr{
 /* loading3 */
 
 .lds-ripple {
+  z-index:1000;
   display: inline-block;
   position: fixed;
   top:50%;
@@ -579,7 +580,6 @@ hr{
   /* display:none; */
 }
 .lds-ripple div {
-  z-index:1000;
   position: absolute;
   border: 4px solid #448899;
   opacity: 1;

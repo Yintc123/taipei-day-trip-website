@@ -126,10 +126,10 @@ function loading(swch){
     console.log(loading);
     if (swch==1){
         loading.style.display="inline-block";
-        booking_button.textContent="";
+        // booking_button.textContent="";
     }else{
-        loading.style.display="none";
-        booking_button.textContent="開始預訂行程";
+        // loading.style.display="none";
+        // booking_button.textContent="開始預訂行程";
     }
 }
 //--------------------------------監聽事件-------------------------------//

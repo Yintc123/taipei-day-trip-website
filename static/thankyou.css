@@ -241,59 +241,7 @@ hr{
     color:white;
     height:100%;
 }
-@media screen and (max-width:1199px){
-    body{
-        grid-template-columns: auto 100% auto;
-    }
-    .white_background{
-        grid-template-columns: auto 100% auto;
-    }
-    .nav_frame{
-        grid-template-columns: auto 100% auto;
-    }
-}
-@media screen and (max-width:685px){
-    .content_container{
-        width:95%;
-        height:auto;
-    }
-    .attraction_info{
-        width:95%;
-        height:auto;
-    }
-    .attraction_info .attraction_img{
-        width:100%;
-        margin-bottom:20px;
-    }
-    .attraction_info img{
-        margin-top:auto;
-    }
-    .content_container_2{
-        width:95%;
-        height:auto;
-    }
-    .confirmation{
-        width:95%;
-        height:auto;
-    }
-}
-@media screen and (max-width:415px){
-    .navigation ul{
-        gap:5px;
-        align-items:center;
-        position:relative;
-    }
-    #sign_in_or_up{
-        margin-left:15px;
-    }
-    #greet{
-        position:absolute;
-        font-size:10px;
-        right:110px;
-        top:-15px;
-    }
-}
-
+/* loading */
 
 .loading{
     position:absolute;
@@ -390,4 +338,58 @@ hr{
       transform: rotate(360deg);
     }
   }
+
+
+@media screen and (max-width:1199px){
+    body{
+        grid-template-columns: auto 100% auto;
+    }
+    .white_background{
+        grid-template-columns: auto 100% auto;
+    }
+    .nav_frame{
+        grid-template-columns: auto 100% auto;
+    }
+}
+@media screen and (max-width:685px){
+    .content_container{
+        width:95%;
+        height:auto;
+    }
+    .attraction_info{
+        width:95%;
+        height:auto;
+    }
+    .attraction_info .attraction_img{
+        width:100%;
+        margin-bottom:20px;
+    }
+    .attraction_info img{
+        margin-top:auto;
+    }
+    .content_container_2{
+        width:95%;
+        height:auto;
+    }
+    .confirmation{
+        width:95%;
+        height:auto;
+    }
+}
+@media screen and (max-width:415px){
+    .navigation ul{
+        gap:5px;
+        align-items:center;
+        position:relative;
+    }
+    #sign_in_or_up{
+        margin-left:15px;
+    }
+    #greet{
+        position:absolute;
+        font-size:10px;
+        right:110px;
+        top:-15px;
+    }
+}
 

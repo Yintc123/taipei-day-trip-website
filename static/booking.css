@@ -408,14 +408,14 @@ hr{
     color:white;
     height:100%;
 }
-/* -------------------loading------------------------ */
+/* -------------------loading1------------------------ */
 .loading{
   position:absolute;
   z-index:200;
   /* background-color: #000000; */
   width:100%;
-  min-width: 300px;
-  max-width:1200px;
+  /* min-width: 300px;
+  max-width:1200px; */
   height:100%;
   /* top:40%; */
 }
@@ -426,6 +426,7 @@ hr{
   height: 80px;
   /* left:38%; */
   left:50%;
+  top:50%;
   transform:translate(-50%, -50%);
 }
 .lds-roller div {

@@ -158,14 +158,14 @@ booking_button.addEventListener("click", function(){
     loading(1);
     if(user_status==0){
         booking_flag=1;
-        // sign_in_or_up.click();
-        // loading(0);
+        sign_in_or_up.click();
+        loading(0);
     }
     else{
         import("./booking_module.js").then(func => {
             func.booking_tour(id).then(result=>{
-                // window.location=func.booking;
-                // loading(0);
+                window.location=func.booking;
+                loading(0);
                 return result;
             })
         });

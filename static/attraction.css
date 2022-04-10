@@ -398,8 +398,8 @@ label:hover{
 .lds-ellipsis {
     display: inline-block;
     position: absolute;
-    top:50%;
-    left:50%;
+    top:33%;
+    left:26%;
     transform:translate(-50%, -50%);
     /* display:none; */
     /* display:inline-block; */

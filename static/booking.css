@@ -411,9 +411,9 @@ hr{
 .loading{
   position:absolute;
   z-index:200;
-  background-color: #000000;
+  /* background-color: #000000; */
   width:100%;
-  min-width: 350px;
+  min-width: 300px;
   max-width:1200px;
   height:100%;
   /* top:40%; */

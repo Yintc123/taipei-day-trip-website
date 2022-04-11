@@ -138,6 +138,7 @@ function set_date(data, user){
         calendar.min=calendar.value;
     }else{
         console.log("great");
+        calendar.style.display="none";
     }
     // let date=new Date();
     // let day=date.getDate();

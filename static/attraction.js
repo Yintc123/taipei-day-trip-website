@@ -31,7 +31,7 @@ function init(){
                 if(user["data"]!=null){//確認使用者登入狀況
                     func.sign_in_view(user);
                     user_status=1;
-                    get_order_number()
+                    get_order_number();
                 }else{
                     func.sign_out_view();
                     user_status=0;
@@ -299,8 +299,8 @@ function my_timer(t){
 function get_order_number(){
     let order_number=window.location.href;
     if(window.location.href.indexOf("ordernumber")){
-        console.log(order_number);
         order_number=order_number.split("=")[1];
+        console.log(order_number);
         return order_number;
     }else{
         return;

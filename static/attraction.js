@@ -4,6 +4,7 @@ console.log("hi");
 // let booking="http://127.0.0.1:3000/booking";
 let url_home='http://3.115.234.130:3000/';//EC2
 let url_api_attraction="http://3.115.234.130:3000/api/attraction/";//EC2
+let url_attraction="http://3.115.234.130:3000/attraction/";//EC2
 let booking="http://3.115.234.130:3000/booking";//EC2
 let last=document.getElementById("last_one");
 let next=document.getElementById("next_one");
@@ -36,8 +37,11 @@ function init(){
                     if(order_number!=null){
                         import("./order_module.js").then(func=>{
                             func.get_order_info(order_number).then(result=>{
-                                console.log("123");
-                                set_date(result, user);
+                                if(result["data"]["contact"]["email"]!=user["data"]["email"]){
+                                    set_date(result, user);
+                                }else{
+                                    window.location=url_attraction+result["data"]["trip"]["attraction"]["id"];
+                                }
                             })
                         })
                         tour_cost();
@@ -78,8 +82,8 @@ function load_book_info(data){
     attraction_name.textContent=data["name"];
     attraction_cat.textContent=data["category"];
     attraction_MRT.textContent=data["MRT"];
-    set_date(null, null);
-    tour_cost();
+    set_date(null);
+    tour_cost(null);
 }
 
 function load_attraction_info(data){
@@ -110,20 +114,24 @@ function load_img_index(data, index){
     }
 }
 
-function tour_cost(){
+function tour_cost(data){
     let cost=document.getElementById("cost");
-    if(tour_time[0].checked){
-        cost.textContent="新台幣 " + "2000" + " 元";
+    if(data==null){
+        if(tour_time[0].checked){
+            cost.textContent="新台幣 " + "2000" + " 元";
+        }else{
+            cost.textContent="新台幣 " + "2500" + " 元";
+        } 
     }else{
-        cost.textContent="新台幣 " + "2500" + " 元";
+        cost.textContent="新台幣 " + data["data"]["price"] + " 元";
     }     
 }
 
-function set_date(data, user){
+function set_date(data){
     let calendar=document.getElementById("calendar");
     console.log(data);
     console.log(user);
-    if(data==null || user==null || data["data"]["contact"]["email"]!=user["data"]["email"]){
+    if(data==null){
         let date=new Date();
         let day=date.getDate();
         let month=date.getMonth()+1;

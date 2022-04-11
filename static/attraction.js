@@ -213,6 +213,8 @@ booking_button.addEventListener("click", function(){
     }else{
         if(get_order_number()){//帶有query string的狀態下直接return
             booking_flag=0;
+            sign_in_or_up.click();
+            loading(0);
             return;
         }
         import("./booking_module.js").then(func => {

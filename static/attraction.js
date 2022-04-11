@@ -31,23 +31,25 @@ function init(){
         import("./sign_module.js").then(func=>{
             func.get_user_info().then(user => {
                 if(user["data"]!=null){//確認使用者登入狀況
+                    user_status=1;
                     func.sign_in_view(user);
                     let order_number=get_order_number();
-                    console.log(order_flag);
                     if(order_number!=null){
                         import("./order_module.js").then(func=>{
                             func.get_order_info(order_number).then(result=>{
                                 if(result["data"]["contact"]["email"]==user["data"]["email"]){
                                     set_date(result);
-                                    get_order_time(result)
+                                    get_order_time(result);
+                                    tour_cost(result);
                                 }else{
                                     window.location=url_attraction+result["data"]["trip"]["attraction"]["id"];
                                 }
                             })
                         })
-                        tour_cost();
-                    }
-                    user_status=1;
+                    }else{
+                        set_date(null);
+                        tour_cost(null);
+                    }  
                 }else{
                     func.sign_out_view();
                     user_status=0;
@@ -81,8 +83,8 @@ function load_book_info(data){
     attraction_name.textContent=data["name"];
     attraction_cat.textContent=data["category"];
     attraction_MRT.textContent=data["MRT"];
-    set_date(null);
-    tour_cost(null);
+    // set_date(null);
+    // tour_cost(null);
 }
 
 function load_attraction_info(data){

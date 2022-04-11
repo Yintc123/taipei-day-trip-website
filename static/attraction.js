@@ -37,7 +37,7 @@ function init(){
                     if(order_number!=null){
                         import("./order_module.js").then(func=>{
                             func.get_order_info(order_number).then(result=>{
-                                if(result["data"]["contact"]["email"]!=user["data"]["email"]){
+                                if(result["data"]["contact"]["email"]==user["data"]["email"]){
                                     set_date(result, user);
                                 }else{
                                     window.location=url_attraction+result["data"]["trip"]["attraction"]["id"];

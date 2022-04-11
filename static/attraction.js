@@ -141,7 +141,7 @@ function set_date(data, user){
         let order_date=document.getElementById("order_date");
         order_date.textContent=data["data"]["trip"]["date"];
         calendar.style.display="none";
-        order_date.style.display="block";
+        order_date.style.display="static";
     }
     // let date=new Date();
     // let day=date.getDate();

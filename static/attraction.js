@@ -36,6 +36,7 @@ function init(){
                     if(order_number!=null){
                         import("./order_module.js").then(func=>{
                             func.get_order_info(order_number).then(result=>{
+                                console.log("123");
                                 set_date(result, user);
                             })
                         })

@@ -33,6 +33,8 @@ function init(){
                     func.sign_in_view(user);
                     get_order_number();
                     console.log(order_flag);
+                    set_date();
+                    tour_cost();
                     user_status=1;
                 }else{
                     func.sign_out_view();
@@ -69,8 +71,8 @@ function load_book_info(data){
     attraction_name.textContent=data["name"];
     attraction_cat.textContent=data["category"];
     attraction_MRT.textContent=data["MRT"];
-    set_date();
-    tour_cost();
+    // set_date();
+    // tour_cost();
 }
 
 function load_attraction_info(data){

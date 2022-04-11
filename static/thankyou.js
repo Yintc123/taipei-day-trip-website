@@ -95,8 +95,15 @@ function create_table_comp(e, order_index){
     let hidden=["2", "4", "6", "7"];// hide columns in phones mode
     for(index in order_list){
         let td=document.createElement("td");
-        td.textContent=order_list[index];
-        if (hidden.indexOf(index)!=-1){
+        if(index==1){
+            let a=document.createElement("a");
+            a.textContent=order_list[index];
+            a.href=url_home;
+            td.appendChild(a);
+        }else{
+            td.textContent=order_list[index];
+        }
+        if(hidden.indexOf(index)!=-1){ // list的index型別與list內元素相同
             td.className="order_hidden";
         }
         tr.appendChild(td);

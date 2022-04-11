@@ -49,15 +49,16 @@ function init(){
                     }else{
                         set_date(null);
                         tour_cost(null);
-                    }  
+                    }
+                    loading_for_ready();
                 }else{
                     func.sign_out_view();
                     user_status=0;
+                    loading_for_ready();
                 }
                 load_image(data, img_index);
                 load_book_info(data);
                 load_attraction_info(data);
-                loading_for_ready();
             });
         })
     })

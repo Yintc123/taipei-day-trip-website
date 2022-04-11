@@ -38,16 +38,13 @@ function init(){
                 }
                 get_order_number();
                 console.log(order_flag);
-                load_image(data, img_index);
-                load_book_info(data);
-                load_attraction_info(data);
             });
         })
-        // get_order_number();
-        // console.log(order_flag);
-        // load_image(data, img_index);
-        // load_book_info(data);
-        // load_attraction_info(data);
+        get_order_number();
+        console.log(order_flag);
+        load_image(data, img_index);
+        load_book_info(data);
+        load_attraction_info(data);
     })
 }
 

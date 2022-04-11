@@ -31,10 +31,16 @@ function init(){
             func.get_user_info().then(user => {
                 if(user["data"]!=null){//確認使用者登入狀況
                     func.sign_in_view(user);
-                    get_order_number();
+                    let order_number=get_order_number();
                     console.log(order_flag);
-                    set_date();
-                    tour_cost();
+                    if(order_number!=null){
+                        import("./order_module.js").then(func=>{
+                            func.get_order_info().then(result=>{
+                                set_date(result, user);
+                            })
+                        })
+                        tour_cost();
+                    }
                     user_status=1;
                 }else{
                     func.sign_out_view();
@@ -43,8 +49,8 @@ function init(){
                 loading_for_ready(0);
             });
         })
-        get_order_number();
-        console.log(order_flag);
+        // get_order_number();
+        // console.log(order_flag);
         load_image(data, img_index);
         load_book_info(data);
         load_attraction_info(data);
@@ -71,8 +77,8 @@ function load_book_info(data){
     attraction_name.textContent=data["name"];
     attraction_cat.textContent=data["category"];
     attraction_MRT.textContent=data["MRT"];
-    // set_date();
-    // tour_cost();
+    set_date(null, null);
+    tour_cost();
 }
 
 function load_attraction_info(data){
@@ -114,7 +120,7 @@ function tour_cost(){
 
 function set_date(data, user){
     let calendar=document.getElementById("calendar");
-    if(data==null || user==null){
+    if(data==null || user==null || data["contact"]["email"]!=user["email"]){
         let date=new Date();
         let day=date.getDate();
         let month=date.getMonth()+1;
@@ -127,6 +133,8 @@ function set_date(data, user){
         }
         calendar.value=year+"-"+month+"-"+day;
         calendar.min=calendar.value;
+    }else{
+        console.log("great");
     }
     // let date=new Date();
     // let day=date.getDate();

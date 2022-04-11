@@ -14,6 +14,7 @@ let cur_url=window.location.href;
 let id=cur_url.split("/")[4];
 let user_status=0;
 let booking_flag=0;
+let order_flag=0;
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
@@ -37,9 +38,8 @@ function init(){
                 }
             });
         })
-        if(get_order_number()){
-            console.log("15313");
-        }
+        get_order_number();
+        console.log(order_flag);
         load_image(data, img_index);
         load_book_info(data);
         load_attraction_info(data);
@@ -303,6 +303,7 @@ function get_order_number(){
     if(window.location.href.indexOf("ordernumber")){
         order_number=order_number.split("=")[1];
         console.log(order_number);
+        order_flag=1;
         return order_number;
     }else{
         return;

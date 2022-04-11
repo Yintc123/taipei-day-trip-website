@@ -36,13 +36,18 @@ function init(){
                     func.sign_out_view();
                     user_status=0;
                 }
+                get_order_number();
+                console.log(order_flag);
+                load_image(data, img_index);
+                load_book_info(data);
+                load_attraction_info(data);
             });
         })
-        get_order_number();
-        console.log(order_flag);
-        load_image(data, img_index);
-        load_book_info(data);
-        load_attraction_info(data);
+        // get_order_number();
+        // console.log(order_flag);
+        // load_image(data, img_index);
+        // load_book_info(data);
+        // load_attraction_info(data);
     })
 }
 
@@ -66,8 +71,8 @@ function load_book_info(data){
     attraction_name.textContent=data["name"];
     attraction_cat.textContent=data["category"];
     attraction_MRT.textContent=data["MRT"];
-    tour_cost();
     set_date();
+    tour_cost();
 }
 
 function load_attraction_info(data){

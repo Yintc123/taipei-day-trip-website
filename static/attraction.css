@@ -342,12 +342,6 @@ label:hover{
     cursor:pointer;
     animation:blink 1s infinite;
 }
-#order_date{
-    display:none;
-}
-#order_time{
-    display:none;
-}
 @keyframes blink{
     from{
         transform:scale(1.0);
@@ -358,6 +352,18 @@ label:hover{
     to{
         transform:scale(1.0);
     }
+}
+#order_date{
+    display:none;
+}
+#order_time{
+    display:none;
+}
+#h5_date{
+    margin:24px 0px 24px 0px;
+}
+#h5_cost{
+    margin:15x 0px 0px 0px;
 }
 .content .intro_frame{
     /* border:1px solid; */

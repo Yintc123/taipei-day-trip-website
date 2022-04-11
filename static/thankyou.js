@@ -100,7 +100,9 @@ function create_table_comp(e, order_index){
     for(index in order_list){
         let td=document.createElement("td");
         td.textContent=order_list[index];
-        console.log(hidden[index]);
+        if (index==2){
+            console.log(index===a)
+        }
         // if (index == hidden){
         //     console.log(index);
         //     td.className="order_hidden";

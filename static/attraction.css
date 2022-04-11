@@ -289,7 +289,7 @@ hr{
     top:6px;
     width:22px;
     height:22px;
-    margin-left:8px;
+    margin-left:12px;
     /* margin-bottom:24px; */
 }
 /*::before為偽元素在原本的元素「之前」加入內容*/
@@ -361,11 +361,11 @@ label:hover{
 }
 #h5_date{
     align-content: center;
-    margin:0px 0px 24px 0px;
+    margin:0px 0px 15px 0px;
     font-size: 16px;
 }
 #h5_time{
-    margin:0px;
+    margin:0px 0px 15px 0px;
     font-size: 16px;
 }
 #h5_cost{

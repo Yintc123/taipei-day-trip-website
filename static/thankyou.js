@@ -97,6 +97,7 @@ function create_table_comp(e, order_index){
         let td=document.createElement("td");
         td.textContent=order_list[index];
         if (index==2){
+            let a=2
             console.log(typeof(index))
             console.log(typeof(a))
         }

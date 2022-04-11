@@ -35,7 +35,7 @@ function init(){
                     console.log(order_flag);
                     if(order_number!=null){
                         import("./order_module.js").then(func=>{
-                            func.get_order_info().then(result=>{
+                            func.get_order_info(order_number).then(result=>{
                                 set_date(result, user);
                             })
                         })
@@ -122,7 +122,7 @@ function set_date(data, user){
     let calendar=document.getElementById("calendar");
     console.log(data);
     console.log(user);
-    if(data==null || user==null || data["contact"]["email"]!=user["email"]){
+    if(data==null || user==null || data["contact"]["email"]!=user["data"]["email"]){
         let date=new Date();
         let day=date.getDate();
         let month=date.getMonth()+1;

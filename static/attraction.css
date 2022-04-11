@@ -356,9 +356,11 @@ label:hover{
 }
 #order_date{
     display:none;
+    height:35px;
 }
 #order_time{
     display:none;
+    height:29px;
 }
 #h5_date{
     align-content: center;

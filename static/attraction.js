@@ -45,6 +45,7 @@ function init(){
         load_image(data, img_index);
         load_book_info(data);
         load_attraction_info(data);
+        loading_for_ready(0);
     })
 }
 
@@ -135,6 +136,15 @@ function loading(swch){
     }else{
         loading.style.display="none";
         booking_button_text.style.display="block";
+    }
+}
+
+function loading_for_ready(swch){
+    let loading=document.getElementById("loading_for_ready");
+    if(swch==0){
+        loading_confirmation.style.display="none";
+    }else{
+        loading_confirmation.style.display="block";
     }
 }
 //--------------------------------監聽事件-------------------------------//

@@ -31,13 +31,15 @@ function init(){
                 if(user["data"]!=null){//確認使用者登入狀況
                     func.sign_in_view(user);
                     user_status=1;
-                    get_order_number();
                 }else{
                     func.sign_out_view();
                     user_status=0;
                 }
             });
         })
+        if(get_order_number()){
+            console.log("15313");
+        }
         load_image(data, img_index);
         load_book_info(data);
         load_attraction_info(data);

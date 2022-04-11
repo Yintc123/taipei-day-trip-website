@@ -223,6 +223,7 @@ booking_button.addEventListener("click", function(){
         sign_in_or_up.click();
         loading(0);
     }else{
+        console.log(order_flag);
         if(order_flag==1){//帶有query string的狀態下直接return
             booking_flag=0;
             return;

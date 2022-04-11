@@ -259,8 +259,8 @@ sign_in_or_up.addEventListener("click", function(){
         if(sign_in_or_up.textContent=="登出系統"){
             func.delete_sign().then(result=>{
                 // window.location=window.location.href;
-                // window.location=url_attraction+id;
-                window.location=url_home;
+                window.location=url_attraction+id;
+                // window.location=url_home;
             });
         }else{
             func.init_sign_in()

@@ -93,15 +93,12 @@ function create_table_comp(e, order_index){
     let tr=document.createElement("tr");
     let order_list=arrange_order_info(e, order_index);
     let hidden=[2, 3, 4, 6, 7];// hide columns in phones mode
-    let a=2
-    let b=2
-    console.log(a===2);
-    console.log(a===b);
     for(index in order_list){
         let td=document.createElement("td");
         td.textContent=order_list[index];
         if (index==2){
-            console.log(index===a)
+            console.log(typeof(index))
+            console.log(typeof(a))
         }
         // if (index == hidden){
         //     console.log(index);

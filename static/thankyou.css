@@ -377,6 +377,9 @@ hr{
         width:95%;
         height:auto;
     }
+    #order_hidden{
+        display:none;
+    }
 }
 @media screen and (max-width:415px){
     .navigation ul{

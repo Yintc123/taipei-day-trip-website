@@ -96,7 +96,7 @@ function create_table_comp(e, order_index){
     for(index in order_list){
         let td=document.createElement("td");
         td.textContent=order_list[index];
-        if (indwx in hidden){
+        if (index in hidden){
             td.className="order_hidden";
         }
         tr.appendChild(td);

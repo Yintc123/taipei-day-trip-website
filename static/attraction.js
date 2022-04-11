@@ -166,9 +166,8 @@ function set_date(data){
 
 function get_order_time(data){
     let label_tour_time=document.getElementsByClassName("label_tour_time");
-    for(index in label_tour_time){
-        label_tour_time[index].style.display="none";
-    }
+    let order_time=document.getElementById("order_time");
+    label_tour_time.style.display="none";
     order_time.textContent=data["data"]["trip"]["time"];
     order_time.style.display="inline-block";
 }

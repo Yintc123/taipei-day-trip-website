@@ -342,6 +342,12 @@ label:hover{
     cursor:pointer;
     animation:blink 1s infinite;
 }
+#order_date{
+    display:none;
+}
+#order_time{
+    display:none;
+}
 @keyframes blink{
     from{
         transform:scale(1.0);

@@ -31,13 +31,14 @@ function init(){
             func.get_user_info().then(user => {
                 if(user["data"]!=null){//確認使用者登入狀況
                     func.sign_in_view(user);
+                    get_order_number();
+                    console.log(order_flag);
                     user_status=1;
                 }else{
                     func.sign_out_view();
                     user_status=0;
                 }
-                get_order_number();
-                console.log(order_flag);
+                loading_for_ready(0);
             });
         })
         get_order_number();
@@ -45,7 +46,6 @@ function init(){
         load_image(data, img_index);
         load_book_info(data);
         load_attraction_info(data);
-        loading_for_ready(0);
     })
 }
 

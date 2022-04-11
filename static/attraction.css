@@ -289,8 +289,8 @@ hr{
     top:6px;
     width:22px;
     height:22px;
-    margin-left:12px;
-    margin-bottom:24px;
+    margin-left:10px;
+    /* margin-bottom:24px; */
 }
 /*::before為偽元素在原本的元素「之前」加入內容*/
 #tour_time::before{
@@ -360,9 +360,8 @@ label:hover{
     display:none;
 }
 #h5_date{
-    height:17px;
     align-content: center;
-    margin:9px 0px 24px 0px;
+    margin:0px 0px 24px 0px;
     font-size: 16px;
 }
 #h5_time{

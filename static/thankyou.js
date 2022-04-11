@@ -2,11 +2,12 @@ console.log("hi")
 // let booking="http://127.0.0.1:3000/booking";
 // let url_thanks="http://127.0.0.1:3000/thankyou";
 // let url_home="http://127.0.0.1:3000/";
-// let url_attraction="http://127.0.0.1:3000/api/attraction/";
+// let url_api_attraction="http://127.0.0.1:3000/api/attraction/";
 let booking="http://3.115.234.130:3000/booking";//EC2
 let url_thanks="http://3.115.234.130:3000/thankyou";//EC2
 let url_home='http://3.115.234.130:3000/';//EC2
-let url_attraction="http://3.115.234.130:3000/api/attraction/";//EC2
+let url_api_attraction="http://3.115.234.130:3000/api/attraction/";//EC2
+let url_attraction="http://3.115.234.130:3000/attraction/";//EC2
 
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
@@ -93,12 +94,13 @@ function create_table_comp(e, order_index){
     let tr=document.createElement("tr");
     let order_list=arrange_order_info(e, order_index);
     let hidden=["2", "4", "6", "7"];// hide columns in phones mode
+    console.log(e);
     for(index in order_list){
         let td=document.createElement("td");
         if(index==1){
             let a=document.createElement("a");
             a.textContent=order_list[index];
-            a.href=url_home;
+            // a.href=url_attraction;
             td.appendChild(a);
         }else{
             td.textContent=order_list[index];

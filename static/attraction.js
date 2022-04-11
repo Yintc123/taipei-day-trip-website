@@ -150,18 +150,6 @@ function set_date(data){
         calendar.style.display="none";
         order_date.style.display="inline-block";
     }
-    // let date=new Date();
-    // let day=date.getDate();
-    // let month=date.getMonth()+1;
-    // let year=date.getFullYear();
-    // if(month<10){
-    //     month="0"+month;
-    // }
-    // if(day<10){
-    //     day="0"+day;
-    // }
-    // calendar.value=year+"-"+month+"-"+day;
-    // calendar.min=calendar.value;
 }
 
 function get_order_time(data){
@@ -223,8 +211,7 @@ booking_button.addEventListener("click", function(){
         sign_in_or_up.click();
         loading(0);
     }else{
-        console.log(order_flag);
-        if(order_flag==1){//帶有query string的狀態下直接return
+        if(get_order_number()){//帶有query string的狀態下直接return
             booking_flag=0;
             return;
         }

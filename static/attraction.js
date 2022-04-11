@@ -142,9 +142,9 @@ function loading(swch){
 function loading_for_ready(swch){
     let loading=document.getElementById("loading_for_ready");
     if(swch==0){
-        loading_confirmation.style.display="none";
+        loading.style.display="none";
     }else{
-        loading_confirmation.style.display="block";
+        loading.style.display="block";
     }
 }
 //--------------------------------監聽事件-------------------------------//

@@ -41,6 +41,7 @@ function init(){
                                     set_date(result);
                                     get_order_time(result);
                                     tour_cost(result);
+                                    loading_for_ready();
                                 }else{
                                     window.location=url_attraction+result["data"]["trip"]["attraction"]["id"];
                                 }
@@ -49,24 +50,25 @@ function init(){
                     }else{
                         // set_date(null);
                         // tour_cost(null);
+                        loading_for_ready();
                     }
-                    load_image(data, img_index);
-                    load_book_info(data);
-                    load_attraction_info(data);
-                    loading_for_ready();
+                    // load_image(data, img_index);
+                    // load_book_info(data);
+                    // load_attraction_info(data);
+                    // loading_for_ready();
                 }else{
                     func.sign_out_view();
                     user_status=0;
-                    load_image(data, img_index);
-                    load_book_info(data);
-                    load_attraction_info(data);
-                    set_date(null);
-                    tour_cost(null);
+                    // load_image(data, img_index);
+                    // load_book_info(data);
+                    // load_attraction_info(data);
+                    // set_date(null);
+                    // tour_cost(null);
                     loading_for_ready();
                 }
-                // load_image(data, img_index);
-                // load_book_info(data);
-                // load_attraction_info(data);
+                load_image(data, img_index);
+                load_book_info(data);
+                load_attraction_info(data);
             });
         })
     })
@@ -92,8 +94,8 @@ function load_book_info(data){
     attraction_name.textContent=data["name"];
     attraction_cat.textContent=data["category"];
     attraction_MRT.textContent=data["MRT"];
-    // set_date(null);
-    // tour_cost(null);
+    set_date(null);
+    tour_cost(null);
 }
 
 function load_attraction_info(data){

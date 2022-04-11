@@ -363,12 +363,15 @@ label:hover{
     height:17px;
     align-content: center;
     margin:9px 0px 24px 0px;
+    font-size: 16px;
 }
 #h5_time{
     margin:0px;
+    font-size: 16px;
 }
 #h5_cost{
     margin:0px;
+    font-size: 16px;
 }
 .content .intro_frame{
     /* border:1px solid; */

@@ -465,14 +465,14 @@ label:hover{
 
 .lds-ripple {
     z-index:1000;
-    /* display: inline-block; */
+    display: inline-block;
     position: fixed;
     top:50%;
     left:50%;
     width: 80px;
     height: 80px;
     transform:translate(-50%, -50%);
-    display:none;
+    /* display:none; */
   }
   .lds-ripple div {
     position: absolute;

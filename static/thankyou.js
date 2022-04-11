@@ -99,7 +99,7 @@ function create_table_comp(e, order_index){
         // console.log(hidden.indexOf(index));
         // console.log(index);
         // console.log(hidden.indexOf(2));
-        if(index==2){
+        if(index===2){
             console.log(hidden.indexOf(2));
             console.log(hidden.indexOf(index));
             console.log(hidden.indexOf(2));

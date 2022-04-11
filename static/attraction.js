@@ -165,11 +165,9 @@ function set_date(data){
 }
 
 function get_order_time(data){
-    let label_tour_time=document.getElementsByClassName("label_tour_time");
     let order_time=document.getElementById("order_time");
-    console.log(label_tour_time);
-    label_tour_time.forEach(label=>{
-        label.style.display="none";
+    tour_time.forEach(time=>{
+        time.style.display="none";
     });
     order_time.textContent=data["data"]["trip"]["time"];
     order_time.style.display="inline-block";

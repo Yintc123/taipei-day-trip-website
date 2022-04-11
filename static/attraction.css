@@ -360,7 +360,11 @@ label:hover{
     display:none;
 }
 #h5_date{
-    margin:24px 0px 24px 0px;
+    height:17px;
+    margin:9px 0px 24px 0px;
+}
+#h5_time{
+    margin:0px;
 }
 #h5_cost{
     margin:15x 0px 0px 0px;

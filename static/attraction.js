@@ -120,6 +120,8 @@ function tour_cost(){
 
 function set_date(data, user){
     let calendar=document.getElementById("calendar");
+    console.log(data);
+    console.log(user);
     if(data==null || user==null || data["contact"]["email"]!=user["email"]){
         let date=new Date();
         let day=date.getDate();

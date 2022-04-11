@@ -112,20 +112,34 @@ function tour_cost(){
     }     
 }
 
-function set_date(){
+function set_date(data, user){
     let calendar=document.getElementById("calendar");
-    let date=new Date();
-    let day=date.getDate();
-    let month=date.getMonth()+1;
-    let year=date.getFullYear();
-    if(month<10){
-        month="0"+month;
+    if(data==null || user==null){
+        let date=new Date();
+        let day=date.getDate();
+        let month=date.getMonth()+1;
+        let year=date.getFullYear();
+        if(month<10){
+            month="0"+month;
+        }
+        if(day<10){
+            day="0"+day;
+        }
+        calendar.value=year+"-"+month+"-"+day;
+        calendar.min=calendar.value;
     }
-    if(day<10){
-        day="0"+day;
-    }
-    calendar.value=year+"-"+month+"-"+day;
-    calendar.min=calendar.value;
+    // let date=new Date();
+    // let day=date.getDate();
+    // let month=date.getMonth()+1;
+    // let year=date.getFullYear();
+    // if(month<10){
+    //     month="0"+month;
+    // }
+    // if(day<10){
+    //     day="0"+day;
+    // }
+    // calendar.value=year+"-"+month+"-"+day;
+    // calendar.min=calendar.value;
 }
 
 function loading(swch){

@@ -94,13 +94,13 @@ function create_table_comp(e, order_index){
     let tr=document.createElement("tr");
     let order_list=arrange_order_info(e, order_index);
     let hidden=["2", "4", "6", "7"];// hide columns in phones mode
-    // console.log(e);
     for(index in order_list){
         let td=document.createElement("td");
         if(index==1){
+            let query="?ordernumber=";
             let a=document.createElement("a");
             a.textContent=order_list[index];
-            a.href=url_attraction+e["attraction_id"];
+            a.href=url_attraction+e["attraction_id"]+query+order_list[index];
             td.appendChild(a);
         }else{
             td.textContent=order_list[index];

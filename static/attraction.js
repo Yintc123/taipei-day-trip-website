@@ -48,22 +48,11 @@ function init(){
                             })
                         })
                     }else{
-                        // set_date(null);
-                        // tour_cost(null);
                         loading_for_ready();
                     }
-                    // load_image(data, img_index);
-                    // load_book_info(data);
-                    // load_attraction_info(data);
-                    // loading_for_ready();
                 }else{
                     func.sign_out_view();
                     user_status=0;
-                    // load_image(data, img_index);
-                    // load_book_info(data);
-                    // load_attraction_info(data);
-                    // set_date(null);
-                    // tour_cost(null);
                     loading_for_ready();
                 }
                 load_image(data, img_index);
@@ -269,7 +258,8 @@ sign_in_or_up.addEventListener("click", function(){
     import("./sign_module.js").then(func => {
         if(sign_in_or_up.textContent=="登出系統"){
             func.delete_sign().then(result=>{
-                window.location=window.location.href;
+                // window.location=window.location.href;
+                window.location=url_attraction+id;
             });
         }else{
             func.init_sign_in()

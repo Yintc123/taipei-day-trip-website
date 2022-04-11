@@ -262,6 +262,7 @@ hr{
 #form_div{
     margin:0px;
     padding:0px;
+    display:none;
 }
 .content .tour .book form h4{
     margin:0px 0px 15px 0px;

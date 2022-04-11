@@ -52,7 +52,7 @@ function init(){
                     func.sign_out_view();
                     user_status=0;
                 }
-                loading_for_ready(0);
+                loading_for_ready();
             });
         })
         // get_order_number();
@@ -187,14 +187,13 @@ function loading(swch){
     }
 }
 
-function loading_for_ready(swch){
+function loading_for_ready(){
     let loading=document.getElementById("loading_for_ready");
-    if(swch==0){
-        loading.style.display="none";
-    }else{
-        loading.style.display="block";
-    }
+    let form_div=document.getElementById("form_div");
+    loading.style.display="none";
+    form_div.style.display="block";
 }
+
 //--------------------------------監聽事件-------------------------------//
 let sign_in_or_up=document.getElementById("sign_in_or_up");
 let background=document.getElementById("background");

@@ -92,9 +92,13 @@ function create_table_comp(e, order_index){
     let order_table=document.getElementById("order_table");
     let tr=document.createElement("tr");
     let order_list=arrange_order_info(e, order_index);
+    let hidden=[2, 3, 4, 6, 7];
     for(index in order_list){
         let td=document.createElement("td");
         td.textContent=order_list[index];
+        if (indwx in hidden){
+            td.className="order_hidden";
+        }
         tr.appendChild(td);
     }
     order_table.appendChild(tr);

@@ -377,7 +377,7 @@ hr{
         width:95%;
         height:auto;
     }
-    #order_hidden{
+    .order_hidden{
         display:none;
     }
 }

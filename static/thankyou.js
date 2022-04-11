@@ -92,19 +92,14 @@ function create_table_comp(e, order_index){
     let order_table=document.getElementById("order_table");
     let tr=document.createElement("tr");
     let order_list=arrange_order_info(e, order_index);
-    let hidden=[2, 3, 4, 6, 7];// hide columns in phones mode
+    let hidden=["2", "3", "4", "6", "7"];// hide columns in phones mode
     for(index in order_list){
         let td=document.createElement("td");
         td.textContent=order_list[index];
-        if (index==2){
-            let a=2
-            console.log(typeof(index))
-            console.log(typeof(a))
+        if (hidden.indexOf(index)){
+            console.log(index);
+            td.className="order_hidden";
         }
-        // if (index == hidden){
-        //     console.log(index);
-        //     td.className="order_hidden";
-        // }
         tr.appendChild(td);
     }
     order_table.appendChild(tr);

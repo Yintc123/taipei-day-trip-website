@@ -40,6 +40,7 @@ function init(){
                                 if(result["error"]){
                                     window.location=url_attraction+result["data"]["trip"]["attraction"]["id"];
                                 }
+                                console.log(result);
                                 if(result["data"]["contact"]["email"]==user["data"]["email"]){
                                     set_date(result);
                                     get_order_time(result);

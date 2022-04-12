@@ -48,7 +48,7 @@ function init(){
                                     loading_for_ready();
                                 }else{
                                     if(window.location.href.includes("?")){//清空query string的參數(清除網址參數)
-                                        history.pushState({}, null, window.location.href.split("?"[0]));
+                                        history.replaceState({}, null, window.location.href.split("?"[0]));
                                     }
                                     window.location=url_attraction+id;
                                 }

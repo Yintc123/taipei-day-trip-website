@@ -105,13 +105,9 @@ function load_img_index(data, index){
     for(let i=0;i<data["images"].length;i++){
         images[i]=document.createElement("img");
         if(i==index){
-            // images[i]=document.createElement("img");
             images[i].src="/static/icon/circle_current_b.png";
-            // index_frame.appendChild(images[i]);
         }else{
-            // images[i]=document.createElement("img");
             images[i].src="/static/icon/circle_current_w.png";
-            // index_frame.appendChild(images[i]);
         }
         index_frame.appendChild(images[i]);
     }
@@ -183,6 +179,9 @@ function loading_for_ready(){
     form_div.style.display="block";
 }
 
+function add_order_info(){
+    let order_status
+}
 //--------------------------------監聽事件-------------------------------//
 let sign_in_or_up=document.getElementById("sign_in_or_up");
 let background=document.getElementById("background");

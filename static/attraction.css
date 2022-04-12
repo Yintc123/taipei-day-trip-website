@@ -557,6 +557,9 @@ label:hover{
         width:95%;
         margin-top:20px;
     }
+    .content .tour .book form{
+        height:352px;
+    }
 }
 
 @media screen and (max-width:415px){

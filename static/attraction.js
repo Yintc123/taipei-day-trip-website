@@ -186,9 +186,9 @@ function add_order_info(order_data){
     let span_order_number=document.getElementById("span_order_number");
     let span_order_status=document.getElementById("span_order_status");
     let span_order_time=document.getElementById("span_order_time");
-    h5_order.forEach(e=>{
-        e.style.display="block";
-    })
+    for (index in h5_order){
+        h5_order[index].style.display="block";
+    }
     span_order_number.textContent=order_data["data"]["number"];
     span_order_status.textContent=order_data["data"]["status"];
     span_order_time.textContent=order_data["data"]["trip"]["time"];

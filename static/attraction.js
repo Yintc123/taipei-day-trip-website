@@ -103,34 +103,36 @@ function load_img_index(data, index){
     }
     let images=[];
     for(let i=0;i<data["images"].length;i++){
+        images[i]=document.createElement("img");
         if(i==index){
-            images[i]=document.createElement("img");
+            // images[i]=document.createElement("img");
             images[i].src="/static/icon/circle_current_b.png";
-            index_frame.appendChild(images[i]);
+            // index_frame.appendChild(images[i]);
         }else{
-            images[i]=document.createElement("img");
+            // images[i]=document.createElement("img");
             images[i].src="/static/icon/circle_current_w.png";
-            index_frame.appendChild(images[i]);
+            // index_frame.appendChild(images[i]);
         }
+        index_frame.appendChild(images[i]);
     }
 }
 
-function tour_cost(data){
+function tour_cost(order_data){
     let cost=document.getElementById("cost");
-    if(data==null){
+    if(order_data==null){
         if(tour_time[0].checked){
             cost.textContent="新台幣 " + "2000" + " 元";
         }else{
             cost.textContent="新台幣 " + "2500" + " 元";
         } 
     }else{
-        cost.textContent="新台幣 " + data["data"]["price"] + " 元";
+        cost.textContent="新台幣 " + order_data["data"]["price"] + " 元";
     }     
 }
 
-function set_date(data){
+function set_date(order_data){
     let calendar=document.getElementById("calendar");
-    if(data==null){
+    if(order_data==null){
         let date=new Date();
         let day=date.getDate();
         let month=date.getMonth()+1;
@@ -144,20 +146,19 @@ function set_date(data){
         calendar.value=year+"-"+month+"-"+day;
         calendar.min=calendar.value;
     }else{
-        console.log("great");
         let order_date=document.getElementById("order_date");
-        order_date.textContent=data["data"]["trip"]["date"];
+        order_date.textContent=order_data["data"]["trip"]["date"];
         calendar.style.display="none";
         order_date.style.display="inline-block";
     }
 }
 
-function get_order_time(data){
+function get_order_time(order_data){
     let label_tour_time=document.getElementsByClassName("label_tour_time")[0];
     let order_time=document.getElementById("order_time");
     label_tour_time.style.display="none";
     booking_button.style.display="none";
-    order_time.textContent=data["data"]["trip"]["time"];
+    order_time.textContent=order_data["data"]["trip"]["time"];
     order_time.style.display="inline-block";
     
 }

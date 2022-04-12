@@ -19,7 +19,7 @@ let order_flag=0;
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
-    console.log("id");
+    console.log(id);
     let url_id=url_api_attraction+id;
     fetch(url_id).then((response)=>{
         return response.json();

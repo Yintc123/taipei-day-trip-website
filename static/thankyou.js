@@ -33,6 +33,8 @@ function show_order_info(user){
         order_user.textContent="以下為您的訂單：";
         import('./order_module.js').then(func=>{
             func.get_orders_by_id(user["data"]["id"]).then(result=>{
+                let order_text_p2=document.querySelector("#order_text_p2");
+                order_text_p2.textContent="點擊訂單編號查詢訂單詳細內容"
                 for(index in result){
                     create_table_comp(result[index], index);
                 }
@@ -77,12 +79,8 @@ function loading_finished(order_flag){
     let order_text=document.querySelector("#order_text");
     let order_text_p2=document.querySelector("#order_text_p2");
     if(order_flag==1){//代表查詢特定訂單頁面(/thankyou?number=)
-        // loading.style.display="none";
-        // order_user.style.display="block";
         order_text.style.display="block";
-        // order_text_p2.style.display="block";
     }else{//所有訂單畫面(/thankyou)
-        // order_user.style.display="block";
         order_table.style.display="table";
     }
     order_user.style.display="block";

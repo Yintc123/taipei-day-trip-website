@@ -97,10 +97,9 @@ function create_table_comp(e, order_index){
         let td=document.createElement("td");
         if(index==1){
             let query_order_number="?ordernumber=";
-            let query_order_time="&ordertime=";
             let a=document.createElement("a");
             a.textContent=order_list[index];
-            a.href=url_attraction+e["attraction_id"]+query_order_number+order_list[index]+query_order_time+e["time"];
+            a.href=url_attraction+e["attraction_id"]+query_order_number+order_list[index];
             td.appendChild(a);
         }else{
             td.textContent=order_list[index];

@@ -367,6 +367,7 @@ function get_order_number(){
     let order_number=window.location.href;
     if(window.location.href.indexOf("ordernumber")!=-1){
         order_number=order_number.split("=")[1];
+        order_number=order_number.split("&")[0];
         order_flag=1;
         return order_number;
     }else{

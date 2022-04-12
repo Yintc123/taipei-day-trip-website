@@ -19,6 +19,8 @@ let order_flag=0;
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
+    history.replaceState({}, null, window.location.href.split("?"[0]));
+    console.log(window.location.href);
     let url_id=url_api_attraction+id;
     fetch(url_id).then((response)=>{
         return response.json();

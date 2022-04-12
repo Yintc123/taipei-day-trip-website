@@ -49,7 +49,7 @@ function init(){
                                 }else{
                                     if(window.location.href.includes("?")){//清空query string的參數(清除網址參數)
                                         let stateObj = { foo: "bar" };
-                                        window.history.replaceState(stateObj, "", "1");
+                                        window.history.replaceState(stateObj, "", id);
                                     }
                                     window.location=window.location.href;
                                     // console.log(window.location.href);

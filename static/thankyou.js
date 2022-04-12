@@ -77,16 +77,17 @@ function loading_finished(order_flag){
     let order_text=document.querySelector("#order_text");
     let order_text_p2=document.querySelector("#order_text_p2");
     if(order_flag==1){//代表查詢特定訂單頁面(/thankyou?number=)
-        loading.style.display="none";
-        order_user.style.display="block";
+        // loading.style.display="none";
+        // order_user.style.display="block";
         order_text.style.display="block";
-        order_text_p2.style.display="block";
+        // order_text_p2.style.display="block";
     }else{//所有訂單畫面(/thankyou)
-        loading.style.display="none";
-        order_user.style.display="block";
+        // order_user.style.display="block";
         order_table.style.display="table";
     }
-    
+    order_user.style.display="block";
+    order_text_p2.style.display="block";
+    loading.style.display="none";
 }
 
 function create_table_comp(e, order_index){

@@ -19,7 +19,8 @@ let order_flag=0;
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
-    window.history.replaceState({}, null, url_attraction+id);
+    let stateObj = { foo: "bar" };
+    window.history.replaceState(stateObj, "", url_attraction+id);
     console.log(window.location.href);
     let url_id=url_api_attraction+id;
     fetch(url_id).then((response)=>{

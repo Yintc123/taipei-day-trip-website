@@ -48,12 +48,11 @@ function init(){
                                     loading_for_ready();
                                 }else{
                                     if(window.location.href.includes("?")){//清空query string的參數(清除網址參數)
-                                        console.log("123");
                                         let stateObj = { foo: "bar" };
                                         window.history.replaceState(stateObj, "", "1");
                                     }
-                                    // window.location=url_attraction+id;
-                                    console.log(window.location.href);
+                                    window.location=window.location.href;
+                                    // console.log(window.location.href);
                                 }
                             })
                         })

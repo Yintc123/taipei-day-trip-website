@@ -19,8 +19,8 @@ let order_flag=0;
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
-    // history.replaceState({}, null, window.location.href.split("?"[0]));
-    // console.log(window.location.href);
+    window.history.replaceState({}, window.location.href, "");
+    console.log(window.location.href);
     let url_id=url_api_attraction+id;
     fetch(url_id).then((response)=>{
         return response.json();
@@ -50,7 +50,7 @@ function init(){
                                     loading_for_ready();
                                 }else{
                                     if(window.location.href.includes("?")){//清空query string的參數(清除網址參數)
-                                        history.replaceState({}, null, window.location.href.split("?"[0]));
+                                        // window.history.replaceState({}, window.location.href, "");
                                     }
                                     window.location=url_attraction+id;
                                 }

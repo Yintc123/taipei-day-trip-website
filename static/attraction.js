@@ -37,7 +37,7 @@ function init(){
                     if(order_number!=null){
                         import("./order_module.js").then(func=>{
                             func.get_order_info(order_number).then(result=>{
-                                if(result["error"]){
+                                if(result["data"]==null){
                                     window.location=url_attraction+result["data"]["trip"]["attraction"]["id"];
                                 }
                                 console.log(result);

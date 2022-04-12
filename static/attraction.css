@@ -380,13 +380,9 @@ label:hover{
     margin:0px;
     font-size: 16px;
 }
-#h5_order_number{
-    display:none;
-}
-#h5_order_status{
-    display:none;
-}
-#h5_order_time{
+.h5_order{
+    margin:0px;
+    font-size: 16px;
     display:none;
 }
 .content .intro_frame{

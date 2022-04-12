@@ -182,11 +182,13 @@ function loading_for_ready(){
 }
 
 function add_order_info(order_data){
-    let h5_order=document.getElementById("h5_order");
+    let h5_order=document.getElementsByClassName("h5_order");
     let span_order_number=document.getElementById("span_order_number");
     let span_order_status=document.getElementById("span_order_status");
     let span_order_time=document.getElementById("span_order_time");
-    console.log(h5_order);
+    h5_order.forEach(e=>{
+        e.style.display="block";
+    })
     span_order_number.textContent=order_data["data"]["number"];
     span_order_status.textContent=order_data["data"]["status"];
     span_order_time.textContent=order_data["data"]["trip"]["time"];

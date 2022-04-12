@@ -19,6 +19,9 @@ let order_flag=0;
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
+    if(window.location.href.indexOf("?")){//檢查網頁是否有帶query string
+        id=id.split("?")[0];
+    }
     console.log(id);
     let url_id=url_api_attraction+id;
     fetch(url_id).then((response)=>{

@@ -187,7 +187,7 @@ function add_order_info(order_data){
     let span_order_status=document.getElementById("span_order_status");
     let span_order_time=document.getElementById("span_order_time");
     console.log(h5_order)
-    for (let i=0;i<h5_order.length();i++){
+    for (let i=0;i<h5_order.length;i++){
         h5_order[i].style.display="block";
     }
     // h5_order[0].style.display="block";

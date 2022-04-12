@@ -38,7 +38,7 @@ function init(){
                         import("./order_module.js").then(func=>{
                             func.get_order_info(order_number).then(result=>{
                                 if(result["data"]==null){
-                                    window.location=url_attraction+id;
+                                    window.location=url_home;
                                 }
                                 console.log(result);
                                 if(result["data"]["contact"]["email"]==user["data"]["email"]){

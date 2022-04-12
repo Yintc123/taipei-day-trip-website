@@ -41,6 +41,8 @@ function init(){
                                     set_date(result);
                                     get_order_time(result);
                                     tour_cost(result);
+                                    add_order_info(result);
+                                    console.log(result);
                                     loading_for_ready();
                                 }else{
                                     window.location=url_attraction+result["data"]["trip"]["attraction"]["id"];
@@ -179,8 +181,15 @@ function loading_for_ready(){
     form_div.style.display="block";
 }
 
-function add_order_info(){
-    let order_status
+function add_order_info(order_data){
+    let h5_order=document.getElementById("h5_order");
+    let span_order_number=document.getElementById("span_order_number");
+    let span_order_status=document.getElementById("span_order_status");
+    let span_order_time=document.getElementById("span_order_time");
+    console.log(h5_order);
+    span_order_number.textContent=order_data["data"]["number"];
+    span_order_status.textContent=order_data["data"]["status"];
+    span_order_time.textContent=order_data["data"]["trip"]["time"];
 }
 //--------------------------------監聽事件-------------------------------//
 let sign_in_or_up=document.getElementById("sign_in_or_up");

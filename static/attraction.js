@@ -192,8 +192,12 @@ function add_order_info(order_data){
         h5_order[i].style.display="block";
     }
     span_order_number.textContent=order_data["data"]["number"];
-    span_order_status.textContent=order_data["data"]["status"];
     span_order_time.textContent=order_data["data"]["trip"]["time"];
+    if(order_data["data"]["status"]==1){
+        span_order_status.textContent="下單成功";
+    }else{
+        span_order_status.textContent="下單失敗";
+    }
 }
 //--------------------------------監聽事件-------------------------------//
 let sign_in_or_up=document.getElementById("sign_in_or_up");

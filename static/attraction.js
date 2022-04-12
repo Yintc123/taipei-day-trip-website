@@ -38,7 +38,7 @@ function init(){
                         import("./order_module.js").then(func=>{
                             func.get_order_info(order_number).then(result=>{
                                 if(result["data"]==null){
-                                    window.location=url_attraction+result["data"]["trip"]["attraction"]["id"];
+                                    window.location=url_api_attraction+id;
                                 }
                                 console.log(result);
                                 if(result["data"]["contact"]["email"]==user["data"]["email"]){
@@ -49,7 +49,7 @@ function init(){
                                     console.log(result);
                                     loading_for_ready();
                                 }else{
-                                    window.location=url_attraction+result["data"]["trip"]["attraction"]["id"];
+                                    window.location=url_api_attraction+id;
                                 }
                             })
                         })

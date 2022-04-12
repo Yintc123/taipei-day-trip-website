@@ -52,7 +52,8 @@ function init(){
                                         let stateObj = { foo: "bar" };
                                         window.history.replaceState(stateObj, "", "1");
                                     }
-                                    window.location=url_attraction+id;
+                                    // window.location=url_attraction+id;
+                                    console.log(window.location.href);
                                 }
                             })
                         })

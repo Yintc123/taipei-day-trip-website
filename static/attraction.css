@@ -248,7 +248,7 @@ hr{
 }
 .content .tour .book form{
     position:relative;
-    height:302px;
+    min-height:302px;
     padding-top:15px;
     padding-left:20px;
     padding-right:10px;

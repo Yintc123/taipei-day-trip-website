@@ -40,13 +40,11 @@ function init(){
                                 if(result["data"]==null){
                                     window.location=url_home;
                                 }
-                                console.log(result);
                                 if(result["data"]["contact"]["email"]==user["data"]["email"]){
                                     set_date(result);
                                     get_order_time(result);
                                     tour_cost(result);
                                     add_order_info(result);
-                                    console.log(result);
                                     loading_for_ready();
                                 }else{
                                     window.location=url_attraction+id;
@@ -190,13 +188,9 @@ function add_order_info(order_data){
     let span_order_number=document.getElementById("span_order_number");
     let span_order_status=document.getElementById("span_order_status");
     let span_order_time=document.getElementById("span_order_time");
-    console.log(h5_order)
     for (let i=0;i<h5_order.length;i++){
         h5_order[i].style.display="block";
     }
-    // h5_order[0].style.display="block";
-    // h5_order[1].style.display="block";
-    // h5_order[2].style.display="block";
     span_order_number.textContent=order_data["data"]["number"];
     span_order_status.textContent=order_data["data"]["status"];
     span_order_time.textContent=order_data["data"]["trip"]["time"];

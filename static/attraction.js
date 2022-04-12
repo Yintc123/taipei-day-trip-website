@@ -19,6 +19,7 @@ let order_flag=0;
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
+    console.log("id");
     let url_id=url_api_attraction+id;
     fetch(url_id).then((response)=>{
         return response.json();
@@ -47,10 +48,6 @@ function init(){
                                     add_order_info(result);
                                     loading_for_ready();
                                 }else{
-                                    // if(window.location.href.includes("?")){//清空query string的參數(清除網址參數)
-                                    //     let stateObj = { foo: "bar" };
-                                    //     window.history.replaceState(stateObj, "", id.split("?")[0]);
-                                    // }
                                     window.location=url_attraction+id.split("?")[0];
                                 }
                             })

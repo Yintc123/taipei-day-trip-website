@@ -93,7 +93,8 @@ def get_order(orderNumber):
                 "email":None,
                 "phone":None
             },
-            "status":None
+            "status":None,
+            "order_time":None
         }
     }
     token_user=request.cookies.get("token_user")
@@ -116,6 +117,7 @@ def get_order(orderNumber):
     output["data"]["contact"]["name"]=user_info["name"]
     output["data"]["contact"]["email"]=user_info["email"]
     output["data"]["contact"]["phone"]=order_info["phone"]
+    output["data"]["order_time"]=order_info["time"]
     if order_info["price"]==2000:
         output["data"]["trip"]["time"]="早上9點到下午4點"
     else:

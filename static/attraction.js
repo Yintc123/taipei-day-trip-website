@@ -48,7 +48,7 @@ function init(){
                                     loading_for_ready();
                                 }else{
                                     if(window.location.href.includes("?")){//清空query string的參數(清除網址參數)
-                                        console.log("123");
+                                        console.log(id);
                                         let stateObj = { foo: "bar" };
                                         window.history.replaceState(stateObj, "", id);
                                     }

@@ -9,13 +9,14 @@ from database.handle_user_data import Handle_member as handle_user
 env=".env"
 load_dotenv(override=True)
 
+key_booking=dotenv_values(env)["booking_key"] # jwt_key
+key_user=dotenv_values(env)["user_key"] # jwt_key
+
 error={
         "error":True,
         "message":None
 }
 
-key_booking=dotenv_values(env)["booking_key"] # jwt_key
-key_user=dotenv_values(env)["user_key"] # jwt_key
 # prime="test_3a2fb2b7e892b914a03c95dd4dd5dc7970c908df67a49527c0a648b2bc9" #測試用
 
 app5=Blueprint("order_api", __name__)

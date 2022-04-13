@@ -9,7 +9,7 @@ console.log("hi");
 // let booking="http://3.115.234.130:3000/booking";//EC2
 // const env='develop';
 const env='production';
-let data=require('./parameter.js');
+let data2=require('./parameter.js');
 
 let url_home=import('./parameter.js').then();//EC2
 let url_api_attraction="http://3.115.234.130:3000/api/attraction/";//EC2

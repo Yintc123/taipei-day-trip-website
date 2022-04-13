@@ -28,6 +28,6 @@ app.register_blueprint(app4, url_prefix="/api")
 app.register_blueprint(app5, url_prefix="/api")
 
 app.debug=True
-app.run(host="0.0.0.0", port=3000)#change port to 3000
-# app.run(port=3000) #test on my computer
+# app.run(host="0.0.0.0", port=3000)#change port to 3000
+app.run(port=3000) #test on my computer
 

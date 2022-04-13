@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify, make_response, request
 import jwt
-from conn_to_tappay_api import connect_to_tappay_api as tappay
-from handle_order_data import Handle_order as handle_order
-from handle_attraction_data import Handle_DB as handle_attraction
-from handle_user_data import Handle_member as handle_user
+from Tappay_api.conn_to_tappay_api import connect_to_tappay_api as tappay
+from database.handle_order_data import Handle_order as handle_order
+from database.handle_attraction_data import Handle_DB as handle_attraction
+from database.handle_user_data import Handle_member as handle_user
 
 error={
         "error":True,

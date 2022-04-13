@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import Blueprint, make_response, request, jsonify
 import jwt, datetime
-from handle_user_data import Handle_member as handle_user
+from database.handle_user_data import Handle_member as handle_user
 
 app3=Blueprint("user_api", __name__)
 

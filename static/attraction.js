@@ -9,13 +9,13 @@ console.log("hi");
 // let booking="http://3.115.234.130:3000/booking";//EC2
 // const env='develop';
 const env='production';
-import data2 from './static/package.js';
+// import data2 from './static/package.js';
 // let data2=require('./parameter.js')
-console.log(data2);
+// console.log(data2);
 
 console.log("1")
 
-let url_home='http://3.115.234.130:3000/';//EC2
+let url_home=import('./package.js').then(data=>{data[env]["url_home"]});//EC2
 let url_api_attraction="http://3.115.234.130:3000/api/attraction/";//EC2
 let url_attraction="http://3.115.234.130:3000/attraction/";//EC2
 let booking="http://3.115.234.130:3000/booking";//EC2

@@ -1,8 +1,9 @@
 console.log("hi");
-// let url="http://127.0.0.1:3000/api/attractions?keyword="
+
+// let url_api_attraction_keyword="http://127.0.0.1:3000/api/attractions?keyword="
 // let booking="http://127.0.0.1:3000/booking";
 // let url_attraction_id="http://127.0.0.1:3000/attraction/";
-let url="http://3.115.234.130:3000/api/attractions?keyword=";//EC2
+let url_api_attraction_keyword="http://3.115.234.130:3000/api/attractions?keyword=";//EC2
 let booking="http://3.115.234.130:3000/booking";//EC2
 let url_attraction_id="http://3.115.234.130:3000/attraction/";//EC2
 let nextpage=null;
@@ -14,7 +15,7 @@ let user_status=0;
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){//網頁初始化
     import('./attraction_module.js').then(func=>{
-        func.get_data(url).then(result=> {
+        func.get_data(url_api_attraction_keyword).then(result=> {
             create_content(result);//處理畫面
             import("./sign_module.js").then(func=>{
                 func.get_user_info().then(user=>{
@@ -34,7 +35,7 @@ function init(){//網頁初始化
             let observer=new IntersectionObserver(entries => {
                 if(entries[0].intersectionRatio <= 0 || nextpage==undefined || flag==1) return;//當目標物出現於螢幕的比例<0就return
                 flag=1;
-                let nextpage_url=url+keyword+"&page="+nextpage;//當目標物出現於螢幕上開始執行以下程式碼
+                let nextpage_url=url_api_attraction_keyword+keyword+"&page="+nextpage;//當目標物出現於螢幕上開始執行以下程式碼
                 func.get_data(nextpage_url).then(result => {
                     create_content(result);//處理畫面
                     flag=0;
@@ -44,37 +45,6 @@ function init(){//網頁初始化
             observer.observe(footer);
         });
     })
-    // let data=get_data(url);//處理data
-    // data.then(result=> {
-    //     create_content(result);//處理畫面
-    //     import("./sign_module.js").then(func=>{
-    //         func.get_user_info().then(user=>{
-    //             if(user["data"]!=null){//確認使用者登入狀況
-    //                 func.sign_in_view(user);
-    //                 user_status=1;
-    //             }else{
-    //                 func.sign_out_view();
-    //                 user_status=0;
-    //             }
-    //         })
-    //     })
-    // }).then(()=>{
-    //     //IntersectionObserver是「非同步」觸發，「相交與否」為一個瞬間，
-    //     //不會有不斷疊加的狀態，所以也就不會發生連續觸發導致的效能問題，
-    //     //也就是說儘管非常快速的來回捲動，它也不會將事件合併。
-    //     let observer=new IntersectionObserver(entries => {
-    //         if(entries[0].intersectionRatio <= 0 || nextpage==undefined || flag==1) return;//當目標物出現於螢幕的比例<0就return
-    //         flag=1;
-    //         let nextpage_url=url+keyword+"&page="+nextpage;//當目標物出現於螢幕上開始執行以下程式碼
-    //         let nextpage_data=get_data(nextpage_url);//處理data
-    //         nextpage_data.then(result => {
-    //             create_content(result);//處理畫面
-    //             flag=0;
-    //         })        
-    //     });
-    //     let footer=document.querySelector(".footer h4");
-    //     observer.observe(footer);
-    // })
 }
 
 function create_oneitem(data){
@@ -151,7 +121,7 @@ window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事
 
 button.addEventListener("click", () => {
     keyword=search_attraction();
-    let specific_attraction_url=url+keyword;
+    let specific_attraction_url=url_api_attraction_keyword+keyword;
     import('./attraction_module.js').then(func=>{
         func.get_data(specific_attraction_url).then(result => {
             nextpage=result["nextPage"];
@@ -225,8 +195,8 @@ schedule.addEventListener("click", function(){
     }
 })
 //--------------------------------處理data(M)-------------------------------//
-// async function get_data(url){
-//     return await fetch(url).then((response) => {
+// async function get_data(url_api_attraction_keyword){
+//     return await fetch(url_api_attraction_keyword).then((response) => {
 //         return response.json();
 //     }).then((result) => {
 //         return result;

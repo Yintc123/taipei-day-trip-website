@@ -1,17 +1,21 @@
 from flask import Blueprint, jsonify, make_response, request
+from dotenv import load_dotenv, dotenv_values
 import jwt
 from Tappay_api.conn_to_tappay_api import connect_to_tappay_api as tappay
 from database.handle_order_data import Handle_order as handle_order
 from database.handle_attraction_data import Handle_DB as handle_attraction
 from database.handle_user_data import Handle_member as handle_user
 
+env=".env"
+load_dotenv(override=True)
+
 error={
         "error":True,
         "message":None
 }
 
-key_booking="secret_key" # jwt_key
-key_user="secret" # jwt_key
+key_booking=dotenv_values(env)["booking_key"] # jwt_key
+key_user=dotenv_values(env)["user_key"] # jwt_key
 # prime="test_3a2fb2b7e892b914a03c95dd4dd5dc7970c908df67a49527c0a648b2bc9" #測試用
 
 app5=Blueprint("order_api", __name__)

@@ -15,9 +15,10 @@ const env='production';
 
 import('./package.js').then(data=>{
     console.log(data);
+    let url_home=data[env]["url_home"];
 })
 
-let url_home='http://3.115.234.130:3000/';//EC2
+// let url_home='http://3.115.234.130:3000/';//EC2
 let url_api_attraction="http://3.115.234.130:3000/api/attraction/";//EC2
 let url_attraction="http://3.115.234.130:3000/attraction/";//EC2
 let booking="http://3.115.234.130:3000/booking";//EC2

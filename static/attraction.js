@@ -9,9 +9,9 @@ console.log("hi");
 // let booking="http://3.115.234.130:3000/booking";//EC2
 // const env='develop';
 const env='production';
-// import data2 from './parameter.js';
+import data2 from './parameter.js';
 // let data2=require('./parameter.js')
-// console.log(data2);
+console.log(data2);
 
 console.log("1")
 

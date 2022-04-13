@@ -21,7 +21,7 @@ const env='production';
 let url_home=url[env]['url_home'];
 let url_api_attraction=url[env]['url_api_attraction'];
 let url_attraction=url[env]['url_attraction'];
-let booking=url[env]['url_booking'];
+let url_booking=url[env]['url_booking'];
 
 let last=document.getElementById("last_one");
 let next=document.getElementById("next_one");
@@ -343,7 +343,7 @@ schedule.addEventListener("click", function(){
     if(user_status==0){
         sign_in_or_up.click();
     }else{
-        window.location=booking;
+        window.location=url_booking;
     }
 })
 //--------------------------------處理data(M)-------------------------------//

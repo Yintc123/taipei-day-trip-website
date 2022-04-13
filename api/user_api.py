@@ -1,7 +1,13 @@
 from flask import Blueprint
 from flask import Blueprint, make_response, request, jsonify
+from dotenv import load_dotenv, dotenv_values
 import jwt, datetime
 from database.handle_user_data import Handle_member as handle_user
+
+env='.env'
+load_dotenv(override=True)
+
+user_key=dotenv_values(env)["user_key"] # jwt_key
 
 app3=Blueprint("user_api", __name__)
 
@@ -11,14 +17,13 @@ error={
 }
 
 restful_api="/user"
-key="secret"
 @app3.route(restful_api, methods=["GET"])
 def get_user():
     token_user=request.cookies.get("token_user")
     if token_user==None:
         return jsonify({"data":None})
     else:
-        user=jwt.decode(token_user, key, algorithms="HS256")
+        user=jwt.decode(token_user, user_key, algorithms="HS256")
         user.pop("exp")
         return jsonify(user)
 
@@ -72,7 +77,7 @@ def patch_user():
             user["data"][info]=user_info[info]
         payload=user
         payload["exp"]=datetime.datetime.utcnow()+datetime.timedelta(days=30) #設定token於30天到期
-        token_user=jwt.encode(payload, key, algorithm="HS256") #token加密
+        token_user=jwt.encode(payload, user_key, algorithm="HS256") #token加密
         resp.set_cookie(
                 key="token_user",
                 value=token_user,

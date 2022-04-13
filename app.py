@@ -1,8 +1,13 @@
 from flask import *
+from dotenv import load_dotenv, dotenv_values
 from api.attractions_api import app2
 from api.user_api import app3
 from api.tour_api import app4
 from api.order_api import app5
+
+# env=".env.develop" # 開發環境
+env=".env.production" # 正式環境
+load_dotenv(override=True)
 
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
@@ -28,6 +33,6 @@ app.register_blueprint(app4, url_prefix="/api")
 app.register_blueprint(app5, url_prefix="/api")
 
 app.debug=True
-app.run(host="0.0.0.0", port=3000)#change port to 3000
-# app.run(port=3000) #test on my computer
+app.run(host=dotenv_values(env)["app_host"], port=3000)#change port to 3000
+# app.run(host="127.0.0.1", port=3000) #test on my computer
 

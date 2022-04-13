@@ -1,9 +1,11 @@
 console.log("hi");
+// require('dotenv').config();
 // let url_home='http://127.0.0.1:3000/';
 // let url_api_attraction="http://127.0.0.1:3000/api/attraction/";
 // let url_attraction="http://127.0.0.1:3000/attraction/";
 // let booking="http://127.0.0.1:3000/booking";
 let url_home='http://3.115.234.130:3000/';//EC2
+// let url_home=process.env.production.home_url;
 let url_api_attraction="http://3.115.234.130:3000/api/attraction/";//EC2
 let url_attraction="http://3.115.234.130:3000/attraction/";//EC2
 let booking="http://3.115.234.130:3000/booking";//EC2

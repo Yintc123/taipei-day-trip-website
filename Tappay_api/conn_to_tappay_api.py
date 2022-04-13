@@ -1,17 +1,21 @@
 from urllib.request import urlopen, Request
+from dotenv import load_dotenv, dotenv_values
 import json
 
-url_tappay="https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
+env=".env"
+load_dotenv(override=True)
+
+url_tappay=dotenv_values(env)["tappay_url"]
 
 headers={
         "Content-Type": "application/json",
-        "x-api-key":"partner_B1hrqhVq81G0pohSzqIlpyaRWtqRV5eWjNcBjpoXVmrJkBfrdo1pnv5k"
+        "x-api-key":dotenv_values(env)["tappay_partnerKey"]
     }
 
 creditcard_info={
         "prime":"test_3a2fb2b7e892b914a03c95dd4dd5dc7970c908df67a49527c0a648b2bc9",
-        "partner_key":"partner_B1hrqhVq81G0pohSzqIlpyaRWtqRV5eWjNcBjpoXVmrJkBfrdo1pnv5k",
-        "merchant_id": "yin123_CTBC",
+        "partner_key":dotenv_values(env)["tappay_partnerKey"],
+        "merchant_id":dotenv_values(env)["tappay_merchantId"],
         "details":"TapPay Test",
         "amount": 100,
         "cardholder": {

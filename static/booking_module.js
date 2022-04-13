@@ -3,7 +3,7 @@
 export let url_booking="http://3.115.234.130:3000/api/booking";//EC2
 export let booking="http://3.115.234.130:3000/booking";//EC2
 
-export async function booking_tour(attraction_id, email){
+export async function booking_tour(attraction_id){
     let calendar=document.getElementById("calendar").value;
     let tour_time=document.querySelector("#tour_time:checked").value;
     let form_body=["attraction_id=", "date=", "time="];

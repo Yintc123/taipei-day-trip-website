@@ -1,9 +1,9 @@
 console.log("hi");
 // let url_home='http://127.0.0.1:3000/';
-// let url="http://127.0.0.1:3000/api/attraction/";
+// let url_api_attraction="http://127.0.0.1:3000/api/attraction/";
 // let url_thanks="http://127.0.0.1:3000/thankyou";
 let url_home='http://3.115.234.130:3000/';//EC2
-let url="http://3.115.234.130:3000/api/attraction/";//EC2
+let url_api_attraction="http://3.115.234.130:3000/api/attraction/";//EC2
 let url_thanks="http://3.115.234.130:3000/thankyou";//EC2
 let user_status=0;
 // ------------------------------使用Tappay的SDK-----------------------------------

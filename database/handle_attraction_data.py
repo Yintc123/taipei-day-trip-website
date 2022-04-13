@@ -1,4 +1,4 @@
-import db
+import database.db as db
 
 class Handle_DB():
     def __init__(self, keyword="", page=0):

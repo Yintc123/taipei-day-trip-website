@@ -1,10 +1,14 @@
 import datetime
 from flask import Blueprint, make_response, request, jsonify
+from dotenv import load_dotenv, dotenv_values
 import jwt
-from handle_attraction_data import Handle_DB as handle
+from database.handle_attraction_data import Handle_DB as handle
 
-key_booking="secret_key" # jwt_key
-key_user="secret" # jwt_key
+env='.env'
+load_dotenv(override=True)
+
+key_booking=dotenv_values(env)["booking_key"] # jwt_key
+key_user=dotenv_values(env)["user_key"] # jwt_key
 
 app4=Blueprint("tour_api", __name__)
 

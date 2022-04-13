@@ -1,9 +1,13 @@
 console.log("hi");
+// require('dotenv').config();
 // let url_home='http://127.0.0.1:3000/';
-// let url="http://127.0.0.1:3000/api/attraction/";
+// let url_api_attraction="http://127.0.0.1:3000/api/attraction/";
+// let url_attraction="http://127.0.0.1:3000/attraction/";
 // let booking="http://127.0.0.1:3000/booking";
 let url_home='http://3.115.234.130:3000/';//EC2
-let url="http://3.115.234.130:3000/api/attraction/";//EC2
+// let url_home=process.env.production.home_url;
+let url_api_attraction="http://3.115.234.130:3000/api/attraction/";//EC2
+let url_attraction="http://3.115.234.130:3000/attraction/";//EC2
 let booking="http://3.115.234.130:3000/booking";//EC2
 let last=document.getElementById("last_one");
 let next=document.getElementById("next_one");
@@ -14,10 +18,14 @@ let cur_url=window.location.href;
 let id=cur_url.split("/")[4];
 let user_status=0;
 let booking_flag=0;
+let order_flag=0;
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
-    let url_id=url+id;
+    if(window.location.href.indexOf("?")){//檢查網頁是否有帶query string
+        id=id.split("?")[0];
+    }
+    let url_id=url_api_attraction+id;
     fetch(url_id).then((response)=>{
         return response.json();
     }).then((result)=>{
@@ -29,17 +37,39 @@ function init(){
         import("./sign_module.js").then(func=>{
             func.get_user_info().then(user => {
                 if(user["data"]!=null){//確認使用者登入狀況
-                    func.sign_in_view(user);
                     user_status=1;
+                    func.sign_in_view(user);
+                    let order_number=get_order_number();
+                    if(order_number!=null){
+                        import("./order_module.js").then(func=>{
+                            func.get_order_info(order_number).then(result=>{
+                                if(result["data"]==null){
+                                    window.location=url_home;
+                                }
+                                if(result["data"]["contact"]["email"]==user["data"]["email"]){
+                                    set_date(result);
+                                    get_order_time(result);
+                                    tour_cost(result);
+                                    add_order_info(result);
+                                    loading_for_ready();
+                                }else{
+                                    window.location=url_attraction+id.split("?")[0];
+                                }
+                            })
+                        })
+                    }else{
+                        loading_for_ready();
+                    }
                 }else{
                     func.sign_out_view();
                     user_status=0;
+                    loading_for_ready();
                 }
+                load_image(data, img_index);
+                load_book_info(data);
+                load_attraction_info(data);
             });
         })
-        load_image(data, img_index);
-        load_book_info(data);
-        load_attraction_info(data);
     })
 }
 
@@ -63,8 +93,8 @@ function load_book_info(data){
     attraction_name.textContent=data["name"];
     attraction_cat.textContent=data["category"];
     attraction_MRT.textContent=data["MRT"];
-    tour_cost();
-    set_date();
+    set_date(null);
+    tour_cost(null);
 }
 
 function load_attraction_info(data){
@@ -83,52 +113,96 @@ function load_img_index(data, index){
     }
     let images=[];
     for(let i=0;i<data["images"].length;i++){
+        images[i]=document.createElement("img");
         if(i==index){
-            images[i]=document.createElement("img");
             images[i].src="/static/icon/circle_current_b.png";
-            index_frame.appendChild(images[i]);
         }else{
-            images[i]=document.createElement("img");
             images[i].src="/static/icon/circle_current_w.png";
-            index_frame.appendChild(images[i]);
         }
+        index_frame.appendChild(images[i]);
     }
 }
 
-function tour_cost(){
+function tour_cost(order_data){
     let cost=document.getElementById("cost");
-    if(tour_time[0].checked){
-        cost.textContent="新台幣 " + "2000" + " 元";
+    if(order_data==null){
+        if(tour_time[0].checked){
+            cost.textContent="新台幣 " + "2000" + " 元";
+        }else{
+            cost.textContent="新台幣 " + "2500" + " 元";
+        } 
     }else{
-        cost.textContent="新台幣 " + "2500" + " 元";
+        cost.textContent="新台幣 " + order_data["data"]["price"] + " 元";
     }     
 }
 
-function set_date(){
+function set_date(order_data){
     let calendar=document.getElementById("calendar");
-    let date=new Date();
-    let day=date.getDate();
-    let month=date.getMonth()+1;
-    let year=date.getFullYear();
-    if(month<10){
-        month="0"+month;
+    if(order_data==null){
+        let date=new Date();
+        let day=date.getDate();
+        let month=date.getMonth()+1;
+        let year=date.getFullYear();
+        if(month<10){
+            month="0"+month;
+        }
+        if(day<10){
+            day="0"+day;
+        }
+        calendar.value=year+"-"+month+"-"+day;
+        calendar.min=calendar.value;
+    }else{
+        let order_date=document.getElementById("order_date");
+        order_date.textContent=order_data["data"]["trip"]["date"];
+        calendar.style.display="none";
+        order_date.style.display="inline-block";
     }
-    if(day<10){
-        day="0"+day;
-    }
-    calendar.value=year+"-"+month+"-"+day;
-    calendar.min=calendar.value;
+}
+
+function get_order_time(order_data){
+    let label_tour_time=document.getElementsByClassName("label_tour_time")[0];
+    let order_time=document.getElementById("order_time");
+    label_tour_time.style.display="none";
+    booking_button.style.display="none";
+    order_time.textContent=order_data["data"]["trip"]["time"];
+    order_time.style.display="inline-block";
+    
 }
 
 function loading(swch){
-    let booking_button=document.getElementById("booking_button");
+    let booking_button_text=document.getElementById("booking_button_text");
     let loading=document.getElementById("lds-ellipsis");
+    console.log(loading);
     if (swch==1){
+        booking_button_text.style.display="none";
         loading.style.display="inline-block";
-        booking_button.value="";
     }else{
         loading.style.display="none";
-        booking_button.value="開始預訂行程";
+        booking_button_text.style.display="block";
+    }
+}
+
+function loading_for_ready(){
+    let loading=document.getElementById("loading_for_ready");
+    let form_div=document.getElementById("form_div");
+    loading.style.display="none";
+    form_div.style.display="block";
+}
+
+function add_order_info(order_data){
+    let h5_order=document.getElementsByClassName("h5_order");
+    let span_order_number=document.getElementById("span_order_number");
+    let span_order_status=document.getElementById("span_order_status");
+    let span_order_time=document.getElementById("span_order_time");
+    for (let i=0;i<h5_order.length;i++){
+        h5_order[i].style.display="block";
+    }
+    span_order_number.textContent=order_data["data"]["number"];
+    span_order_time.textContent=order_data["data"]["order_time"];
+    if(order_data["data"]["status"]==1){
+        span_order_status.textContent="下單成功";
+    }else{
+        span_order_status.textContent="下單失敗";
     }
 }
 //--------------------------------監聽事件-------------------------------//
@@ -159,8 +233,13 @@ booking_button.addEventListener("click", function(){
         booking_flag=1;
         sign_in_or_up.click();
         loading(0);
-    }
-    else{
+    }else{
+        if(get_order_number()){//帶有query string的狀態下直接return
+            booking_flag=0;
+            loading(0);
+            window.location=window.location.href;
+            return;
+        }
         import("./booking_module.js").then(func => {
             func.booking_tour(id).then(result=>{
                 window.location=func.booking;
@@ -291,6 +370,17 @@ function my_timer(t){
     this.reset=function(new_timer){
         t=new_timer;
         return this.stop().start();
+    }
+}
+
+function get_order_number(){
+    let order_number=window.location.href;
+    if(window.location.href.indexOf("ordernumber")!=-1){
+        order_number=order_number.split("=")[1];
+        order_flag=1;
+        return order_number;
+    }else{
+        return;
     }
 }
 //-------------------------------------Run----------------------------------------

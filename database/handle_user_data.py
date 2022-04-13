@@ -1,4 +1,4 @@
-import db
+import database.db as db
 
 class Handle_member():
     def __init__(self):

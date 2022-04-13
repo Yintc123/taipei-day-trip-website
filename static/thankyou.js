@@ -2,11 +2,12 @@ console.log("hi")
 // let booking="http://127.0.0.1:3000/booking";
 // let url_thanks="http://127.0.0.1:3000/thankyou";
 // let url_home="http://127.0.0.1:3000/";
-// let url_attraction="http://127.0.0.1:3000/api/attraction/";
+// let url_api_attraction="http://127.0.0.1:3000/api/attraction/";
 let booking="http://3.115.234.130:3000/booking";//EC2
 let url_thanks="http://3.115.234.130:3000/thankyou";//EC2
 let url_home='http://3.115.234.130:3000/';//EC2
-let url_attraction="http://3.115.234.130:3000/api/attraction/";//EC2
+let url_api_attraction="http://3.115.234.130:3000/api/attraction/";//EC2
+let url_attraction="http://3.115.234.130:3000/attraction/";//EC2
 
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
@@ -32,6 +33,8 @@ function show_order_info(user){
         order_user.textContent="以下為您的訂單：";
         import('./order_module.js').then(func=>{
             func.get_orders_by_id(user["data"]["id"]).then(result=>{
+                let order_text_p2=document.querySelector("#order_text_p2");
+                order_text_p2.textContent="點擊訂單編號查詢訂單詳細內容"
                 for(index in result){
                     create_table_comp(result[index], index);
                 }
@@ -43,7 +46,10 @@ function show_order_info(user){
     }else{
         import('./order_module.js').then(func=>{
             func.get_order_info(get_order_number()).then(result=>{
-                if(result["data"]["contact"]["email"]==user["data"]["email"]){
+                if(!result["data"]){
+                    order_user.textContent="查無近期的訂單";
+                    order_text.textContent="";
+                }else if(result["data"]["contact"]["email"]==user["data"]["email"]){
                     let order_number=document.getElementById("order_number");
                     order_number.textContent=get_order_number();
                 }else{
@@ -73,25 +79,34 @@ function loading_finished(order_flag){
     let order_text=document.querySelector("#order_text");
     let order_text_p2=document.querySelector("#order_text_p2");
     if(order_flag==1){//代表查詢特定訂單頁面(/thankyou?number=)
-        loading.style.display="none";
-        order_user.style.display="block";
         order_text.style.display="block";
-        order_text_p2.style.display="block";
     }else{//所有訂單畫面(/thankyou)
-        loading.style.display="none";
-        order_user.style.display="block";
         order_table.style.display="table";
     }
-    
+    order_user.style.display="block";
+    order_text_p2.style.display="block";
+    loading.style.display="none";
 }
 
 function create_table_comp(e, order_index){
     let order_table=document.getElementById("order_table");
     let tr=document.createElement("tr");
     let order_list=arrange_order_info(e, order_index);
+    let hidden=["2", "4", "6", "7"];// hide columns in phones mode
     for(index in order_list){
         let td=document.createElement("td");
-        td.textContent=order_list[index];
+        if(index==1){
+            let query_order_number="?ordernumber=";
+            let a=document.createElement("a");
+            a.textContent=order_list[index];
+            a.href=url_attraction+e["attraction_id"]+query_order_number+order_list[index];
+            td.appendChild(a);
+        }else{
+            td.textContent=order_list[index];
+        }
+        if(hidden.indexOf(index)!=-1){ // list的index型別與list內元素相同
+            td.className="order_hidden";
+        }
         tr.appendChild(td);
     }
     order_table.appendChild(tr);

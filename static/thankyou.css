@@ -216,7 +216,7 @@ hr{
     font-weight:700;
 }
 #order_table{
-    margin:30px auto 30px auto;
+    margin:10px auto 30px auto;
     display:none;
 }
 #order_table td{
@@ -241,68 +241,17 @@ hr{
     color:white;
     height:100%;
 }
-@media screen and (max-width:1199px){
-    body{
-        grid-template-columns: auto 100% auto;
-    }
-    .white_background{
-        grid-template-columns: auto 100% auto;
-    }
-    .nav_frame{
-        grid-template-columns: auto 100% auto;
-    }
-}
-@media screen and (max-width:685px){
-    .content_container{
-        width:95%;
-        height:auto;
-    }
-    .attraction_info{
-        width:95%;
-        height:auto;
-    }
-    .attraction_info .attraction_img{
-        width:100%;
-        margin-bottom:20px;
-    }
-    .attraction_info img{
-        margin-top:auto;
-    }
-    .content_container_2{
-        width:95%;
-        height:auto;
-    }
-    .confirmation{
-        width:95%;
-        height:auto;
-    }
-}
-@media screen and (max-width:415px){
-    .navigation ul{
-        gap:5px;
-        align-items:center;
-        position:relative;
-    }
-    #sign_in_or_up{
-        margin-left:15px;
-    }
-    #greet{
-        position:absolute;
-        font-size:10px;
-        right:15px;
-        top:-15px;
-    }
-}
-
+/* loading */
 
 .loading{
-    position:absolute;
+    position:relative;
     z-index:200;
-    background-color: #000000;
+    /* background-color: #000000; */
     width:100%;
-    min-width: 600px;
-    max-width:1200px;
-    top:40%;
+    height:100%;
+    /* min-width: 600px;
+    max-width:1200px; */
+    /* top:40%; */
 }
 .lds-roller {
     display: inline-block;
@@ -310,6 +259,7 @@ hr{
     width: 80px;
     height: 80px;
     left:50%;
+    top:45%;
     transform:translate(-50%, -50%);
   }
 .lds-roller div {
@@ -390,4 +340,61 @@ hr{
       transform: rotate(360deg);
     }
   }
+
+
+@media screen and (max-width:1199px){
+    body{
+        grid-template-columns: auto 100% auto;
+    }
+    .white_background{
+        grid-template-columns: auto 100% auto;
+    }
+    .nav_frame{
+        grid-template-columns: auto 100% auto;
+    }
+}
+@media screen and (max-width:685px){
+    .content_container{
+        width:95%;
+        height:auto;
+    }
+    .attraction_info{
+        width:95%;
+        height:auto;
+    }
+    .attraction_info .attraction_img{
+        width:100%;
+        margin-bottom:20px;
+    }
+    .attraction_info img{
+        margin-top:auto;
+    }
+    .content_container_2{
+        width:95%;
+        height:auto;
+    }
+    .confirmation{
+        width:95%;
+        height:auto;
+    }
+    .order_hidden{
+        display:none;
+    }
+}
+@media screen and (max-width:415px){
+    .navigation ul{
+        gap:5px;
+        align-items:center;
+        position:relative;
+    }
+    #sign_in_or_up{
+        margin-left:15px;
+    }
+    #greet{
+        position:absolute;
+        font-size:10px;
+        right:110px;
+        top:-15px;
+    }
+}
 

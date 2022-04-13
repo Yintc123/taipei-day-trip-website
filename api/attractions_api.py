@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 import math
-from handle_attraction_data import Handle_DB as handle
+from database.handle_attraction_data import Handle_DB as handle
 
 error={
         "error":True,

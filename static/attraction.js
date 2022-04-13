@@ -1,34 +1,27 @@
 console.log("hi");
 
 const url={
-    "develop":{
+    'develop':{
         'url_home':'http://127.0.0.1:3000/',
         'url_attraction':'http://127.0.0.1:3000/attraction/',
         'url_booking':'http://127.0.0.1:3000/booking',
         'url_api_attraction':'http://127.0.0.1:3000/api/attraction/'
     },
-    "production":{
+    'production':{
         'url_home':'http://3.115.234.130:3000/',
         'url_attraction':'http://3.115.234.130:3000/attraction/',
         'url_booking':'http://3.115.234.130:3000/booking',
         'url_api_attraction':'http://3.115.234.130:3000/api/attraction/'
     }
 }
-// let url_home='http://127.0.0.1:3000/';
-// let url_api_attraction="http://127.0.0.1:3000/api/attraction/";
-// let url_attraction="http://127.0.0.1:3000/attraction/";
-// let booking="http://127.0.0.1:3000/booking";
-// let url_home='http://3.115.234.130:3000/';//EC2
-// let url_api_attraction="http://3.115.234.130:3000/api/attraction/";//EC2
-// let url_attraction="http://3.115.234.130:3000/attraction/";//EC2
-// let booking="http://3.115.234.130:3000/booking";//EC2
+
 // const env='develop';
 const env='production';
 
-let url_home=url[env]["url_home"];
-let url_api_attraction=url[env]["url_api_attraction"];
-let url_attraction=url[env]["url_attraction"];
-let booking=url[env]["url_booking"];
+let url_home=url[env]['url_home'];
+let url_api_attraction=url[env]['url_api_attraction'];
+let url_attraction=url[env]['url_attraction'];
+let booking=url[env]['url_booking'];
 
 let last=document.getElementById("last_one");
 let next=document.getElementById("next_one");

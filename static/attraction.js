@@ -1,5 +1,6 @@
 console.log("hi");
-// require('dotenv').config();
+require('dotenv').config();
+console.log(processs.env.booking_key);
 // let url_home='http://127.0.0.1:3000/';
 // let url_api_attraction="http://127.0.0.1:3000/api/attraction/";
 // let url_attraction="http://127.0.0.1:3000/attraction/";

@@ -1,4 +1,4 @@
-console.log("hi");
+console.log("hi!");
 
 import {url_mode} from './package.js';
 

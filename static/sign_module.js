@@ -1,11 +1,15 @@
-import {url} from './package.js';
+import {url_mode} from './package.js';
 
 // const env='develop';
-const env='production';
+// const env='production';
 
-let url_api_sign=url[env]['url_api_sign'];
-let url_home=url[env]['url_home'];
-let url_thanks=url[env]['url_thanks'];
+let url_api_sign=url_mode['url_api_sign'];
+let url_home=url_mode['url_home'];
+let url_thanks=url_mode['url_thanks'];
+
+// let url_api_sign=url[env]['url_api_sign'];
+// let url_home=url[env]['url_home'];
+// let url_thanks=url[env]['url_thanks'];
 
 export async function get_user_info(){
     return await fetch(url_api_sign).then((response) => {

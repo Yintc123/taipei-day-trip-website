@@ -1,13 +1,17 @@
 console.log("hi");
 
-import {url} from './package.js';
+import {url_mode} from './package.js';
 
 // const env='develop';
-const env='production';
+// const env='production';
 
-let url_home=url[env]['url_home'];
-let url_api_attraction=url[env]['url_api_attraction'];
-let url_thanks=url[env]['url_thanks'];
+let url_home=url_mode['url_home'];
+let url_api_attraction=url_mode['url_api_attraction'];
+let url_thanks=url_mode['url_thanks'];
+
+// let url_home=url[env]['url_home'];
+// let url_api_attraction=url[env]['url_api_attraction'];
+// let url_thanks=url[env]['url_thanks'];
 
 let user_status=0;
 // ------------------------------使用Tappay的SDK-----------------------------------

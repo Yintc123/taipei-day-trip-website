@@ -1,11 +1,15 @@
-import {url} from './package.js';
+import {url_mode} from './package.js';
 
 // const env='develop';
-const env='production';
+// const env='production';
 
-let url_api_orders=url[env]['url_api_orders'];
-let url_api_order=url[env]['url_api_order'];
-let url_api_user_order=url[env]['url_api_user_order'];
+let url_api_orders=url_mode['url_api_orders'];
+let url_api_order=url_mode['url_api_order'];
+let url_api_user_order=url_mode['url_api_user_order'];
+
+// let url_api_orders=url[env]['url_api_orders'];
+// let url_api_order=url[env]['url_api_order'];
+// let url_api_user_order=url[env]['url_api_user_order'];
 
 export async function make_order(prime){
     let name=document.getElementById("name").value;

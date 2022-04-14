@@ -1,14 +1,19 @@
 console.log("hi");
 
-import {url} from './package.js';
+import {url_mode} from './package.js';
 
 // const env='develop';
-const env='production';
+// const env='production';
 
-let url_home=url[env]['url_home'];
-let url_api_attraction=url[env]['url_api_attraction'];
-let url_attraction=url[env]['url_attraction'];
-let url_booking=url[env]['url_booking'];
+let url_home=url_mode['url_home'];
+let url_api_attraction=url_mode['url_api_attraction'];
+let url_attraction=url_mode['url_attraction'];
+let url_booking=url_mode['url_booking'];
+
+// let url_home=url[env]['url_home'];
+// let url_api_attraction=url[env]['url_api_attraction'];
+// let url_attraction=url[env]['url_attraction'];
+// let url_booking=url[env]['url_booking'];
 
 let last=document.getElementById("last_one");
 let next=document.getElementById("next_one");

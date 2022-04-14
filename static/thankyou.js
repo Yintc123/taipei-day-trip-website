@@ -88,7 +88,7 @@ function show_user_name(user){
     let user_name=document.getElementsByClassName("user_name");
     let greeting=document.getElementById("greeting");
     greeting.href=url_thanks;
-    for(index in user_name){
+    for(let index in user_name){
         user_name[index].textContent=user["data"]["name"];
     }
 }

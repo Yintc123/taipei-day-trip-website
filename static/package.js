@@ -30,6 +30,6 @@ const url={
 // const env='develop';
 const env='production';
 
-const url_mode=url[env]
+export const url_mode=url[env]
 
 export default url_mode

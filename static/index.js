@@ -1,6 +1,6 @@
 console.log("hi");
 
-import {url} from './package.js';
+// import {url} from './package.js';
 
 const url={
     "develop":{

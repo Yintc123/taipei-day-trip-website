@@ -114,7 +114,7 @@ function create_table_comp(e, order_index){
     let tr=document.createElement("tr");
     let order_list=arrange_order_info(e, order_index);
     let hidden=["2", "4", "6", "7"];// hide columns in phones mode
-    for(index in order_list){
+    for(let index in order_list){
         let td=document.createElement("td");
         if(index==1){
             let query_order_number="?ordernumber=";

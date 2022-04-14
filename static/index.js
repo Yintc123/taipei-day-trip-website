@@ -26,12 +26,6 @@ let url_api_attraction_keyword=url[env]["url_api_attraction_keyword"];
 let url_booking=url[env]["url_booking"];
 let url_attraction=url[env]["url_attraction"];
 
-// let url_api_attraction_keyword="http://127.0.0.1:3000/api/attractions?keyword="
-// let url_booking="http://127.0.0.1:3000/booking";
-// let url_attraction="http://127.0.0.1:3000/attraction/";
-// let url_api_attraction_keyword="http://3.115.234.130:3000/api/attractions?keyword=";//EC2
-// let url_booking="http://3.115.234.130:3000/booking";//EC2
-// let url_attraction="http://3.115.234.130:3000/attraction/";//EC2
 let nextpage=null;
 let keyword="";
 let flag=0;//避免重複讀取資料的旗幟；0：可執行程式；1：程式未執行完，不可再執行程式

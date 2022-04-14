@@ -1,16 +1,18 @@
 console.log("hi");
 
 const url={
-    'develop':{
+    "develop":{
         'url_home':'http://127.0.0.1:3000/',
         'url_attraction':'http://127.0.0.1:3000/attraction/',
         'url_booking':'http://127.0.0.1:3000/booking',
+        'url_thanks':'http://127.0.0.1:3000/thankyou',
         'url_api_attraction':'http://127.0.0.1:3000/api/attraction/'
     },
-    'production':{
+    "production":{
         'url_home':'http://3.115.234.130:3000/',
         'url_attraction':'http://3.115.234.130:3000/attraction/',
         'url_booking':'http://3.115.234.130:3000/booking',
+        'url_thanks':'http://3.115.234.130:3000/thankyou',
         'url_api_attraction':'http://3.115.234.130:3000/api/attraction/'
     }
 }
@@ -256,7 +258,7 @@ booking_button.addEventListener("click", function(){
         }
         import("./booking_module.js").then(func => {
             func.booking_tour(id).then(result=>{
-                window.location=func.booking;
+                window.location=url_booking;
                 loading(0);
                 return result;
             })

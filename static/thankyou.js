@@ -203,7 +203,7 @@ function get_order_number(){
 
 function arrange_order_info(order_json, order_index){
     let order_list=["id", "order_number", "attraction", "trip_date", "trip_time", "price", "order_status", "time"];
-    for(index in order_list){
+    for(let index in order_list){
         if(index==0){
             order_index++;
             order_list[index]=order_index;

@@ -26,13 +26,6 @@ let url_api_sign=url[env]['url_api_sign'];
 let url_home=url[env]['url_home'];
 let url_thanks=url[env]['url_thanks'];
 
-// let url_api_sign="http://127.0.0.1:3000/api/user";
-// let url_home="http://127.0.0.1:3000/";
-// let url_thanks="http://127.0.0.1:3000/thankyou";
-// let url_api_sign="http://3.115.234.130:3000/api/user";//EC2
-// let url_home="http://3.115.234.130:3000/";//EC2
-// let url_thanks="http://3.115.234.130:3000/thankyou";//EC2
-
 export async function get_user_info(){
     return await fetch(url_api_sign).then((response) => {
         return response.json();

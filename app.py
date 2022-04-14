@@ -5,8 +5,7 @@ from api.user_api import app3
 from api.tour_api import app4
 from api.order_api import app5
 
-# env=".env.develop" # 開發環境
-env=".env.production" # 正式環境
+env=dotenv_values('.env')['MODE'] # 執行環境
 load_dotenv(override=True)
 
 app=Flask(__name__)

@@ -1,8 +1,7 @@
 from mysql.connector.pooling import MySQLConnectionPool
 from dotenv import load_dotenv, dotenv_values
 
-# env=".env.develop" # 開發環境
-env=".env.production" # 正式環境
+env=dotenv_values('.env')['MODE'] # 執行環境
 load_dotenv(override=True)
 
 con_pool=MySQLConnectionPool(

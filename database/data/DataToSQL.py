@@ -1,15 +1,17 @@
 import json
 import mysql.connector
+from dotenv import load_dotenv, dotenv_values
 
+env=dotenv_values('.env')['MODE'] # 執行環境
+load_dotenv(override=True)
 
 mydb=mysql.connector.connect(
     host="localhost",
     user="root",
-    password="AbC123456",
+    password=dotenv_values(env)['mysql_password'],
     database="taipei_scene",
     auth_plugin="mysql_native_password",
-    # port="3400",
-    # password="abc123456"
+    port=dotenv_values(env)['mysql_port'],
 )
 
 mycursor=mydb.cursor()

@@ -25,7 +25,7 @@ const env='production';
 let url_booking=url[env]['url_booking'];
 let url_thanks=url[env]['url_thanks'];
 let url_home=url[env]['url_home'];
-let url_api_attraction=url[env][url_api_attraction];
+let url_api_attraction=url[env]['url_api_attraction'];
 let url_attraction=url[env]['url_attraction'];
 
 // let url_booking="http://127.0.0.1:3000/booking";

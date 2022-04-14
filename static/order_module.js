@@ -32,13 +32,6 @@ let url_api_orders=url[env]['url_api_orders'];
 let url_api_order=url[env]['url_api_order'];
 let url_api_user_order=url[env]['url_api_user_order'];
 
-// let url_api_orders="http://127.0.0.1:3000/api/orders";
-// let url_api_order="http://127.0.0.1:3000/api/order/";
-// let url_api_user_order="http://127.0.0.1:3000/api/user_order/";
-// let url_api_orders="http://3.115.234.130:3000/api/orders";//EC2
-// let url_api_order="http://3.115.234.130:3000/api/order/";//EC2
-// let url_api_user_order="http://3.115.234.130:3000/api/user_order/";//EC2
-
 export async function make_order(prime){
     let name=document.getElementById("name").value;
     let email=document.getElementById("email").value;

@@ -315,9 +315,9 @@ window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事
     let card_number=document.getElementById("card-number");
     let card_expiration_date=document.getElementById("card-expiration-date");
     let card_ccv=document.getElementById("card-ccv");
-    input_list=[phone_input, name_input, email_input, card_number, card_expiration_date, card_ccv]
+    let input_list=[phone_input, name_input, email_input, card_number, card_expiration_date, card_ccv]
 
-    for(index in input_list){
+    for(let index in input_list){
         if(document.activeElement===input_list[index] && (e.code=="Enter" || e.code=="NumpadEnter")){
             confirmation_button.click();
         }

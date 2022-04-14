@@ -206,7 +206,7 @@ function get_imge(images){
 
 function search_attraction(){
     let search=document.getElementById("search");
-    attraction=search.value;
+    let attraction=search.value;
     attraction=attraction.replace(/\s*/g, "");// 將多餘的空格去除
     search.value="";//查詢後清除輸入欄
     return attraction;

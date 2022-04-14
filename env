@@ -1,0 +1,11 @@
+# mode
+MODE='production'
+
+# tappay
+tappay_url='https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime'
+tappay_partnerKey='partner_B1hrqhVq81G0pohSzqIlpyaRWtqRV5eWjNcBjpoXVmrJkBfrdo1pnv5k'
+tappay_merchantId='yin123_CTBC'
+
+# jwt_key
+booking_key='secret_key_for_booking'
+user_key='secret_key_for_user'

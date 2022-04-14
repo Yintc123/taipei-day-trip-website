@@ -88,12 +88,9 @@ function show_user_name(user){
     let user_name=document.getElementsByClassName("user_name");
     let greeting=document.getElementById("greeting");
     greeting.href=url_thanks;
-    console.log(user_name)
-    // for(let index in user_name){
-    //     user_name[index].textContent=user["data"]["name"];
-    // }
-    user_name[0].textContent=user["data"]["name"];
-    user_name[1].textContent=user["data"]["name"];
+    for(let index in user_name){
+        user_name[index].textContent=user["data"]["name"];
+    }
 }
 
 function loading_finished(order_flag){

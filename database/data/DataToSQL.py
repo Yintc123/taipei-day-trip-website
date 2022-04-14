@@ -2,7 +2,7 @@ import json
 import mysql.connector
 from dotenv import load_dotenv, dotenv_values
 
-env=dotenv_values('.env')['MODE'] # 執行環境
+env=str('.env.'+dotenv_values('.env')['MODE']) # 執行環境
 load_dotenv(override=True)
 
 mydb=mysql.connector.connect(

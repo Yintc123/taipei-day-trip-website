@@ -6,7 +6,7 @@ from database.handle_order_data import Handle_order as handle_order
 from database.handle_attraction_data import Handle_DB as handle_attraction
 from database.handle_user_data import Handle_member as handle_user
 
-env=".env"
+env=".env" # 執行環境
 load_dotenv(override=True)
 
 key_booking=dotenv_values(env)["booking_key"] # jwt_key

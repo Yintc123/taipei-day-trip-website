@@ -4,7 +4,7 @@ from dotenv import load_dotenv, dotenv_values
 import jwt
 from database.handle_attraction_data import Handle_DB as handle
 
-env='.env'
+env='.env' # 執行環境
 load_dotenv(override=True)
 
 key_booking=dotenv_values(env)["booking_key"] # jwt_key

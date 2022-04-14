@@ -2,7 +2,7 @@ from urllib.request import urlopen, Request
 from dotenv import load_dotenv, dotenv_values
 import json
 
-env=dotenv_values('.env')['MODE'] # 執行環境
+env='.env' # 執行環境
 load_dotenv(override=True)
 
 url_tappay=dotenv_values(env)["tappay_url"]

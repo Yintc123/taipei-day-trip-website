@@ -358,8 +358,8 @@ function get_image(image, index){
 function my_timer(t){
     let timer_obj=setInterval(function(){
         img_index++;
-        count=data["images"].length;
-        if(img_index>data["images"].length-1){
+        let count=data["images"].length;
+        if(img_index>count-1){
             img_index=0;
         }
         load_image(data, img_index);
@@ -376,8 +376,8 @@ function my_timer(t){
             this.stop();
             timer_obj=setInterval(function(){
                 img_index++;
-                count=data["images"].length;
-                if(img_index>data["images"].length-1){
+                let count=data["images"].length;
+                if(img_index>count-1){
                     img_index=0;
                 }
                 load_image(data, img_index);

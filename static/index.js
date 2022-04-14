@@ -1,17 +1,9 @@
 console.log("hi!");
-
 import {url_mode} from './package.js';
-
-// const env='develop';
-// const env='production';
 
 let url_api_attraction_keyword=url_mode["url_api_attraction_keyword"];
 let url_booking=url_mode["url_booking"];
 let url_attraction=url_mode["url_attraction"];
-
-// let url_api_attraction_keyword=url[env]["url_api_attraction_keyword"];
-// let url_booking=url[env]["url_booking"];
-// let url_attraction=url[env]["url_attraction"];
 
 let nextpage=null;
 let keyword="";

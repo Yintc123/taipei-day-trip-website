@@ -1,8 +1,5 @@
 import {url_mode} from './package.js';
 
-// const env='develop';
-// const env='production';
-
 let url_api_booking=url_mode['url_api_booking'];
 
 export async function booking_tour(attraction_id){

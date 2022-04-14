@@ -1,23 +1,25 @@
 console.log("hi");
 
-const url={
-    "develop":{
-        'url_home':'http://127.0.0.1:3000/',
-        'url_attraction':'http://127.0.0.1:3000/attraction/',
-        'url_booking':'http://127.0.0.1:3000/booking',
-        'url_thanks':'http://127.0.0.1:3000/thankyou',
-        'url_api_attraction':'http://127.0.0.1:3000/api/attraction/',
-        'url_api_attraction_keyword':'http://127.0.0.1:3000/api/attractions?keyword='
-    },
-    "production":{
-        'url_home':'http://3.115.234.130:3000/',
-        'url_attraction':'http://3.115.234.130:3000/attraction/',
-        'url_booking':'http://3.115.234.130:3000/booking',
-        'url_thanks':'http://3.115.234.130:3000/thankyou',
-        'url_api_attraction':'http://3.115.234.130:3000/api/attraction/',
-        'url_api_attraction_keyword':'http://3.115.234.130:3000/api/attractions?keyword='
-    }
-}
+import {url} from './package.js';
+
+// const url={
+//     "develop":{
+//         'url_home':'http://127.0.0.1:3000/',
+//         'url_attraction':'http://127.0.0.1:3000/attraction/',
+//         'url_booking':'http://127.0.0.1:3000/booking',
+//         'url_thanks':'http://127.0.0.1:3000/thankyou',
+//         'url_api_attraction':'http://127.0.0.1:3000/api/attraction/',
+//         'url_api_attraction_keyword':'http://127.0.0.1:3000/api/attractions?keyword='
+//     },
+//     "production":{
+//         'url_home':'http://3.115.234.130:3000/',
+//         'url_attraction':'http://3.115.234.130:3000/attraction/',
+//         'url_booking':'http://3.115.234.130:3000/booking',
+//         'url_thanks':'http://3.115.234.130:3000/thankyou',
+//         'url_api_attraction':'http://3.115.234.130:3000/api/attraction/',
+//         'url_api_attraction_keyword':'http://3.115.234.130:3000/api/attractions?keyword='
+//     }
+// }
 
 // const env='develop';
 const env='production';

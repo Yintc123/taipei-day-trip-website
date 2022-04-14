@@ -32,11 +32,6 @@ const env='production';
 
 let url_api_booking=url[env]['url_api_booking'];
 
-// export let url_api_booking="http://127.0.0.1:3000/api/booking";
-// export let booking="http://127.0.0.1:3000/booking";
-// export let url_api_booking="http://3.115.234.130:3000/api/booking";//EC2
-// export let booking="http://3.115.234.130:3000/booking";//EC2
-
 export async function booking_tour(attraction_id){
     let calendar=document.getElementById("calendar").value;
     let tour_time=document.querySelector("#tour_time:checked").value;

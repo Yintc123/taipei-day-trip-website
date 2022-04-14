@@ -271,9 +271,9 @@ booking_button.addEventListener("click", function(){
 last.addEventListener("click", function(){
     timer.reset(5000);
     img_index--;
-    count=data["images"].length;
+    let count=data["images"].length;
     if(img_index<0){
-        img_index=data["images"].length-1;
+        img_index=count-1;
     }
     load_image(data, img_index);
 });
@@ -281,8 +281,8 @@ last.addEventListener("click", function(){
 next.addEventListener("click", function(){
     timer.reset(5000);
     img_index++;
-    count=data["images"].length;
-    if(img_index>data["images"].length-1){
+    let count=data["images"].length;
+    if(img_index>count-1){
         img_index=0;
     }
     load_image(data, img_index);

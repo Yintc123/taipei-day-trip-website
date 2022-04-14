@@ -25,6 +25,9 @@ export const url={
         'url_api_user_order':'http://3.115.234.130:3000/api/user_order/',
         'url_api_booking':'http://3.115.234.130:3000/api/booking',
     }
-}
+};
 
-export default url
+// const env='develop';
+const env='production';
+
+export default url[env]

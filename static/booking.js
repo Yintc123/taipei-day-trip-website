@@ -244,6 +244,7 @@ function load_user_info(user){
     let user_email=document.getElementById("email");
     let name_msg=document.getElementById("name_msg");
     let email_msg=document.getElementById("email_msg");
+    console.log(user)
     if(user["data"]==null){
         return ;
     }

@@ -1,4 +1,4 @@
-export const url={
+const url={
     "develop":{
         'url_home':'http://127.0.0.1:3000/',
         'url_attraction':'http://127.0.0.1:3000/attraction/',
@@ -30,4 +30,6 @@ export const url={
 // const env='develop';
 const env='production';
 
-export default url[env]
+const url_mode=url[env]
+
+export default url_mode

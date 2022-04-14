@@ -56,8 +56,7 @@ function show_order_info(user){
             func.get_orders_by_id(user["data"]["id"]).then(result=>{
                 let order_text_p2=document.querySelector("#order_text_p2");
                 order_text_p2.textContent="點擊訂單編號查詢訂單詳細內容"
-                console.log(result);
-                for(index in result){
+                for(let index in result){
                     create_table_comp(result[index], index);
                 }
                 loading_finished(0);

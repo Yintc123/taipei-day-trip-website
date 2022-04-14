@@ -9,7 +9,8 @@ const url={
         'url_api_sign':'http://127.0.0.1:3000/api/user',
         'url_api_orders':'http://127.0.0.1:3000/api/orders',
         'url_api_order':'http://127.0.0.1:3000/api/order/',
-        'url_api_user_order':'http://127.0.0.1:3000/api/user_order/'
+        'url_api_user_order':'http://127.0.0.1:3000/api/user_order/',
+        'url_api_booking':'http://127.0.0.1:3000/api/booking',
     },
     "production":{
         'url_home':'http://3.115.234.130:3000/',
@@ -21,16 +22,19 @@ const url={
         'url_api_sign':'http://3.115.234.130:3000/api/user',
         'url_api_orders':'http://3.115.234.130:3000/api/orders',
         'url_api_order':'http://3.115.234.130:3000/api/order/',
-        'url_api_user_order':'http://3.115.234.130:3000/api/user_order/'
+        'url_api_user_order':'http://3.115.234.130:3000/api/user_order/',
+        'url_api_booking':'http://3.115.234.130:3000/api/booking',
     }
 }
 
 // const env='develop';
 const env='production';
 
+let url_api_booking=url[env]['url_api_booking'];
+
 // export let url_api_booking="http://127.0.0.1:3000/api/booking";
 // export let booking="http://127.0.0.1:3000/booking";
-export let url_api_booking="http://3.115.234.130:3000/api/booking";//EC2
+// export let url_api_booking="http://3.115.234.130:3000/api/booking";//EC2
 // export let booking="http://3.115.234.130:3000/booking";//EC2
 
 export async function booking_tour(attraction_id){

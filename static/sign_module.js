@@ -1,12 +1,40 @@
-// let url_sign="http://127.0.0.1:3000/api/user";
+const url={
+    "develop":{
+        'url_home':'http://127.0.0.1:3000/',
+        'url_attraction':'http://127.0.0.1:3000/attraction/',
+        'url_booking':'http://127.0.0.1:3000/booking',
+        'url_thanks':'http://127.0.0.1:3000/thankyou',
+        'url_api_attraction':'http://127.0.0.1:3000/api/attraction/',
+        'url_api_attraction_keyword':'http://127.0.0.1:3000/api/attractions?keyword=',
+        'url_api_sign':'http://127.0.0.1:3000/api/user',
+    },
+    "production":{
+        'url_home':'http://3.115.234.130:3000/',
+        'url_attraction':'http://3.115.234.130:3000/attraction/',
+        'url_booking':'http://3.115.234.130:3000/booking',
+        'url_thanks':'http://3.115.234.130:3000/thankyou',
+        'url_api_attraction':'http://3.115.234.130:3000/api/attraction/',
+        'url_api_attraction_keyword':'http://3.115.234.130:3000/api/attractions?keyword=',
+        'url_api_sign':'http://3.115.234.130:3000/api/user',
+    }
+}
+
+// const env='develop';
+const env='production';
+
+let url_api_sign=url[env]['url_api_sign'];
+let url_home=url[env]['url_home'];
+let url_thanks=url[env]['url_thanks'];
+
+// let url_api_sign="http://127.0.0.1:3000/api/user";
 // let url_home="http://127.0.0.1:3000/";
 // let url_thanks="http://127.0.0.1:3000/thankyou";
-let url_sign="http://3.115.234.130:3000/api/user";//EC2
-let url_home="http://3.115.234.130:3000/";//EC2
-let url_thanks="http://3.115.234.130:3000/thankyou";//EC2
+// let url_api_sign="http://3.115.234.130:3000/api/user";//EC2
+// let url_home="http://3.115.234.130:3000/";//EC2
+// let url_thanks="http://3.115.234.130:3000/thankyou";//EC2
 
 export async function get_user_info(){
-    return await fetch(url_sign).then((response) => {
+    return await fetch(url_api_sign).then((response) => {
         return response.json();
     }).then((result) => {
         return result;
@@ -41,7 +69,7 @@ export async function create_user(){
       form_body.push(encodedKey + "=" + encodedValue);
     }
     form_body = form_body.join("&");
-    return await fetch(url_sign,{
+    return await fetch(url_api_sign,{
         method:"POST",
         body:form_body,
         headers: {
@@ -66,7 +94,7 @@ export async function create_user(){
 }
 
 export async function delete_sign(){
-    return await fetch(url_sign, {method:"DELETE"}).then((response) => {
+    return await fetch(url_api_sign, {method:"DELETE"}).then((response) => {
         return response.json();
     }).then((result) => {
         return result;
@@ -89,7 +117,7 @@ export async function SignIn(flag){
       form_body.push(encodedKey + "=" + encodedValue);
     }
     form_body = form_body.join("&");
-    return await fetch(url_sign,{
+    return await fetch(url_api_sign,{
         method:"PATCH",
         body:form_body,
         headers: {

@@ -30,7 +30,7 @@ let user_status=0;
 // ------------------------------使用Tappay的SDK-----------------------------------
 let confirmation_button=document.getElementById("confirmation_button");
 // TPDirect.setupSDK 設定參數
-app_key="app_K64GfXE4Bm18CcyVETTYS0e9PTZmjpVyBhGh6sHQaHiImNYSoJcGjvjM1OhT";
+let app_key="app_K64GfXE4Bm18CcyVETTYS0e9PTZmjpVyBhGh6sHQaHiImNYSoJcGjvjM1OhT";
 TPDirect.setupSDK(123996, app_key, 'sandbox');
 // TPDirect.card.setup 設定外觀
 let fields = {

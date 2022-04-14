@@ -89,7 +89,7 @@ function show_user_name(user){
     let greeting=document.getElementById("greeting");
     greeting.href=url_thanks;
     for(let i=0;i<user_name.length;i++){
-        user_name[index].textContent=user["data"]["name"];
+        user_name[i].textContent=user["data"]["name"];
     }
 }
 

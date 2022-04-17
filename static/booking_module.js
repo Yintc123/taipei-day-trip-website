@@ -20,8 +20,6 @@ export async function booking_tour(attraction_id){
         }
     }).then(response => {
         return response.json();
-    }).then(result => {
-        console.log(result);
     })
 }
 
@@ -38,7 +36,5 @@ export async function delete_booking(){
         method:"DELETE"
     }).then(response=>{
         return response.json();
-    }).then(result=>{
-        return result;
     })
 }

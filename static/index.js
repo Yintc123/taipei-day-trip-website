@@ -4,6 +4,7 @@ import {url_mode} from './package.js';
 let url_api_attraction_keyword=url_mode["url_api_attraction_keyword"];
 let url_booking=url_mode["url_booking"];
 let url_attraction=url_mode["url_attraction"];
+let url_member=url_mode['url_member'];
 
 let nextpage=null;
 let keyword="";
@@ -14,12 +15,13 @@ let user_status=0;
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){//網頁初始化
     import('./attraction_module.js').then(func=>{
-        func.get_data(url_api_attraction_keyword).then(result=> {
+        func.get_attraction_data(url_api_attraction_keyword).then(result=> {
             create_content(result);//處理畫面
             import("./sign_module.js").then(func=>{
                 func.get_user_info().then(user=>{
                     if(user["data"]!=null){//確認使用者登入狀況
                         func.sign_in_view(user);
+                        func.get_user_img(user["data"]["id"]);
                         user_status=1;
                     }else{
                         func.sign_out_view();
@@ -35,8 +37,8 @@ function init(){//網頁初始化
                 if(entries[0].intersectionRatio <= 0 || nextpage==undefined || flag==1) return;//當目標物出現於螢幕的比例<0就return
                 flag=1;
                 let nextpage_url=url_api_attraction_keyword+keyword+"&page="+nextpage;//當目標物出現於螢幕上開始執行以下程式碼
-                func.get_data(nextpage_url).then(result => {
-                    create_content(result);//處理畫面
+                func.get_attraction_data(nextpage_url).then(attraction_data => {
+                    create_content(attraction_data);//處理畫面
                     flag=0;
                 })        
             });
@@ -76,7 +78,7 @@ function create_oneitem(data){
     return item;
 }
 
-async function create_content(data){
+function create_content(data){
     let content=document.querySelector(".content");
     nextpage=data["nextPage"];
     if(data["error"]!=null){
@@ -97,72 +99,93 @@ function clean_content(){
         content.removeChild(content.firstChild);
     }
 }
+
+function call_member_page(swch){
+    let sign_out_or_member=document.getElementsByClassName("sign_out_or_member")[0];
+    if(swch==1){
+        sign_out_or_member.style.display="block";
+    }else{
+        sign_out_or_member.style.display="none";
+    }   
+}
 //--------------------------------監聽事件-------------------------------//
-let button=document.getElementById("button");
+let search_keyword_button=document.getElementById("search_keyword_button");
 let sign_in_or_up=document.getElementById("sign_in_or_up");
 let background=document.getElementById("background");
-let close_sign=document.getElementById("close_sign");
+let close_sign=document.getElementsByClassName("close_sign");
 let sign=document.getElementById("sign");
 let sign_button=document.getElementById("sign_button");
 let switch_sign_up=document.getElementById("click_sign_up");
 let schedule=document.getElementById("schedule");
+let sign_in_img=document.getElementById("sign_in_img");
+let sign_out=document.getElementById("sign_out");
+let member_page=document.getElementById("member_page");
 
 window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事件
     let search=document.getElementById("search");
     let password=document.getElementsByName("password")[0];
     let isFocused=document.activeElement===search;//判斷游標是否在輸入框
     if(isFocused && (e.code=="Enter" || e.code=="NumpadEnter")){
-        button.click();
+        search_keyword_button.click();
     }else if(document.activeElement===password && (e.code=="Enter" || e.code=="NumpadEnter")){
         sign_button.click();
     }
 });
 
-button.addEventListener("click", () => {
+search_keyword_button.addEventListener("click", () => {
     keyword=search_attraction();
     let specific_attraction_url=url_api_attraction_keyword+keyword;
     import('./attraction_module.js').then(func=>{
-        func.get_data(specific_attraction_url).then(result => {
-            nextpage=result["nextPage"];
+        func.get_attraction_data(specific_attraction_url).then(attraction_data => {
+            nextpage=attraction_data["nextPage"];
             clean_content();
-            create_content(result);
+            create_content(attraction_data);
             flag=0;
         });
     })
-    // let specific_attraction_data=get_data(specific_attraction_url);
-    // specific_attraction_data.then(result => {
-    //     nextpage=result["nextPage"];
-    //     clean_content();
-    //     create_content(result);
-    //     flag=0;
-    // });
 })
 
 
 sign_in_or_up.addEventListener("click", function(){
-        import("./sign_module.js").then(func => {
-            if(sign_in_or_up.textContent=="登出系統"){
-                func.delete_sign().then(result=>{
-                    window.location=window.location.href;
-                })
-            }else{
-                func.init_sign_in()
-                background.style.display="block";
-                sign.style.display="block";
-            } 
-        })
-        
+    import("./sign_module.js").then(func => {
+        func.init_sign_in()
+        background.style.display="block";
+        sign.style.display="block";
+    })
+    
 });
+
+sign_in_img.addEventListener("click", function(){
+    background.style.display="block";
+    call_member_page(1);
+})
+
+sign_out.addEventListener("click", function(){
+    import("./sign_module.js").then(func => {
+        func.delete_sign().then(result=>{
+            window.location=window.location.href;
+        })
+    })
+})
+
+member_page.addEventListener("click", function(){
+    window.location=url_member;
+})
+
 
 background.addEventListener("click", function(){
     background.style.display="none";
     sign.style.display="none";
+    call_member_page(0);
 })
 
-close_sign.addEventListener("click", function(){
-    background.style.display="none";
-    sign.style.display="none";
-})
+for(let i=0;i<close_sign.length;i++){
+    close_sign[i].addEventListener("click", function(){
+        background.style.display="none";
+        sign.style.display="none";
+        call_member_page(0);
+    })
+}
 
 sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){

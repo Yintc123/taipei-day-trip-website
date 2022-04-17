@@ -2,7 +2,7 @@ import json
 import mysql.connector
 from dotenv import load_dotenv, dotenv_values
 
-env=str('.env.'+dotenv_values('.env')['MODE']) # 執行環境
+env=str('.env.'+dotenv_values('.env')["MODE"]) # 執行環境
 load_dotenv(override=True)
 
 mydb=mysql.connector.connect(
@@ -119,15 +119,19 @@ mycursor=mydb.cursor()
 # ------------------member------------------------------
 # mycursor.execute("CREATE TABLE member (id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT, name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, time DATETIME NOT NULL DEFAULT NOW())")
 
+mycursor.execute("ALTER TABLE member ADD img MEDIUMBLOB")
+# mycursor.execute("ALTER TABLE member MODIFY COLUMN img MEDIUMBLOB")
+
+# mycursor.execute("ALTER TABLE member DROP COLUMN img")
 # mycursor.execute("DROP TABLE member")
 # ------------------order------------------------------
-mycursor.execute("CREATE TABLE order_table(id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT, order_number BIGINT NOT NULL, attraction_id BIGINT NOT NULL, user_id BIGINT NOT NULL, time DATETIME NOT NULL DEFAULT NOW())")
+# mycursor.execute("CREATE TABLE order_table(id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT, order_number BIGINT NOT NULL, attraction_id BIGINT NOT NULL, user_id BIGINT NOT NULL, time DATETIME NOT NULL DEFAULT NOW())")
 
-mycursor.execute("ALTER TABLE order_table ADD FOREIGN KEY (attraction_id) REFERENCES scene_info(id)")
-mycursor.execute("ALTER TABLE order_table ADD FOREIGN KEY (user_id) REFERENCES member(id)")
-mycursor.execute("ALTER TABLE order_table ADD price INT NOT NULL")
-mycursor.execute("ALTER TABLE order_table ADD order_status INT NOT NULL DEFAULT 0")
-mycursor.execute("ALTER TABLE order_table ADD phone VARCHAR(255) NOT NULL")
-mycursor.execute("ALTER TABLE order_table ADD trip_date VARCHAR(255) NOT NULL")
+# mycursor.execute("ALTER TABLE order_table ADD FOREIGN KEY (attraction_id) REFERENCES scene_info(id)")
+# mycursor.execute("ALTER TABLE order_table ADD FOREIGN KEY (user_id) REFERENCES member(id)")
+# mycursor.execute("ALTER TABLE order_table ADD price INT NOT NULL")
+# mycursor.execute("ALTER TABLE order_table ADD order_status INT NOT NULL DEFAULT 0")
+# mycursor.execute("ALTER TABLE order_table ADD phone VARCHAR(255) NOT NULL")
+# mycursor.execute("ALTER TABLE order_table ADD trip_date VARCHAR(255) NOT NULL")
 
 # mycursor.execute("DROP TABLE order_table")

@@ -1,6 +1,14 @@
 import database.db as db
+import mysql.connector
 
-class Handle_member():
+def escape_column_name(name): # 去除字串的''
+    # This is meant to mostly do the same thing as the _process_params method
+    # of mysql.connector.MySQLCursor, but instead of the final quoting step,
+    # we escape any previously existing backticks and quote with backticks.
+    converter = mysql.connector.conversion.MySQLConverter()
+    return "`" + converter.escape(converter.to_mysql(name)).decode().replace('`', '``') + "`"
+
+class Handle_user():
     def __init__(self):
         self.conn=None
         self.cur=None
@@ -54,3 +62,23 @@ class Handle_member():
         user_info=self.cur.fetchone()
         self.close()
         return user_info
+    
+    def modify_user_info(self, user_id, name, email, password, img):
+        v={
+            "name":name,
+            "email":email,
+            "password":password,
+            "img":img
+        }
+        query="UPDATE member SET {}=%s WHERE id="+user_id
+        for var in v:
+            if(v[var]!=None):
+                if var=="email":
+                    result=self.get_user_info(email)
+                    if (result!=None and result["id"]!=int(user_id)):
+                        return 1
+                self.connection()
+                self.cur.execute(query.format(escape_column_name(var)),(v[var], ))
+        self.conn.commit()
+        self.close()
+        return 0

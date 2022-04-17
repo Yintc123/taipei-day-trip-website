@@ -4,8 +4,8 @@ import {url_mode} from './package.js';
 let url_booking=url_mode['url_booking'];
 let url_thanks=url_mode['url_thanks'];
 let url_home=url_mode['url_home'];
-let url_api_attraction=url_mode['url_api_attraction'];
 let url_attraction=url_mode['url_attraction'];
+let url_member=url_mode['url_member'];
 
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
@@ -14,6 +14,7 @@ function init(){
         func.get_user_info().then(user=>{
             if(user["data"]!=null){
                 func.sign_in_view(user);
+                func.get_user_img(user["data"]["id"]);
                 show_order_info(user);  
             }else{
                 window.location=url_home;
@@ -26,17 +27,17 @@ function init(){
 function show_order_info(user){
     let order_text=document.getElementById("order_text");
     let order_user=document.getElementById("order_user");
-    if(!get_order_number()){
+    if(!get_order_number()){//query string沒帶order number，畫面顯示歷史訂單
         order_text.textContent="";
         order_user.textContent="以下為您的訂單：";
         import('./order_module.js').then(func=>{
             func.get_orders_by_id(user["data"]["id"]).then(result=>{
                 let order_text_p2=document.querySelector("#order_text_p2");
-                order_text_p2.textContent="點擊訂單編號查詢訂單詳細內容"
+                order_text_p2.textContent="點擊訂單編號查詢訂單詳細內容";
                 for(let index in result){
                     create_table_comp(result[index], index);
                 }
-                loading_finished(0);
+                show_order_history_or_current_order(0);
                 return result;
             });
         })
@@ -44,33 +45,33 @@ function show_order_info(user){
     }else{
         import('./order_module.js').then(func=>{
             func.get_order_info(get_order_number()).then(result=>{
-                if(!result["data"]){
-                    order_user.textContent="查無近期的訂單";
-                    order_text.textContent="";
-                }else if(result["data"]["contact"]["email"]==user["data"]["email"]){
+                if(result["data"] && result["data"]["contact"]["email"]==user["data"]["email"]){
                     let order_number=document.getElementById("order_number");
                     order_number.textContent=get_order_number();
+                    show_user_name(user);
                 }else{
                     order_user.textContent="查無近期的訂單";
                     order_text.textContent="";
                 }
-                show_user_name(user);
-                loading_finished(1);
+                show_order_history_or_current_order(1);
+                show_order_text();
             });
         })
     }
 }
 
 function show_user_name(user){
-    let user_name=document.getElementsByClassName("user_name");
-    let greeting=document.getElementById("greeting");
-    greeting.href=url_thanks;
-    for(let i=0;i<user_name.length;i++){
-        user_name[i].textContent=user["data"]["name"];
-    }
+    let user_name=document.getElementsByClassName("user_name")[0];
+    user_name.textContent=user["data"]["name"];
 }
 
-function loading_finished(order_flag){
+function show_order_text(){
+    let greeting=document.getElementById("greeting");
+    greeting.textContent="訂單";
+    greeting.href=url_thanks;
+}
+
+function show_order_history_or_current_order(order_flag){
     let order_table=document.getElementById("order_table");
     let loading=document.querySelector(".loading");
     let order_user=document.querySelector("#order_user");
@@ -109,39 +110,56 @@ function create_table_comp(e, order_index){
     }
     order_table.appendChild(tr);
 }
+
+function call_member_page(swch){
+    let sign_out_or_member=document.getElementsByClassName("sign_out_or_member")[0];
+    if(swch==1){
+        sign_out_or_member.style.display="block";
+    }else{
+        sign_out_or_member.style.display="none";
+    }   
+}
 //--------------------------------監聽事件-------------------------------//
-let sign_in_or_up=document.getElementById("sign_in_or_up");
 let background=document.getElementById("background");
-let close_sign=document.getElementById("close_sign");
+let close_sign=document.getElementsByClassName("close_sign");
 let sign=document.getElementById("sign");
 let sign_button=document.getElementById("sign_button");
 let switch_sign_up=document.getElementById("click_sign_up");
 let schedule=document.getElementById("schedule");
+let sign_in_img=document.getElementById("sign_in_img");
+let sign_out=document.getElementById("sign_out");
+let member_page=document.getElementById("member_page");
 
-sign_in_or_up.addEventListener("click", function(){
+sign_in_img.addEventListener("click", function(){
+    background.style.display="block";
+    call_member_page(1);
+})
+
+sign_out.addEventListener("click", function(){
     import("./sign_module.js").then(func => {
-        if(sign_in_or_up.textContent=="登出系統"){
-            func.delete_sign().then(()=>{
-                window.location=document.referrer;//退回上一頁
-            });
-        }else{
-            func.init_sign_in()
-            background.style.display="block";
-            sign.style.display="block";
-        } 
+        func.delete_sign().then(result=>{
+            window.location=window.location.href;
+        })
     })
-    
-});
+})
+
+member_page.addEventListener("click", function(){
+    window.location=url_member;
+})
 
 background.addEventListener("click", function(){
     background.style.display="none";
     sign.style.display="none";
+    call_member_page(0);
 })
 
-close_sign.addEventListener("click", function(){
-    background.style.display="none";
-    sign.style.display="none";
-})
+for(let i=0;i<close_sign.length;i++){
+    close_sign[i].addEventListener("click", function(){
+        background.style.display="none";
+        sign.style.display="none";
+        call_member_page(0);
+    })
+}
 
 sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){

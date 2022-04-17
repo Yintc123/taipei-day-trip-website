@@ -2,8 +2,8 @@ console.log("hi");
 import {url_mode} from './package.js';
 
 let url_home=url_mode['url_home'];
-let url_api_attraction=url_mode['url_api_attraction'];
 let url_thanks=url_mode['url_thanks'];
+let url_member=url_mode['url_member'];
 
 let user_status=0;
 // ------------------------------使用Tappay的SDK-----------------------------------
@@ -136,11 +136,11 @@ TPDirect.card.onUpdate((update) => {
 });
 // TPDirect.card.getPrime 取得 Prime
 confirmation_button.addEventListener("click", function(){
-    control_confirmation_btn_loading(1);
+    switch_loading_status(1);
     TPDirect.card.getPrime((result)=>{
         if (result.status !== 0 || !check_filled_user_info()) {
-            check_filled_card_info();
-            control_confirmation_btn_loading(0);
+            show_fail_creditcard_msg();
+            switch_loading_status(0);
             // alert('get prime error ' + result.msg);
             return;
         } 
@@ -156,7 +156,7 @@ confirmation_button.addEventListener("click", function(){
                         });
                     });
                 }
-                control_confirmation_btn_loading(0);
+                switch_loading_status(0);
             });
         })
     });
@@ -168,7 +168,8 @@ function init(){
         func.get_user_info().then(user=>{
             if(user["data"]!=null){
                 func.sign_in_view(user);
-                load_user(user);
+                func.get_user_img(user["data"]["id"]);
+                show_user_name(user);
                 load_user_info(user);
                 user_status=1;
             }else{
@@ -180,23 +181,22 @@ function init(){
     import("./booking_module.js").then(func=>{
         func.get_booking().then(data=>{
             if(data==null){
-                without_booking();
+                show_without_booking_page();
             }else{
-                load_booking_info(data);
-                load_total_cost(data);
+                show_booking_info(data);
             }
         });
     })
 }
-function load_user(user){
+function show_user_name(user){
     let user_name=document.getElementById("user_name");
     user_name.textContent=user["data"]["name"];
 }
-function load_image(data){
+function show_attraction_image(data){
     let img=document.querySelector(".attraction_img");
     img.style.backgroundImage="url('"+data["attraction"]["image"]+"')";
 }
-function load_booking_info(data){
+function show_booking_info(data){
     let content=document.querySelector(".content_container_1");
     let loading=document.querySelector(".loading");
     let tour_name=document.getElementById("tour_name");
@@ -213,9 +213,10 @@ function load_booking_info(data){
     }else{
         tour_time.textContent="下午4點到晚上9點";
     }
-    load_image(data);
+    show_attraction_image(data);
     content.style.display="block";
     loading.style.display="none";
+    show_total_cost(data);
 }
 
 function load_user_info(user){
@@ -234,12 +235,12 @@ function load_user_info(user){
     email_msg.textContent="Done!";
 }
 
-function load_total_cost(data){
+function show_total_cost(data){
     let total_cost=document.getElementById("total_cost");
     total_cost.textContent=data["price"];
 }
 
-function without_booking(){
+function show_without_booking_page(){
     let loading=document.querySelector(".loading");
     let content_container_1=document.querySelector(".content_container_1");
     let container=document.createElement("div");
@@ -255,7 +256,7 @@ function without_booking(){
     loading.style.display="none";
 }
 
-function control_confirmation_btn_loading(swch){
+function switch_loading_status(swch){
     let lds_ellipsis=document.getElementById("lds-ellipsis");
     let cfm_btn_txt=document.getElementById("cfm_btn_txt");
     if(swch==1){
@@ -276,11 +277,32 @@ function loading_for_confirmation(swch){
         loading_confirmation.style.display="block";
     }
 }
-//--------------------------------監聽事件-------------------------------//
 
-let sign_in_or_up=document.getElementById("sign_in_or_up");
+function call_member_page(swch){
+    let sign_out_or_member=document.getElementsByClassName("sign_out_or_member")[0];
+    if(swch==1){
+        sign_out_or_member.style.display="block";
+    }else{
+        sign_out_or_member.style.display="none";
+    }   
+}
+
+function show_fail_creditcard_msg(){
+    let num_msg=document.getElementById("num_msg");
+    let date_msg=document.getElementById("date_msg");
+    let ccv_msg=document.getElementById("ccv_msg");
+    let msg=[num_msg, date_msg, ccv_msg];
+    for(let index in msg){
+        if(msg[index].textContent!="Done!" && msg[index].textContent!="信用卡的卡號有誤"){
+            msg[index].style.color="red";
+            msg[index].textContent="請填寫此欄位!";
+
+        }
+    }
+}
+//--------------------------------監聽事件-------------------------------//
 let background=document.getElementById("background");
-let close_sign=document.getElementById("close_sign");
+let close_sign=document.getElementsByClassName("close_sign");
 let sign=document.getElementById("sign");
 let sign_button=document.getElementById("sign_button");
 let switch_sign_up=document.getElementById("click_sign_up");
@@ -289,6 +311,9 @@ let delete_tour=document.getElementById("delete_tour");
 let phone_input=document.getElementById("phone");
 let name_input=document.getElementById("name");
 let email_input=document.getElementById("email");
+let sign_in_img=document.getElementById("sign_in_img");
+let sign_out=document.getElementById("sign_out");
+let member_page=document.getElementById("member_page");
 
 window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事件
     let card_number=document.getElementById("card-number");
@@ -302,30 +327,36 @@ window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事
     }
 });
 
-sign_in_or_up.addEventListener("click", function(){
+sign_in_img.addEventListener("click", function(){
+    background.style.display="block";
+    call_member_page(1);
+})
+
+sign_out.addEventListener("click", function(){
     import("./sign_module.js").then(func => {
-        if(sign_in_or_up.textContent=="登出系統"){
-            func.delete_sign().then(result=>{
-                window.location=document.referrer;//退回上一頁
-            });
-        }else{
-            func.init_sign_in()
-            background.style.display="block";
-            sign.style.display="block";
-        } 
+        func.delete_sign().then(result=>{
+            window.location=window.location.href;
+        })
     })
-    
-});
+})
+
+member_page.addEventListener("click", function(){
+    window.location=url_member;
+})
 
 background.addEventListener("click", function(){
     background.style.display="none";
     sign.style.display="none";
+    call_member_page(0);
 })
 
-close_sign.addEventListener("click", function(){
-    background.style.display="none";
-    sign.style.display="none";
-})
+for(let i=0;i<close_sign.length;i++){
+    close_sign[i].addEventListener("click", function(){
+        background.style.display="none";
+        sign.style.display="none";
+        call_member_page(0);
+    })
+}
 
 sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){
@@ -447,20 +478,6 @@ function check_filled_user_info(){
             }
         }
         return false;
-    }
-}
-
-function check_filled_card_info(){
-    let num_msg=document.getElementById("num_msg");
-    let date_msg=document.getElementById("date_msg");
-    let ccv_msg=document.getElementById("ccv_msg");
-    let msg=[num_msg, date_msg, ccv_msg];
-    for(let index in msg){
-        if(msg[index].textContent!="Done!" && msg[index].textContent!="信用卡的卡號有誤"){
-            msg[index].style.color="red";
-            msg[index].textContent="請填寫此欄位!";
-
-        }
     }
 }
 //-------------------------------------Run----------------------------------------

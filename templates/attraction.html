@@ -12,7 +12,7 @@
             <div class='sign_bar'></div>
             <div class='sign_title'>
                 <h3>登入會員帳號</h3>
-                <img id='close_sign' src="{{url_for('static', filename='icon/icon_close.png')}}" />
+                <img class='close_sign' src="{{url_for('static', filename='icon/icon_close.png')}}" />
             </div>
             <input id='sign_up_name' type='text' name='name' placeholder='輸入姓名'/>
             <input type='text' name='email' placeholder='輸入電子信箱'/>
@@ -21,6 +21,15 @@
             <br/>
             <p><span id='fail_message'>還沒有帳戶？</span><span id='click_sign_up'>點此註冊</span></p>
         </form>
+        <div class='sign_out_or_member'>
+            <div class='sign_bar'></div>
+            <img class='close_sign' src="{{url_for('static', filename='icon/icon_close.png')}}" />
+            <div class='user_img' id='user_img'></div>
+            <div>
+                <button id='member_page'>進入會員頁</button>
+                <button id='sign_out'>登出</button>
+            </div>
+        </div>
         <div class='nav_frame'>
             <div class='navigation'>
                 <h3 id='taipei'></h3>
@@ -28,11 +37,12 @@
                     <li id='greet'></li>
                     <li id='schedule'></li>
                     <li id='sign_in_or_up'></li>
+                    <li class='user_img' id='sign_in_img'></li>
                 </ul>
             </div>
         </div>
         <div class='content'>
-            <div id='loading_for_ready' class="lds-ripple"><div></div><div></div></div>
+                <div id='loading_for_init' class="lds-ripple"><div></div><div></div></div>
             <div class='tour'>
                 <div class='image'>
                     <img id='last_one' src="{{url_for('static', filename='icon/btn_leftArrow.png')}}" />
@@ -44,6 +54,8 @@
                     <h3 class='name'></h3>
                     <p class='name_intro'><span class='cat'></span> at <span class='MRT'></span></p>
                     <form>
+                        <div id='cloth'>
+                        </div>
                         <div id='form_div'>
                             <h4>訂購導覽行程</h4>
                             <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>

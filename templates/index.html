@@ -13,7 +13,7 @@
             <div class='sign_bar'></div>
             <div class='sign_title'>
                 <h3>登入會員帳號</h3>
-                <img id='close_sign' src="{{url_for('static', filename='icon/icon_close.png')}}" />
+                <img class='close_sign' src="{{url_for('static', filename='icon/icon_close.png')}}" />
             </div>
             <input id='sign_up_name' type='text' name='name' placeholder='輸入姓名'/>
             <input type='text' name='email' placeholder='輸入電子信箱'/>
@@ -22,6 +22,15 @@
             <br/>
             <p><span id='fail_message'>還沒有帳戶？</span><span id='click_sign_up'>點此註冊</span></p>
         </form>
+        <div class='sign_out_or_member'>
+            <div class='sign_bar'></div>
+            <img class='close_sign' src="{{url_for('static', filename='icon/icon_close.png')}}" />
+            <div class='user_img' id='user_img'></div>
+            <div>
+                <button id='member_page'>進入會員頁</button>
+                <button id='sign_out'>登出</button>
+            </div>
+        </div>
         <div class='nav_frame'>
             <div class='navigation'>
                 <h3 id='taipei'></h3>
@@ -29,6 +38,7 @@
                     <li id='greet'></li>
                     <li id='schedule'></li>
                     <li id='sign_in_or_up'></li>
+                    <li class='user_img' id='sign_in_img'></li>
                 </ul>
             </div>
         </div>
@@ -40,7 +50,7 @@
                     <h4>探索每個角落，體驗城市的深度旅遊行程</h4>
                     <div class='frame'>
                         <input id="search" type='text' placeholder='輸入景點名稱查詢' />
-                        <div><img id="button" src={{url_for('static', filename='icon/icon_search.png')}} /></div>
+                        <div><img id="search_keyword_button" src={{url_for('static', filename='icon/icon_search.png')}} /></div>
                     </div>
                 </div>
             </div>

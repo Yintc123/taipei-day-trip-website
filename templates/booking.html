@@ -22,6 +22,15 @@
             <br/>
             <p><span id='fail_message'>還沒有帳戶？</span><span id='click_sign_up'>點此註冊</span></p>
         </form>
+        <div class='sign_out_or_member'>
+            <div class='sign_bar'></div>
+            <img class='close_sign' src="{{url_for('static', filename='icon/icon_close.png')}}" />
+            <div class='user_img' id='user_img'></div>
+            <div>
+                <button id='member_page'>進入會員頁</button>
+                <button id='sign_out'>登出</button>
+            </div>
+        </div>
         <div class='nav_frame'>
             <div class='navigation'>
                 <h3 id='taipei'></h3>
@@ -29,6 +38,7 @@
                     <li id='greet'></li>
                     <li id='schedule'></li>
                     <li id='sign_in_or_up'></li>
+                    <li class='user_img' id='sign_in_img'></li>
                 </ul>
             </div>
         </div>

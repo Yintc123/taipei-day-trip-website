@@ -6,17 +6,17 @@ let url_home=url_mode['url_home'];
 let url_api_attraction=url_mode['url_api_attraction'];
 let url_attraction=url_mode['url_attraction'];
 let url_booking=url_mode['url_booking'];
+let url_member=url_mode['url_member'];
 
-let last=document.getElementById("last_one");
-let next=document.getElementById("next_one");
+let last_img=document.getElementById("last_one");
+let next_img=document.getElementById("next_one");
 let tour_time=document.getElementsByName("time");
-let data=null;
+let attraction_data=null;
 let img_index=0;
 let cur_url=window.location.href;
 let id=cur_url.split("/")[4];
 let user_status=0;
 let booking_flag=0;
-let order_flag=0;
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
@@ -24,54 +24,35 @@ function init(){
         id=id.split("?")[0];
     }
     let url_id=url_api_attraction+id;
-    fetch(url_id).then((response)=>{
-        return response.json();
-    }).then((result)=>{
-        data=result["data"]
-        if(data==undefined){//網頁偵錯
-            // window.history.go(-1);//回上一頁
-            window.location=url_home;//回首頁
-        }
-        import("./sign_module.js").then(func=>{
-            func.get_user_info().then(user => {
-                if(user["data"]!=null){//確認使用者登入狀況
-                    user_status=1;
-                    func.sign_in_view(user);
-                    let order_number=get_order_number();
-                    if(order_number!=null){
-                        import("./order_module.js").then(func=>{
-                            func.get_order_info(order_number).then(result=>{
-                                if(result["data"]==null){
-                                    window.location=url_home;
-                                }
-                                if(result["data"]["contact"]["email"]==user["data"]["email"]){
-                                    set_date(result);
-                                    get_order_time(result);
-                                    tour_cost(result);
-                                    add_order_info(result);
-                                    loading_for_ready();
-                                }else{
-                                    window.location=url_attraction+id.split("?")[0];
-                                }
-                            })
-                        })
+    import('./attraction_module.js').then(func=>{
+        func.get_attraction_data(url_id).then((result)=>{
+            attraction_data=result["data"];
+            if(attraction_data==undefined){//網頁偵錯
+                // window.history.go(-1);//回上一頁
+                window.location=url_home;//回首頁
+            }
+            import("./sign_module.js").then(func=>{
+                func.get_user_info().then(user => {
+                    if(user["data"]!=null){//確認使用者登入狀況
+                        user_status=1;
+                        func.sign_in_view(user);
+                        func.get_user_img(user["data"]["id"]);
+                        show_booking_info(user);
                     }else{
-                        loading_for_ready();
+                        func.sign_out_view();
+                        user_status=0;
                     }
-                }else{
-                    func.sign_out_view();
-                    user_status=0;
-                    loading_for_ready();
-                }
-                load_image(data, img_index);
-                load_book_info(data);
-                load_attraction_info(data);
-            });
+                    show_image(attraction_data, img_index);
+                    show_attraction_title(attraction_data);
+                    show_attraction_introduction(attraction_data);
+                    complete_init();
+                });
+            })
         })
     })
 }
 
-function load_image(data, index){
+function show_image(data, index){
     let image_frame=document.querySelector(".image");
     if(data["images"].length==1){//僅有一張照片就不顯示圓點及左右按鈕
         image_frame.style.backgroundImage="url('"+get_image(data["images"], index)+"')";
@@ -80,22 +61,22 @@ function load_image(data, index){
         }
     }else{
         image_frame.style.backgroundImage="url('"+get_image(data["images"], index)+"')";
-        load_img_index(data, index);
+        show_image_index(data, index);
     }
 }
 
-function load_book_info(data){
+function show_attraction_title(data){
     let attraction_name=document.querySelector(".name");
     let attraction_cat=document.querySelector(".cat");
     let attraction_MRT=document.querySelector(".MRT");
     attraction_name.textContent=data["name"];
     attraction_cat.textContent=data["category"];
     attraction_MRT.textContent=data["MRT"];
-    set_date(null);
-    tour_cost(null);
+    show_tour_date(null);
+    show_tour_cost(null);
 }
 
-function load_attraction_info(data){
+function show_attraction_introduction(data){
     let attraction_intro=document.querySelector(".intro");
     let attraction_address=document.querySelector(".address");
     let attraction_transport=document.querySelector(".transport");
@@ -104,7 +85,7 @@ function load_attraction_info(data){
     attraction_transport.textContent=data["transport"];
 }
 
-function load_img_index(data, index){
+function show_image_index(data, index){
     let index_frame=document.querySelector(".image_index");
     while(index_frame.firstChild){
         index_frame.removeChild(index_frame.firstChild);
@@ -121,7 +102,7 @@ function load_img_index(data, index){
     }
 }
 
-function tour_cost(order_data){
+function show_tour_cost(order_data){
     let cost=document.getElementById("cost");
     if(order_data==null){
         if(tour_time[0].checked){
@@ -134,7 +115,7 @@ function tour_cost(order_data){
     }     
 }
 
-function set_date(order_data){
+function show_tour_date(order_data){
     let calendar=document.getElementById("calendar");
     if(order_data==null){
         let date=new Date();
@@ -151,13 +132,13 @@ function set_date(order_data){
         calendar.min=calendar.value;
     }else{
         let order_date=document.getElementById("order_date");
-        order_date.textContent=order_data["data"]["trip"]["date"];
         calendar.style.display="none";
+        order_date.textContent=order_data["data"]["trip"]["date"];
         order_date.style.display="inline-block";
     }
 }
 
-function get_order_time(order_data){
+function show_order_time(order_data){
     let label_tour_time=document.getElementsByClassName("label_tour_time")[0];
     let order_time=document.getElementById("order_time");
     label_tour_time.style.display="none";
@@ -167,10 +148,9 @@ function get_order_time(order_data){
     
 }
 
-function loading(swch){
+function show_loading_for_booking(swch){
     let booking_button_text=document.getElementById("booking_button_text");
     let loading=document.getElementById("lds-ellipsis");
-    console.log(loading);
     if (swch==1){
         booking_button_text.style.display="none";
         loading.style.display="inline-block";
@@ -180,14 +160,14 @@ function loading(swch){
     }
 }
 
-function loading_for_ready(){
-    let loading=document.getElementById("loading_for_ready");
-    let form_div=document.getElementById("form_div");
+function complete_init(){
+    let loading=document.getElementById("loading_for_init");
+    let cloth=document.getElementById("cloth");
     loading.style.display="none";
-    form_div.style.display="block";
+    cloth.style.display="none";
 }
 
-function add_order_info(order_data){
+function show_rest_order_info(order_data){
     let h5_order=document.getElementsByClassName("h5_order");
     let span_order_number=document.getElementById("span_order_number");
     let span_order_status=document.getElementById("span_order_status");
@@ -203,14 +183,45 @@ function add_order_info(order_data){
         span_order_status.textContent="下單失敗";
     }
 }
+
+function show_booking_info(user){
+    let order_number=get_order_number();
+    if(order_number!=null){
+        import("./order_module.js").then(func=>{
+            func.get_order_info(order_number).then(result=>{
+                if(result["data"]!=null && user["data"]["email"]==result["data"]["contact"]["email"]){
+                    show_tour_date(result);
+                    show_order_time(result);
+                    show_tour_cost(result);
+                    show_rest_order_info(result);
+                }else{
+                    window.location=url_attraction+id.split("?")[0];
+                }
+            })
+        })
+    }
+    // complete_init();
+}
+
+function call_member_page(swch){
+    let sign_out_or_member=document.getElementsByClassName("sign_out_or_member")[0];
+    if(swch==1){
+        sign_out_or_member.style.display="block";
+    }else{
+        sign_out_or_member.style.display="none";
+    }   
+}
 //--------------------------------監聽事件-------------------------------//
 let sign_in_or_up=document.getElementById("sign_in_or_up");
 let background=document.getElementById("background");
-let close_sign=document.getElementById("close_sign");
+let close_sign=document.getElementsByClassName("close_sign");
 let sign_button=document.getElementById("sign_button");
 let switch_sign_up=document.getElementById("click_sign_up");
 let booking_button=document.getElementById("booking_button");
 let schedule=document.getElementById("schedule");
+let sign_in_img=document.getElementById("sign_in_img");
+let sign_out=document.getElementById("sign_out");
+let member_page=document.getElementById("member_page");
 
 window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事件
     let password=document.getElementsByName("password")[0];
@@ -221,79 +232,92 @@ window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事
 
 tour_time.forEach(time => {//依input的物件創造兩個"change"監聽事件
     time.addEventListener("change", function(){
-        tour_cost();
+        show_tour_cost();
     });
 })
 
 booking_button.addEventListener("click", function(){
-    loading(1);
+    show_loading_for_booking(1);
     if(user_status==0){
         booking_flag=1;
         sign_in_or_up.click();
-        loading(0);
+        show_loading_for_booking(0);
     }else{
         if(get_order_number()){//帶有query string的狀態下直接return
             booking_flag=0;
-            loading(0);
+            show_loading_for_booking(0);
             window.location=window.location.href;
             return;
         }
         import("./booking_module.js").then(func => {
             func.booking_tour(id).then(result=>{
                 window.location=url_booking;
-                loading(0);
+                show_loading_for_booking(0);
                 return result;
             })
         });
     }
 })
 
-last.addEventListener("click", function(){
+last_img.addEventListener("click", function(){
     timer.reset(5000);
     img_index--;
-    let count=data["images"].length;
+    let count=attraction_data["images"].length;
     if(img_index<0){
         img_index=count-1;
     }
-    load_image(data, img_index);
+    show_image(attraction_data, img_index);
 });
 
-next.addEventListener("click", function(){
+next_img.addEventListener("click", function(){
     timer.reset(5000);
     img_index++;
-    let count=data["images"].length;
+    let count=attraction_data["images"].length;
     if(img_index>count-1){
         img_index=0;
     }
-    load_image(data, img_index);
+    show_image(attraction_data, img_index);
 });
 
 sign_in_or_up.addEventListener("click", function(){
     import("./sign_module.js").then(func => {
-        if(sign_in_or_up.textContent=="登出系統"){
-            func.delete_sign().then(result=>{
-                window.location=window.location.href;
-            });
-        }else{
-            func.init_sign_in()
-            background.style.display="block";
-            sign.style.display="block";
-        } 
+        func.init_sign_in()
+        background.style.display="block";
+        sign.style.display="block";
     })
     
 });
 
+sign_in_img.addEventListener("click", function(){
+    background.style.display="block";
+    call_member_page(1);
+})
+
+sign_out.addEventListener("click", function(){
+    import("./sign_module.js").then(func => {
+        func.delete_sign().then(result=>{
+            window.location=window.location.href;
+        })
+    })
+})
+
+member_page.addEventListener("click", function(){
+    window.location=url_member;
+})
+
 background.addEventListener("click", function(){
     background.style.display="none";
     sign.style.display="none";
-    booking_flag=0;
+    call_member_page(0);
 })
 
-close_sign.addEventListener("click", function(){
-    background.style.display="none";
-    sign.style.display="none";
-    booking_flag=0;
-})
+for(let i=0;i<close_sign.length;i++){
+    close_sign[i].addEventListener("click", function(){
+        background.style.display="none";
+        sign.style.display="none";
+        call_member_page(0);
+    })
+}
 
 sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){
@@ -338,11 +362,11 @@ function get_image(image, index){
 function my_timer(t){
     let timer_obj=setInterval(function(){
         img_index++;
-        let count=data["images"].length;
+        let count=attraction_data["images"].length;
         if(img_index>count-1){
             img_index=0;
         }
-        load_image(data, img_index);
+        show_image(attraction_data, img_index);
     }, t)
     this.stop=function(){
         if(timer_obj){
@@ -356,11 +380,11 @@ function my_timer(t){
             this.stop();
             timer_obj=setInterval(function(){
                 img_index++;
-                let count=data["images"].length;
+                let count=attraction_data["images"].length;
                 if(img_index>count-1){
                     img_index=0;
                 }
-                load_image(data, img_index);
+                show_image(attraction_data, img_index);
             }, t)
         }
         return this;
@@ -375,7 +399,6 @@ function get_order_number(){
     let order_number=window.location.href;
     if(window.location.href.indexOf("ordernumber")!=-1){
         order_number=order_number.split("=")[1];
-        order_flag=1;
         return order_number;
     }else{
         return;

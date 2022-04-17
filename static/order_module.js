@@ -23,8 +23,6 @@ export async function make_order(prime){
         }
     }).then(response=>{
         return response.json();
-    }).then(result=>{
-        return result;
     })
 }
 
@@ -32,8 +30,6 @@ export async function get_order_info(order_number){
     let url_order_number=url_api_order+order_number;
     return await fetch(url_order_number).then(response=>{
         return response.json();
-    }).then(result=>{
-        return result;
     })
 }
 
@@ -41,7 +37,5 @@ export async function get_orders_by_id(user_id){
     let url=url_api_user_order+user_id
     return await fetch(url).then(response=>{
         return response.json();
-    }).then(result=>{
-        return result;
-    });
+    })
 }

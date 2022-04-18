@@ -99,40 +99,6 @@ def delete_user():
     return resp
 
 url=restful_api+'/<user_id>'
-# @app3.route(url, methods=["PATCH"])
-# def modify_user_info(user_id):
-#     name=request.form["name"]
-#     email=request.form["email"]
-#     password=request.form["password"]
-#     img=request.form["img"]
-#     con_user=handle_user()
-#     token_user=request.cookies.get("token_user")
-#     payload=jwt.decode(token_user, user_key, algorithms="HS256")
-#     if payload["data"]["id"]!=int(user_id):
-#         error["message"]="個資修改失敗，請勿修改他人個資"
-#         return error
-#     if img=="":
-#         if password=="" or email=="" or name=="":
-#             error["message"]="請填寫所有欄位"
-#             return error
-#         result=con_user.modify_user_info(user_id, name, email, password, None)
-#         if result==1:
-#             error["message"]="此帳號已被使用"
-#             return error
-#         payload["data"]["name"]=name
-#         payload["data"]["email"]=email
-#         token_user=jwt.encode(payload, user_key, algorithm="HS256") #token加密
-#         resp=make_response(jsonify({"ok":True}))
-#         resp.set_cookie(
-#                 key="token_user",
-#                 value=token_user,
-#         )
-#         return resp
-#     else:
-#         print(img)
-#         result=con_user.modify_user_info(user_id, None, None, None, img)
-#         return {"ok":True}       
-
 @app3.route(url, methods=["POST"])
 def get_password(user_id):
     token_user=request.cookies.get("token_user")

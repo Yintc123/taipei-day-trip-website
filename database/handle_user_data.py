@@ -71,13 +71,14 @@ class Handle_user():
             "img":img
         }
         query="UPDATE member SET {}=%s WHERE id="+user_id
+        self.connection()
         for var in v:
             if(v[var]!=None):
                 if var=="email":
                     result=self.get_user_info(email)
+                    self.connection() # 前一個function會將所有connection和cursor關閉
                     if (result!=None and result["id"]!=int(user_id)):
                         return 1
-                self.connection()
                 self.cur.execute(query.format(escape_column_name(var)),(v[var], ))
         self.conn.commit()
         self.close()

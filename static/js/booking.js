@@ -1,15 +1,16 @@
 console.log("hi");
-import {url_mode} from './package.js';
+import {url_mode} from '../package.js';
 
-let url_home=url_mode['url_home'];
-let url_thanks=url_mode['url_thanks'];
-let url_member=url_mode['url_member'];
+const url_home=url_mode['url_home'];
+const url_thanks=url_mode['url_thanks'];
+const url_member=url_mode['url_member'];
 
 let user_status=0;
+document.title="預定行程";
 // ------------------------------使用Tappay的SDK-----------------------------------
-let confirmation_button=document.getElementById("confirmation_button");
+const confirmation_button=document.getElementById("confirmation_button");
 // TPDirect.setupSDK 設定參數
-let app_key="app_K64GfXE4Bm18CcyVETTYS0e9PTZmjpVyBhGh6sHQaHiImNYSoJcGjvjM1OhT";
+const app_key="app_K64GfXE4Bm18CcyVETTYS0e9PTZmjpVyBhGh6sHQaHiImNYSoJcGjvjM1OhT";
 TPDirect.setupSDK(123996, app_key, 'sandbox');
 // TPDirect.card.setup 設定外觀
 let fields = {
@@ -74,12 +75,12 @@ TPDirect.card.setup({
 });
 // TPDirect.card.onUpdate，得知目前卡片資訊的輸入狀態
 TPDirect.card.onUpdate((update) => {
-    let num_msg=document.getElementById("num_msg");
-    let date_msg=document.getElementById("date_msg");
-    let ccv_msg=document.getElementById("ccv_msg");
-    let typing_num=document.getElementById("typing_num");
-    let typing_exp=document.getElementById("typing_exp");
-    let typing_ccv=document.getElementById("typing_ccv");
+    const num_msg=document.getElementById("num_msg");
+    const date_msg=document.getElementById("date_msg");
+    const ccv_msg=document.getElementById("ccv_msg");
+    const typing_num=document.getElementById("typing_num");
+    const typing_exp=document.getElementById("typing_exp");
+    const typing_ccv=document.getElementById("typing_ccv");
 
     if(update.canGetPrime){
         
@@ -145,12 +146,12 @@ confirmation_button.addEventListener("click", function(){
             return;
         } 
         // alert('get prime 成功，prime: ' + result.card.prime);
-        import('./order_module.js').then(func=>{
+        import('../order_module.js').then(func=>{
             func.make_order(result.card.prime).then(result=>{
                 if (result["error"]){
                     alert("Error: "+result["message"]+"\n請重新提交訂單!")
                 }else{
-                    import("./booking_module.js").then(func_booking=>{
+                    import("../booking_module.js").then(func_booking=>{
                         func_booking.delete_booking().then(()=>{
                             window.location=url_thanks+"?number="+result["data"]["number"];
                         });
@@ -164,7 +165,7 @@ confirmation_button.addEventListener("click", function(){
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
-    import("./sign_module.js").then(func=>{
+    import("../sign_module.js").then(func=>{
         func.get_user_info().then(user=>{
             if(user["data"]!=null){
                 func.sign_in_view(user);
@@ -178,7 +179,7 @@ function init(){
             }
         })
     });
-    import("./booking_module.js").then(func=>{
+    import("../booking_module.js").then(func=>{
         func.get_booking().then(data=>{
             if(data==null){
                 show_without_booking_page();
@@ -189,21 +190,21 @@ function init(){
     })
 }
 function show_user_name(user){
-    let user_name=document.getElementById("user_name");
+    const user_name=document.getElementById("user_name");
     user_name.textContent=user["data"]["name"];
 }
 function show_attraction_image(data){
-    let img=document.querySelector(".attraction_img");
+    const img=document.querySelector(".attraction_img");
     img.style.backgroundImage="url('"+data["attraction"]["image"]+"')";
 }
 function show_booking_info(data){
-    let content=document.querySelector(".content_container_1");
-    let loading=document.querySelector(".loading");
-    let tour_name=document.getElementById("tour_name");
-    let tour_date=document.getElementById("tour_date");
-    let tour_time=document.getElementById("tour_time");
-    let tour_cost=document.getElementById("tour_cost");
-    let tour_adrs=document.getElementById("tour_adrs");
+    const content=document.querySelector(".content_container_1");
+    const loading=document.querySelector(".loading");
+    const tour_name=document.getElementById("tour_name");
+    const tour_date=document.getElementById("tour_date");
+    const tour_time=document.getElementById("tour_time");
+    const tour_cost=document.getElementById("tour_cost");
+    const tour_adrs=document.getElementById("tour_adrs");
     tour_name.textContent=data["attraction"]["name"];
     tour_date.textContent=data["date"];
     tour_cost.textContent=data["price"];
@@ -220,10 +221,10 @@ function show_booking_info(data){
 }
 
 function load_user_info(user){
-    let user_name=document.getElementById("name");
-    let user_email=document.getElementById("email");
-    let name_msg=document.getElementById("name_msg");
-    let email_msg=document.getElementById("email_msg");
+    const user_name=document.getElementById("name");
+    const user_email=document.getElementById("email");
+    const name_msg=document.getElementById("name_msg");
+    const email_msg=document.getElementById("email_msg");
     if(user["data"]==null || user_name==null){
         return ;
     }
@@ -236,15 +237,15 @@ function load_user_info(user){
 }
 
 function show_total_cost(data){
-    let total_cost=document.getElementById("total_cost");
+    const total_cost=document.getElementById("total_cost");
     total_cost.textContent=data["price"];
 }
 
 function show_without_booking_page(){
-    let loading=document.querySelector(".loading");
-    let content_container_1=document.querySelector(".content_container_1");
-    let container=document.createElement("div");
-    let message=document.createElement("p");
+    const loading=document.querySelector(".loading");
+    const content_container_1=document.querySelector(".content_container_1");
+    const container=document.createElement("div");
+    const message=document.createElement("p");
     container.className="p_container";
     message.textContent="目前沒有任何待預定的行程";
     while(content_container_1.firstChild){
@@ -257,8 +258,8 @@ function show_without_booking_page(){
 }
 
 function switch_loading_status(swch){
-    let lds_ellipsis=document.getElementById("lds-ellipsis");
-    let cfm_btn_txt=document.getElementById("cfm_btn_txt");
+    const lds_ellipsis=document.getElementById("lds-ellipsis");
+    const cfm_btn_txt=document.getElementById("cfm_btn_txt");
     if(swch==1){
         cfm_btn_txt.style.display="none";
         lds_ellipsis.style.display="inline-block";
@@ -270,7 +271,7 @@ function switch_loading_status(swch){
 }
 
 function loading_for_confirmation(swch){
-    let loading_confirmation=document.getElementById("loading_for_confirmation");
+    const loading_confirmation=document.getElementById("loading_for_confirmation");
     if(swch==0){
         loading_confirmation.style.display="none";
     }else{
@@ -279,7 +280,7 @@ function loading_for_confirmation(swch){
 }
 
 function call_member_page(swch){
-    let sign_out_or_member=document.getElementsByClassName("sign_out_or_member")[0];
+    const sign_out_or_member=document.getElementsByClassName("sign_out_or_member")[0];
     if(swch==1){
         sign_out_or_member.style.display="block";
     }else{
@@ -288,9 +289,9 @@ function call_member_page(swch){
 }
 
 function show_fail_creditcard_msg(){
-    let num_msg=document.getElementById("num_msg");
-    let date_msg=document.getElementById("date_msg");
-    let ccv_msg=document.getElementById("ccv_msg");
+    const num_msg=document.getElementById("num_msg");
+    const date_msg=document.getElementById("date_msg");
+    const ccv_msg=document.getElementById("ccv_msg");
     let msg=[num_msg, date_msg, ccv_msg];
     for(let index in msg){
         if(msg[index].textContent!="Done!" && msg[index].textContent!="信用卡的卡號有誤"){
@@ -301,24 +302,24 @@ function show_fail_creditcard_msg(){
     }
 }
 //--------------------------------監聽事件-------------------------------//
-let background=document.getElementById("background");
-let close_sign=document.getElementsByClassName("close_sign");
-let sign=document.getElementById("sign");
-let sign_button=document.getElementById("sign_button");
-let switch_sign_up=document.getElementById("click_sign_up");
-let schedule=document.getElementById("schedule");
-let delete_tour=document.getElementById("delete_tour");
-let phone_input=document.getElementById("phone");
-let name_input=document.getElementById("name");
-let email_input=document.getElementById("email");
-let sign_in_img=document.getElementById("sign_in_img");
-let sign_out=document.getElementById("sign_out");
-let member_page=document.getElementById("member_page");
+const background=document.getElementById("background");
+const close_sign=document.getElementsByClassName("close_sign");
+const sign=document.getElementById("sign");
+const sign_button=document.getElementById("sign_button");
+const switch_sign_up=document.getElementById("click_sign_up");
+const schedule=document.getElementById("schedule");
+const delete_tour=document.getElementById("delete_tour");
+const phone_input=document.getElementById("phone");
+const name_input=document.getElementById("name");
+const email_input=document.getElementById("email");
+const sign_in_img=document.getElementById("sign_in_img");
+const sign_out=document.getElementById("sign_out");
+const member_page=document.getElementById("member_page");
 
 window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事件
-    let card_number=document.getElementById("card-number");
-    let card_expiration_date=document.getElementById("card-expiration-date");
-    let card_ccv=document.getElementById("card-ccv");
+    const card_number=document.getElementById("card-number");
+    const card_expiration_date=document.getElementById("card-expiration-date");
+    const card_ccv=document.getElementById("card-ccv");
     let input_list=[phone_input, name_input, email_input, card_number, card_expiration_date, card_ccv]
     for(let index in input_list){
         if(document.activeElement===input_list[index] && (e.code=="Enter" || e.code=="NumpadEnter")){
@@ -333,7 +334,7 @@ sign_in_img.addEventListener("click", function(){
 })
 
 sign_out.addEventListener("click", function(){
-    import("./sign_module.js").then(func => {
+    import("../sign_module.js").then(func => {
         func.delete_sign().then(result=>{
             window.location=window.location.href;
         })
@@ -360,18 +361,18 @@ for(let i=0;i<close_sign.length;i++){
 
 sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){
-        import("./sign_module.js").then(func => {
+        import("../sign_module.js").then(func => {
             func.SignIn();
         })
     }else{
-        import("./sign_module.js").then(func => {
+        import("../sign_module.js").then(func => {
             func.create_user();
         })
     } 
 })
 
 switch_sign_up.addEventListener("click", function(){
-    import("./sign_module.js").then(func => {
+    import("../sign_module.js").then(func => {
         if(switch_sign_up.textContent=="點此註冊"){
             func.init_sign_up()
         }else{
@@ -385,7 +386,7 @@ schedule.addEventListener("click", function(){
 })
 
 delete_tour.addEventListener("click", function(){
-    import("./booking_module.js").then(func=>{
+    import("../booking_module.js").then(func=>{
         func.delete_booking().then(()=>{
             window.location=window.location.href;
         });
@@ -393,8 +394,8 @@ delete_tour.addEventListener("click", function(){
 })
 
 phone_input.addEventListener("input", function(){
-    let typing_phone=document.getElementById("typing_phone");
-    let phone_msg=document.getElementById("phone_msg");
+    const typing_phone=document.getElementById("typing_phone");
+    const phone_msg=document.getElementById("phone_msg");
     phone_msg.style.display="none";
     typing_phone.style.display="block";
     if(phone_input.value.length==10){
@@ -414,15 +415,15 @@ phone_input.addEventListener("input", function(){
 })
 
 name_input.addEventListener("input", function(){
-    let typing_name=document.getElementById("typing_name");
-    let name_msg=document.getElementById("name_msg");
+    const typing_name=document.getElementById("typing_name");
+    const name_msg=document.getElementById("name_msg");
     name_msg.style.display="none";
     typing_name.style.display="block";
 })
 
 name_input.addEventListener("change", function(){
-    let typing_name=document.getElementById("typing_name");
-    let name_msg=document.getElementById("name_msg");
+    const typing_name=document.getElementById("typing_name");
+    const name_msg=document.getElementById("name_msg");
     typing_name.style.display="none";
     name_msg.style.display="block";
     if(name_input.value==""){
@@ -435,15 +436,15 @@ name_input.addEventListener("change", function(){
 })
 
 email_input.addEventListener("input", function(){
-    let typing_email=document.getElementById("typing_email");
-    let email_msg=document.getElementById("email_msg");
+    const typing_email=document.getElementById("typing_email");
+    const email_msg=document.getElementById("email_msg");
     email_msg.style.display="none";
     typing_email.style.display="block";
 })
 
 email_input.addEventListener("change", function(){
-    let typing_email=document.getElementById("typing_email");
-    let email_msg=document.getElementById("email_msg");
+    const typing_email=document.getElementById("typing_email");
+    const email_msg=document.getElementById("email_msg");
     typing_email.style.display="none";
     email_msg.style.display="block";
     if(email_input.value==""){
@@ -459,12 +460,12 @@ email_input.addEventListener("change", function(){
 })
 //------------------------------------data---------------------------------------
 function check_filled_user_info(){
-    let name=document.getElementById("name");
-    let email=document.getElementById("email");
-    let phone=document.getElementById("phone");
-    let name_msg=document.getElementById("name_msg");
-    let email_msg=document.getElementById("email_msg");
-    let phone_msg=document.getElementById("phone_msg");
+    const name=document.getElementById("name");
+    const email=document.getElementById("email");
+    const phone=document.getElementById("phone");
+    const name_msg=document.getElementById("name_msg");
+    const email_msg=document.getElementById("email_msg");
+    const phone_msg=document.getElementById("phone_msg");
     if(name_msg.textContent=="Done!" && email_msg.textContent=="Done!" && phone_msg.textContent=="Done!"){
         return true;
     }else{

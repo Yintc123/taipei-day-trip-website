@@ -1,16 +1,17 @@
 console.log("hi")
-import {url_mode} from './package.js';
+import {url_mode} from '../package.js';
 
-let url_booking=url_mode['url_booking'];
-let url_thanks=url_mode['url_thanks'];
-let url_home=url_mode['url_home'];
-let url_attraction=url_mode['url_attraction'];
-let url_member=url_mode['url_member'];
+const url_booking=url_mode['url_booking'];
+const url_thanks=url_mode['url_thanks'];
+const url_home=url_mode['url_home'];
+const url_attraction=url_mode['url_attraction'];
+const url_member=url_mode['url_member'];
 
+document.title="歷史訂單";
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
-    import("./sign_module.js").then(func => {
+    import("../sign_module.js").then(func => {
         func.get_user_info().then(user=>{
             if(user["data"]!=null){
                 func.sign_in_view(user);
@@ -25,14 +26,14 @@ function init(){
 }
 
 function show_order_info(user){
-    let order_text=document.getElementById("order_text");
-    let order_user=document.getElementById("order_user");
+    const order_text=document.getElementById("order_text");
+    const order_user=document.getElementById("order_user");
     if(!get_order_number()){//query string沒帶order number，畫面顯示歷史訂單
         order_text.textContent="";
         order_user.textContent="以下為您的訂單：";
-        import('./order_module.js').then(func=>{
+        import('../order_module.js').then(func=>{
             func.get_orders_by_id(user["data"]["id"]).then(result=>{
-                let order_text_p2=document.querySelector("#order_text_p2");
+                const order_text_p2=document.querySelector("#order_text_p2");
                 order_text_p2.textContent="點擊訂單編號查詢訂單詳細內容";
                 for(let index in result){
                     create_table_comp(result[index], index);
@@ -43,10 +44,10 @@ function show_order_info(user){
         })
         return;
     }else{
-        import('./order_module.js').then(func=>{
+        import('../order_module.js').then(func=>{
             func.get_order_info(get_order_number()).then(result=>{
                 if(result["data"] && result["data"]["contact"]["email"]==user["data"]["email"]){
-                    let order_number=document.getElementById("order_number");
+                    const order_number=document.getElementById("order_number");
                     order_number.textContent=get_order_number();
                     show_user_name(user);
                 }else{
@@ -61,22 +62,22 @@ function show_order_info(user){
 }
 
 function show_user_name(user){
-    let user_name=document.getElementsByClassName("user_name")[0];
+    const user_name=document.getElementsByClassName("user_name")[0];
     user_name.textContent=user["data"]["name"];
 }
 
 function show_order_text(){
-    let greeting=document.getElementById("greeting");
+    const greeting=document.getElementById("greeting");
     greeting.textContent="訂單";
     greeting.href=url_thanks;
 }
 
 function show_order_history_or_current_order(order_flag){
-    let order_table=document.getElementById("order_table");
-    let loading=document.querySelector(".loading");
-    let order_user=document.querySelector("#order_user");
-    let order_text=document.querySelector("#order_text");
-    let order_text_p2=document.querySelector("#order_text_p2");
+    const order_table=document.getElementById("order_table");
+    const loading=document.querySelector(".loading");
+    const order_user=document.querySelector("#order_user");
+    const order_text=document.querySelector("#order_text");
+    const order_text_p2=document.querySelector("#order_text_p2");
     if(order_flag==1){//代表查詢特定訂單頁面(/thankyou?number=)
         order_text.style.display="block";
     }else{//所有訂單畫面(/thankyou)
@@ -88,15 +89,15 @@ function show_order_history_or_current_order(order_flag){
 }
 
 function create_table_comp(e, order_index){
-    let order_table=document.getElementById("order_table");
-    let tr=document.createElement("tr");
-    let order_list=arrange_order_info(e, order_index);
+    const order_table=document.getElementById("order_table");
+    const tr=document.createElement("tr");
+    const order_list=arrange_order_info(e, order_index);
     let hidden=["2", "4", "6", "7"];// hide columns in phones mode
     for(let index in order_list){
-        let td=document.createElement("td");
+        const td=document.createElement("td");
         if(index==1){
             let query_order_number="?ordernumber=";
-            let a=document.createElement("a");
+            const a=document.createElement("a");
             a.textContent=order_list[index];
             a.href=url_attraction+e["attraction_id"]+query_order_number+order_list[index];
             td.appendChild(a);
@@ -112,7 +113,7 @@ function create_table_comp(e, order_index){
 }
 
 function call_member_page(swch){
-    let sign_out_or_member=document.getElementsByClassName("sign_out_or_member")[0];
+    const sign_out_or_member=document.getElementsByClassName("sign_out_or_member")[0];
     if(swch==1){
         sign_out_or_member.style.display="block";
     }else{
@@ -120,15 +121,15 @@ function call_member_page(swch){
     }   
 }
 //--------------------------------監聽事件-------------------------------//
-let background=document.getElementById("background");
-let close_sign=document.getElementsByClassName("close_sign");
-let sign=document.getElementById("sign");
-let sign_button=document.getElementById("sign_button");
-let switch_sign_up=document.getElementById("click_sign_up");
-let schedule=document.getElementById("schedule");
-let sign_in_img=document.getElementById("sign_in_img");
-let sign_out=document.getElementById("sign_out");
-let member_page=document.getElementById("member_page");
+const background=document.getElementById("background");
+const close_sign=document.getElementsByClassName("close_sign");
+const sign=document.getElementById("sign");
+const sign_button=document.getElementById("sign_button");
+const switch_sign_up=document.getElementById("click_sign_up");
+const schedule=document.getElementById("schedule");
+const sign_in_img=document.getElementById("sign_in_img");
+const sign_out=document.getElementById("sign_out");
+const member_page=document.getElementById("member_page");
 
 sign_in_img.addEventListener("click", function(){
     background.style.display="block";
@@ -136,7 +137,7 @@ sign_in_img.addEventListener("click", function(){
 })
 
 sign_out.addEventListener("click", function(){
-    import("./sign_module.js").then(func => {
+    import("../sign_module.js").then(func => {
         func.delete_sign().then(result=>{
             window.location=window.location.href;
         })
@@ -163,18 +164,18 @@ for(let i=0;i<close_sign.length;i++){
 
 sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){
-        import("./sign_module.js").then(func => {
+        import("../sign_module.js").then(func => {
             func.SignIn();
         })
     }else{
-        import("./sign_module.js").then(func => {
+        import("../sign_module.js").then(func => {
             func.create_user();
         })
     } 
 })
 
 switch_sign_up.addEventListener("click", function(){
-    import("./sign_module.js").then(func => {
+    import("../sign_module.js").then(func => {
         if(switch_sign_up.textContent=="點此註冊"){
             func.init_sign_up()
         }else{

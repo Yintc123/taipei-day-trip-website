@@ -1,16 +1,16 @@
 console.log("hi");
 
-import {url_mode} from './package.js';
+import {url_mode} from '../package.js';
 
-let url_home=url_mode['url_home'];
-let url_api_attraction=url_mode['url_api_attraction'];
-let url_attraction=url_mode['url_attraction'];
-let url_booking=url_mode['url_booking'];
-let url_member=url_mode['url_member'];
+const url_home=url_mode['url_home'];
+const url_api_attraction=url_mode['url_api_attraction'];
+const url_attraction=url_mode['url_attraction'];
+const url_booking=url_mode['url_booking'];
+const url_member=url_mode['url_member'];
 
-let last_img=document.getElementById("last_one");
-let next_img=document.getElementById("next_one");
-let tour_time=document.getElementsByName("time");
+const last_img=document.getElementById("last_one");
+const next_img=document.getElementById("next_one");
+const tour_time=document.getElementsByName("time");
 let attraction_data=null;
 let img_index=0;
 let cur_url=window.location.href;
@@ -24,24 +24,26 @@ function init(){
         id=id.split("?")[0];
     }
     let url_id=url_api_attraction+id;
-    import('./attraction_module.js').then(func=>{
+    import('../attraction_module.js').then(func=>{
         func.get_attraction_data(url_id).then((result)=>{
             attraction_data=result["data"];
+            document.title=attraction_data["name"];//網頁標題
             if(attraction_data==undefined){//網頁偵錯
                 // window.history.go(-1);//回上一頁
                 window.location=url_home;//回首頁
             }
-            import("./sign_module.js").then(func=>{
+            import("../sign_module.js").then(func=>{
                 func.get_user_info().then(user => {
                     if(user["data"]!=null){//確認使用者登入狀況
                         user_status=1;
                         func.sign_in_view(user);
                         func.get_user_img(user["data"]["id"]);
-                        show_booking_info(user);
+                        // show_booking_info(user);
                     }else{
                         func.sign_out_view();
                         user_status=0;
                     }
+                    show_booking_info(user);
                     show_image(attraction_data, img_index);
                     show_attraction_title(attraction_data);
                     show_attraction_introduction(attraction_data);
@@ -53,7 +55,7 @@ function init(){
 }
 
 function show_image(data, index){
-    let image_frame=document.querySelector(".image");
+    const image_frame=document.querySelector(".image");
     if(data["images"].length==1){//僅有一張照片就不顯示圓點及左右按鈕
         image_frame.style.backgroundImage="url('"+get_image(data["images"], index)+"')";
         while(image_frame.firstChild){
@@ -66,27 +68,25 @@ function show_image(data, index){
 }
 
 function show_attraction_title(data){
-    let attraction_name=document.querySelector(".name");
-    let attraction_cat=document.querySelector(".cat");
-    let attraction_MRT=document.querySelector(".MRT");
+    const attraction_name=document.querySelector(".name");
+    const attraction_cat=document.querySelector(".cat");
+    const attraction_MRT=document.querySelector(".MRT");
     attraction_name.textContent=data["name"];
     attraction_cat.textContent=data["category"];
     attraction_MRT.textContent=data["MRT"];
-    show_tour_date(null);
-    show_tour_cost(null);
 }
 
 function show_attraction_introduction(data){
-    let attraction_intro=document.querySelector(".intro");
-    let attraction_address=document.querySelector(".address");
-    let attraction_transport=document.querySelector(".transport");
+    const attraction_intro=document.querySelector(".intro");
+    const attraction_address=document.querySelector(".address");
+    const attraction_transport=document.querySelector(".transport");
     attraction_intro.textContent=data["description"];
     attraction_address.textContent=data["address"];
     attraction_transport.textContent=data["transport"];
 }
 
 function show_image_index(data, index){
-    let index_frame=document.querySelector(".image_index");
+    const index_frame=document.querySelector(".image_index");
     while(index_frame.firstChild){
         index_frame.removeChild(index_frame.firstChild);
     }
@@ -103,7 +103,7 @@ function show_image_index(data, index){
 }
 
 function show_tour_cost(order_data){
-    let cost=document.getElementById("cost");
+    const cost=document.getElementById("cost");
     if(order_data==null){
         if(tour_time[0].checked){
             cost.textContent="新台幣 " + "2000" + " 元";
@@ -116,7 +116,7 @@ function show_tour_cost(order_data){
 }
 
 function show_tour_date(order_data){
-    let calendar=document.getElementById("calendar");
+    const calendar=document.getElementById("calendar");
     if(order_data==null){
         let date=new Date();
         let day=date.getDate();
@@ -130,27 +130,30 @@ function show_tour_date(order_data){
         }
         calendar.value=year+"-"+month+"-"+day;
         calendar.min=calendar.value;
+        calendar.style.display="inline-block";
     }else{
-        let order_date=document.getElementById("order_date");
-        calendar.style.display="none";
+        const order_date=document.getElementById("order_date");
         order_date.textContent=order_data["data"]["trip"]["date"];
         order_date.style.display="inline-block";
     }
 }
 
 function show_order_time(order_data){
-    let label_tour_time=document.getElementsByClassName("label_tour_time")[0];
-    let order_time=document.getElementById("order_time");
-    label_tour_time.style.display="none";
-    booking_button.style.display="none";
-    order_time.textContent=order_data["data"]["trip"]["time"];
-    order_time.style.display="inline-block";
-    
+    const label_tour_time=document.getElementsByClassName("label_tour_time")[0];
+    const booking_button=document.getElementById("booking_button");
+    const order_time=document.getElementById("order_time");
+    if(order_data==null){
+        label_tour_time.style.display="inline-block";
+        booking_button.style.display="inline-block";
+    }else{
+        order_time.textContent=order_data["data"]["trip"]["time"];
+        order_time.style.display="inline-block";
+    }
 }
 
 function show_loading_for_booking(swch){
-    let booking_button_text=document.getElementById("booking_button_text");
-    let loading=document.getElementById("lds-ellipsis");
+    const booking_button_text=document.getElementById("booking_button_text");
+    const loading=document.getElementById("lds-ellipsis");
     if (swch==1){
         booking_button_text.style.display="none";
         loading.style.display="inline-block";
@@ -161,17 +164,17 @@ function show_loading_for_booking(swch){
 }
 
 function complete_init(){
-    let loading=document.getElementById("loading_for_init");
-    let cloth=document.getElementById("cloth");
+    const loading=document.getElementById("loading_for_init");
+    const cloth=document.getElementById("cloth");
     loading.style.display="none";
     cloth.style.display="none";
 }
 
 function show_rest_order_info(order_data){
-    let h5_order=document.getElementsByClassName("h5_order");
-    let span_order_number=document.getElementById("span_order_number");
-    let span_order_status=document.getElementById("span_order_status");
-    let span_order_time=document.getElementById("span_order_time");
+    const h5_order=document.getElementsByClassName("h5_order");
+    const span_order_number=document.getElementById("span_order_number");
+    const span_order_status=document.getElementById("span_order_status");
+    const span_order_time=document.getElementById("span_order_time");
     for (let i=0;i<h5_order.length;i++){
         h5_order[i].style.display="block";
     }
@@ -185,22 +188,24 @@ function show_rest_order_info(order_data){
 }
 
 function show_booking_info(user){
-    let order_number=get_order_number();
+    const order_number=get_order_number();
     if(order_number!=null){
-        import("./order_module.js").then(func=>{
+        import("../order_module.js").then(func=>{
             func.get_order_info(order_number).then(result=>{
-                if(result["data"]!=null && user["data"]["email"]==result["data"]["contact"]["email"]){
-                    show_tour_date(result);
-                    show_order_time(result);
-                    show_tour_cost(result);
-                    show_rest_order_info(result);
-                }else{
+                if(result["data"]==null || user["data"]["email"]!=result["data"]["contact"]["email"]){
                     window.location=url_attraction+id.split("?")[0];
                 }
+                show_tour_date(result);
+                show_order_time(result);
+                show_tour_cost(result);
+                show_rest_order_info(result);
             })
         })
+    }else{
+        show_tour_date(null);
+        show_order_time(null);
+        show_tour_cost(null);
     }
-    // complete_init();
 }
 
 function call_member_page(swch){
@@ -232,7 +237,7 @@ window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事
 
 tour_time.forEach(time => {//依input的物件創造兩個"change"監聽事件
     time.addEventListener("change", function(){
-        show_tour_cost();
+        show_tour_cost(null);
     });
 })
 
@@ -249,7 +254,7 @@ booking_button.addEventListener("click", function(){
             window.location=window.location.href;
             return;
         }
-        import("./booking_module.js").then(func => {
+        import("../booking_module.js").then(func => {
             func.booking_tour(id).then(result=>{
                 window.location=url_booking;
                 show_loading_for_booking(0);
@@ -280,7 +285,7 @@ next_img.addEventListener("click", function(){
 });
 
 sign_in_or_up.addEventListener("click", function(){
-    import("./sign_module.js").then(func => {
+    import("../sign_module.js").then(func => {
         func.init_sign_in()
         background.style.display="block";
         sign.style.display="block";
@@ -294,7 +299,7 @@ sign_in_img.addEventListener("click", function(){
 })
 
 sign_out.addEventListener("click", function(){
-    import("./sign_module.js").then(func => {
+    import("../sign_module.js").then(func => {
         func.delete_sign().then(result=>{
             window.location=window.location.href;
         })
@@ -321,7 +326,7 @@ for(let i=0;i<close_sign.length;i++){
 
 sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){
-        import("./sign_module.js").then(func => {
+        import("../sign_module.js").then(func => {
             func.SignIn(booking_flag).then((result)=>{
                 if(result["error"]==true){
                     return ;
@@ -332,14 +337,14 @@ sign_button.addEventListener("click", function(){
             });
         })
     }else{
-        import("./sign_module.js").then(func => {
+        import("../sign_module.js").then(func => {
             func.create_user();
         })
     } 
 })
 
 switch_sign_up.addEventListener("click", function(){
-    import("./sign_module.js").then(func => {
+    import("../sign_module.js").then(func => {
         if(switch_sign_up.textContent=="點此註冊"){
             func.init_sign_up()
         }else{
@@ -401,7 +406,7 @@ function get_order_number(){
         order_number=order_number.split("=")[1];
         return order_number;
     }else{
-        return;
+        return null;
     }
 }
 //-------------------------------------Run----------------------------------------

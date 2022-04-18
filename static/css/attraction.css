@@ -360,6 +360,7 @@ hr{
     padding:5px 10px 5px 10px;
     margin-left:5px;
     font-size:16px;
+    display:none;
 }
 #calendar:hover{
     cursor:pointer;
@@ -424,6 +425,7 @@ label:hover{
     font-weight:400;
     position:relative;
     padding:0px;
+    display:none;
 }
 #booking_button:hover{
     cursor:pointer;
@@ -441,12 +443,15 @@ label:hover{
     }
 }
 #order_date{
-    display:none;
+    /* display:none; */
     height:35px;
 }
 #order_time{
-    display:none;
+    /* display:none; */
     height:25px;
+}
+.label_tour_time{
+    display:none;
 }
 #h5_date{
     align-content: center;

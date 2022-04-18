@@ -1,18 +1,18 @@
-import {url_mode} from './package.js';
+import {url_mode} from '../package.js';
 
-let url_booking=url_mode['url_booking'];
-let url_member=url_mode['url_member'];
-let url_home=url_mode['url_home'];
+const url_booking=url_mode['url_booking'];
+const url_member=url_mode['url_member'];
+const url_home=url_mode['url_home'];
 
 let user_status=0;
 let button_flag=0;
 let user_data=null;
 
-
+document.title="會員頁";
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
-    import('./sign_module.js').then(func=>{
+    import('../sign_module.js').then(func=>{
         func.get_user_info().then(user=>{
             if(user["data"]!=null){
                 user_data=user;
@@ -30,24 +30,24 @@ function init(){
 }
 
 function init_user_info(user){
-    let name=document.getElementById("member_name");
-    let email=document.getElementById("member_email");
-    let password=document.getElementById("member_password");
+    const name=document.getElementById("member_name");
+    const email=document.getElementById("member_email");
+    const password=document.getElementById("member_password");
     name.textContent=user["data"]["name"];
     email.textContent=user["data"]["email"];
     password.textContent="******";
-    import('./sign_module.js').then(func=>{
+    import('../sign_module.js').then(func=>{
         func.get_user_img(user_data["data"]["id"]);
     })
 }
 
 function switch_user_info_form(swch){
-    let input_member=document.getElementsByClassName("input_member");
-    let user_msg=document.getElementsByClassName("user_msg");
-    let span_member=document.getElementsByClassName("span_member");
-    let modifying_info_button=document.getElementById("modifying_info_button");
-    let send_modified_info_button=document.getElementById("send_modified_info_button");
-    let confirmation=document.getElementById("confirmation");
+    const input_member=document.getElementsByClassName("input_member");
+    const user_msg=document.getElementsByClassName("user_msg");
+    const span_member=document.getElementsByClassName("span_member");
+    const modifying_info_button=document.getElementById("modifying_info_button");
+    const send_modified_info_button=document.getElementById("send_modified_info_button");
+    const confirmation=document.getElementById("confirmation");
     let auto_filled=['name', 'email'];
     if (swch==0){
         for (let i=0; i<input_member.length;i++){
@@ -77,8 +77,8 @@ function switch_user_info_form(swch){
 }
 
 function switch_eyes_in_form(swch){
-    let eye=document.getElementsByClassName("eye")[0];
-    let eye_input=document.getElementsByClassName("eye_input");
+    const eye=document.getElementsByClassName("eye")[0];
+    const eye_input=document.getElementsByClassName("eye_input");
     if(swch==0){
         eye.style.display="none";
         eye_input[0].style.display="inline-block";
@@ -99,8 +99,8 @@ function change_eyes(obj, swch){
 }
 
 function init_input_value(){
-    let input_member=document.getElementsByClassName("input_member");
-    let user_msg=document.getElementsByClassName("user_msg");
+    const input_member=document.getElementsByClassName("input_member");
+    const user_msg=document.getElementsByClassName("user_msg");
     for (let i=0;i<input_member.length;i++){
         input_member[i].value="";
         user_msg[i].textContent="";
@@ -108,7 +108,7 @@ function init_input_value(){
 }
 
 function call_member_page(swch){
-    let sign_out_or_member=document.getElementsByClassName("sign_out_or_member")[0];
+    const sign_out_or_member=document.getElementsByClassName("sign_out_or_member")[0];
     if(swch==1){
         sign_out_or_member.style.display="block";
     }else{
@@ -117,7 +117,7 @@ function call_member_page(swch){
 }
 
 function complete_init(){
-    let loading=document.getElementsByClassName("loading")[0];
+    const loading=document.getElementsByClassName("loading")[0];
     loading.style.display="none";
 }
 
@@ -131,22 +131,22 @@ function switch_typing_and_msg(typing_obj, msg_obj, swch){
     }
 }
 //--------------------------------監聽事件-------------------------------//
-let sign_in_or_up=document.getElementById("sign_in_or_up");
-let background=document.getElementById("background");
-let close_sign=document.getElementsByClassName("close_sign");
-let schedule=document.getElementById("schedule");
-let modifying_info_button=document.getElementById("modifying_info_button");
-let send_modified_info_button=document.getElementById("send_modified_info_button");
-let name_input=document.getElementById("name_input");
-let email_input=document.getElementById("email_input");
-let password_input=document.getElementsByName("password_input");
-let eye_input=document.getElementsByClassName("eye_input");
-let eye=document.getElementsByClassName("eye")[0];
-let changing_img=document.getElementById("changing_img");
-let img_uploader=document.getElementById("img_uploader");
-let sign_in_img=document.getElementById("sign_in_img");
-let sign_out=document.getElementById("sign_out");
-let member_page=document.getElementById("member_page");
+const sign_in_or_up=document.getElementById("sign_in_or_up");
+const background=document.getElementById("background");
+const close_sign=document.getElementsByClassName("close_sign");
+const schedule=document.getElementById("schedule");
+const modifying_info_button=document.getElementById("modifying_info_button");
+const send_modified_info_button=document.getElementById("send_modified_info_button");
+const name_input=document.getElementById("name_input");
+const email_input=document.getElementById("email_input");
+const password_input=document.getElementsByName("password_input");
+const eye_input=document.getElementsByClassName("eye_input");
+const eye=document.getElementsByClassName("eye")[0];
+const changing_img=document.getElementById("changing_img");
+const img_uploader=document.getElementById("img_uploader");
+const sign_in_img=document.getElementById("sign_in_img");
+const sign_out=document.getElementById("sign_out");
+const member_page=document.getElementById("member_page");
 
 sign_in_img.addEventListener("click", function(){
     background.style.display="block";
@@ -154,7 +154,7 @@ sign_in_img.addEventListener("click", function(){
 })
 
 sign_out.addEventListener("click", function(){
-    import("./sign_module.js").then(func => {
+    import("../sign_module.js").then(func => {
         func.delete_sign().then(()=>{
             window.location=url_home;
         })
@@ -198,15 +198,15 @@ modifying_info_button.addEventListener("click", function(){
 })
 
 name_input.addEventListener("input", function(){
-    let typing_name=document.getElementById("typing_name");
-    let name_msg=document.getElementById("name_msg");
+    const typing_name=document.getElementById("typing_name");
+    const name_msg=document.getElementById("name_msg");
     switch_typing_and_msg(typing_name, name_msg, 1)//1:打字;0:停止
 
 })
 
 name_input.addEventListener("change", function(){
-    let typing_name=document.getElementById("typing_name");
-    let name_msg=document.getElementById("name_msg");
+    const typing_name=document.getElementById("typing_name");
+    const name_msg=document.getElementById("name_msg");
     switch_typing_and_msg(typing_name, name_msg, 0)//1:打字;0:停止
     if(name_input.value==""){
         name_msg.style.color="red";
@@ -218,14 +218,14 @@ name_input.addEventListener("change", function(){
 })
 
 email_input.addEventListener("input", function(){
-    let typing_email=document.getElementById("typing_email");
-    let email_msg=document.getElementById("email_msg");
+    const typing_email=document.getElementById("typing_email");
+    const email_msg=document.getElementById("email_msg");
     switch_typing_and_msg(typing_email, email_msg, 1)//1:打字;0:停止
 })
 
 email_input.addEventListener("change", function(){
-    let typing_email=document.getElementById("typing_email");
-    let email_msg=document.getElementById("email_msg");
+    const typing_email=document.getElementById("typing_email");
+    const email_msg=document.getElementById("email_msg");
     switch_typing_and_msg(typing_email, email_msg, 0)//1:打字;0:停止
     if(email_input.value==""){
         email_msg.style.color="red";
@@ -241,16 +241,16 @@ email_input.addEventListener("change", function(){
 
 for (let i=0;i<password_input.length;i++){
     password_input[i].addEventListener("input", function(){
-        let typing_password=document.getElementsByName("typing_password")[i];
-        let password_msg=document.getElementsByName("password_msg")[i];
+        const typing_password=document.getElementsByName("typing_password")[i];
+        const password_msg=document.getElementsByName("password_msg")[i];
         switch_typing_and_msg(typing_password, password_msg, 1)//1:打字;0:停止
     })
 }
 
 for (let i=0;i<password_input.length;i++){
     password_input[i].addEventListener("change", function(){
-        let typing_password=document.getElementsByName("typing_password")[i];
-        let password_msg=document.getElementsByName("password_msg")[i];
+        const typing_password=document.getElementsByName("typing_password")[i];
+        const password_msg=document.getElementsByName("password_msg")[i];
         switch_typing_and_msg(typing_password, password_msg, 0)//1:打字;0:停止
         if(password_input[i].value==""){
             password_msg.style.color="red";
@@ -308,7 +308,7 @@ eye.addEventListener("click", function(){
 
 send_modified_info_button.addEventListener("click", function(){
     if(!check_all_done()) return;
-    import('./sign_module.js').then(func=>{
+    import('../sign_module.js').then(func=>{
         func.modify_user_info(user_data["data"]["id"], null).then(result=>{
             if(result["error"]){
                 let email_msg=document.getElementById("email_msg");
@@ -347,7 +347,7 @@ function check_data_done(msg_obj){
 }
 
 function check_all_done(){
-    let user_msg=document.getElementsByClassName("user_msg");
+    const user_msg=document.getElementsByClassName("user_msg");
     let fail_input_value=0;
     for (let i=0;i<user_msg.length;i++){ // 前端阻擋資訊錯誤
         if(check_data_done(user_msg[i])!=0){
@@ -363,8 +363,8 @@ function check_all_done(){
 }
 
 function get_member_password(){
-    let member_password=document.getElementById("member_password");
-    import('./sign_module.js').then(func=>{
+    const member_password=document.getElementById("member_password");
+    import('../sign_module.js').then(func=>{
         func.get_password(user_data["data"]["id"]).then(result=>{
             member_password.textContent=result;
         });
@@ -372,13 +372,13 @@ function get_member_password(){
 }
 
 function compress_img(img){
-    let canvas=document.createElement("canvas");
+    const canvas=document.createElement("canvas");
     canvas.width=200;
     canvas.height=200;
     let ctx=canvas.getContext("2d");
     ctx.drawImage(img, 0, 0, 200, 200);
     canvas.toBlob((blob)=>{
-        let fail_upload_msg=document.getElementById("fail_upload_msg");
+        const fail_upload_msg=document.getElementById("fail_upload_msg");
         console.log(blob["size"]);
         if (blob["size"]>15000000){//MEDIUM BLOB最大儲存16Mb
             fail_upload_msg.style.display="block";
@@ -388,7 +388,7 @@ function compress_img(img){
         blob_to_data_url(blob, (data_url)=>{
             upload_img(data_url);
         });
-        import('./sign_module.js').then(func=>{
+        import('../sign_module.js').then(func=>{
         func.modify_user_info(user_data["data"]["id"], blob).then(()=>{
             window.location=window.location.href;
             })

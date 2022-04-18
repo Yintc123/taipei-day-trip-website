@@ -7,7 +7,7 @@ const url_home=url_mode['url_home'];
 const url_attraction=url_mode['url_attraction'];
 const url_member=url_mode['url_member'];
 
-document.title="歷史訂單";
+document.title="";
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
@@ -29,6 +29,7 @@ function show_order_info(user){
     const order_text=document.getElementById("order_text");
     const order_user=document.getElementById("order_user");
     if(!get_order_number()){//query string沒帶order number，畫面顯示歷史訂單
+        document.title="歷史訂單";
         order_text.textContent="";
         order_user.textContent="以下為您的訂單：";
         import('../order_module.js').then(func=>{

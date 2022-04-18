@@ -1,5 +1,5 @@
 console.log("hi!");
-import {url_mode} from '../package.js';
+import {url_mode} from './module/package.js';
 
 const url_api_attraction_keyword=url_mode["url_api_attraction_keyword"];
 const url_booking=url_mode["url_booking"];
@@ -14,10 +14,10 @@ document.title="台北一日遊";
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){//網頁初始化
-    import('../attraction_module.js').then(func=>{
+    import('./module/attraction_module.js').then(func=>{
         func.get_attraction_data(url_api_attraction_keyword).then(result=> {
             create_content(result);//處理畫面
-            import("../sign_module.js").then(func=>{
+            import("./module/sign_module.js").then(func=>{
                 func.get_user_info().then(user=>{
                     if(user["data"]!=null){//確認使用者登入狀況
                         func.sign_in_view(user);
@@ -135,7 +135,7 @@ window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事
 search_keyword_button.addEventListener("click", () => {
     keyword=search_attraction();
     let specific_attraction_url=url_api_attraction_keyword+keyword;
-    import('../attraction_module.js').then(func=>{
+    import('./module/attraction_module.js').then(func=>{
         func.get_attraction_data(specific_attraction_url).then(attraction_data => {
             nextpage=attraction_data["nextPage"];
             clean_content();
@@ -147,7 +147,7 @@ search_keyword_button.addEventListener("click", () => {
 
 
 sign_in_or_up.addEventListener("click", function(){
-    import("../sign_module.js").then(func => {
+    import("./module/sign_module.js").then(func => {
         func.init_sign_in()
         background.style.display="block";
         sign.style.display="block";
@@ -161,7 +161,7 @@ sign_in_img.addEventListener("click", function(){
 })
 
 sign_out.addEventListener("click", function(){
-    import("../sign_module.js").then(func => {
+    import("./module/sign_module.js").then(func => {
         func.delete_sign().then(result=>{
             window.location=window.location.href;
         })
@@ -189,18 +189,18 @@ for(let i=0;i<close_sign.length;i++){
 
 sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){
-        import("../sign_module.js").then(func => {
+        import("./module/sign_module.js").then(func => {
             func.SignIn();
         })
     }else{
-        import("../sign_module.js").then(func => {
+        import("./module/sign_module.js").then(func => {
             func.create_user();
         })
     } 
 })
 
 switch_sign_up.addEventListener("click", function(){
-    import("../sign_module.js").then(func => {
+    import("./module/sign_module.js").then(func => {
         if(switch_sign_up.textContent=="點此註冊"){
             func.init_sign_up()
         }else{

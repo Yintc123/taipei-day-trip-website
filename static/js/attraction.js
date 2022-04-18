@@ -1,6 +1,6 @@
 console.log("hi");
 
-import {url_mode} from '../package.js';
+import {url_mode} from './module/package.js';
 
 const url_home=url_mode['url_home'];
 const url_api_attraction=url_mode['url_api_attraction'];
@@ -24,7 +24,7 @@ function init(){
         id=id.split("?")[0];
     }
     let url_id=url_api_attraction+id;
-    import('../attraction_module.js').then(func=>{
+    import('./module/attraction_module.js').then(func=>{
         func.get_attraction_data(url_id).then((result)=>{
             attraction_data=result["data"];
             document.title=attraction_data["name"];//網頁標題
@@ -32,7 +32,7 @@ function init(){
                 // window.history.go(-1);//回上一頁
                 window.location=url_home;//回首頁
             }
-            import("../sign_module.js").then(func=>{
+            import("./module/sign_module.js").then(func=>{
                 func.get_user_info().then(user => {
                     if(user["data"]!=null){//確認使用者登入狀況
                         user_status=1;
@@ -190,7 +190,7 @@ function show_rest_order_info(order_data){
 function show_booking_info(user){
     const order_number=get_order_number();
     if(order_number!=null){
-        import("../order_module.js").then(func=>{
+        import("./module/order_module.js").then(func=>{
             func.get_order_info(order_number).then(result=>{
                 if(result["data"]==null || user["data"]["email"]!=result["data"]["contact"]["email"]){
                     window.location=url_attraction+id.split("?")[0];
@@ -254,7 +254,7 @@ booking_button.addEventListener("click", function(){
             window.location=window.location.href;
             return;
         }
-        import("../booking_module.js").then(func => {
+        import("./module/booking_module.js").then(func => {
             func.booking_tour(id).then(result=>{
                 window.location=url_booking;
                 show_loading_for_booking(0);
@@ -285,7 +285,7 @@ next_img.addEventListener("click", function(){
 });
 
 sign_in_or_up.addEventListener("click", function(){
-    import("../sign_module.js").then(func => {
+    import("./module/sign_module.js").then(func => {
         func.init_sign_in()
         background.style.display="block";
         sign.style.display="block";
@@ -299,7 +299,7 @@ sign_in_img.addEventListener("click", function(){
 })
 
 sign_out.addEventListener("click", function(){
-    import("../sign_module.js").then(func => {
+    import("./module/sign_module.js").then(func => {
         func.delete_sign().then(result=>{
             window.location=window.location.href;
         })
@@ -311,6 +311,7 @@ member_page.addEventListener("click", function(){
 })
 
 background.addEventListener("click", function(){
+    booking_flag=0;
     background.style.display="none";
     sign.style.display="none";
     call_member_page(0);
@@ -318,6 +319,7 @@ background.addEventListener("click", function(){
 
 for(let i=0;i<close_sign.length;i++){
     close_sign[i].addEventListener("click", function(){
+        booking_flag=0;
         background.style.display="none";
         sign.style.display="none";
         call_member_page(0);
@@ -326,7 +328,7 @@ for(let i=0;i<close_sign.length;i++){
 
 sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){
-        import("../sign_module.js").then(func => {
+        import("./module/sign_module.js").then(func => {
             func.SignIn(booking_flag).then((result)=>{
                 if(result["error"]==true){
                     return ;
@@ -337,14 +339,14 @@ sign_button.addEventListener("click", function(){
             });
         })
     }else{
-        import("../sign_module.js").then(func => {
+        import("./module/sign_module.js").then(func => {
             func.create_user();
         })
     } 
 })
 
 switch_sign_up.addEventListener("click", function(){
-    import("../sign_module.js").then(func => {
+    import("./module/sign_module.js").then(func => {
         if(switch_sign_up.textContent=="點此註冊"){
             func.init_sign_up()
         }else{

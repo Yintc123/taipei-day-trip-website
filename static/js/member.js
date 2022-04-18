@@ -1,4 +1,4 @@
-import {url_mode} from '../package.js';
+import {url_mode} from './module/package.js';
 
 const url_booking=url_mode['url_booking'];
 const url_member=url_mode['url_member'];
@@ -12,7 +12,7 @@ document.title="會員頁";
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
-    import('../sign_module.js').then(func=>{
+    import('./module/sign_module.js').then(func=>{
         func.get_user_info().then(user=>{
             if(user["data"]!=null){
                 user_data=user;
@@ -36,7 +36,7 @@ function init_user_info(user){
     name.textContent=user["data"]["name"];
     email.textContent=user["data"]["email"];
     password.textContent="******";
-    import('../sign_module.js').then(func=>{
+    import('./module/sign_module.js').then(func=>{
         func.get_user_img(user_data["data"]["id"]);
     })
 }
@@ -154,7 +154,7 @@ sign_in_img.addEventListener("click", function(){
 })
 
 sign_out.addEventListener("click", function(){
-    import("../sign_module.js").then(func => {
+    import("./module/sign_module.js").then(func => {
         func.delete_sign().then(()=>{
             window.location=url_home;
         })
@@ -308,7 +308,7 @@ eye.addEventListener("click", function(){
 
 send_modified_info_button.addEventListener("click", function(){
     if(!check_all_done()) return;
-    import('../sign_module.js').then(func=>{
+    import('./module/sign_module.js').then(func=>{
         func.modify_user_info(user_data["data"]["id"], null).then(result=>{
             if(result["error"]){
                 let email_msg=document.getElementById("email_msg");
@@ -364,7 +364,7 @@ function check_all_done(){
 
 function get_member_password(){
     const member_password=document.getElementById("member_password");
-    import('../sign_module.js').then(func=>{
+    import('./module/sign_module.js').then(func=>{
         func.get_password(user_data["data"]["id"]).then(result=>{
             member_password.textContent=result;
         });
@@ -388,7 +388,7 @@ function compress_img(img){
         blob_to_data_url(blob, (data_url)=>{
             upload_img(data_url);
         });
-        import('../sign_module.js').then(func=>{
+        import('./module/sign_module.js').then(func=>{
         func.modify_user_info(user_data["data"]["id"], blob).then(()=>{
             window.location=window.location.href;
             })

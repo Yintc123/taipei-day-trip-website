@@ -1,5 +1,5 @@
 console.log("hi")
-import {url_mode} from '../package.js';
+import {url_mode} from './module/package.js';
 
 const url_booking=url_mode['url_booking'];
 const url_thanks=url_mode['url_thanks'];
@@ -11,7 +11,7 @@ document.title="";
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
-    import("../sign_module.js").then(func => {
+    import("./module/sign_module.js").then(func => {
         func.get_user_info().then(user=>{
             if(user["data"]!=null){
                 func.sign_in_view(user);
@@ -32,7 +32,7 @@ function show_order_info(user){
         document.title="歷史訂單";
         order_text.textContent="";
         order_user.textContent="以下為您的訂單：";
-        import('../order_module.js').then(func=>{
+        import('./module/order_module.js').then(func=>{
             func.get_orders_by_id(user["data"]["id"]).then(result=>{
                 const order_text_p2=document.querySelector("#order_text_p2");
                 order_text_p2.textContent="點擊訂單編號查詢訂單詳細內容";
@@ -45,7 +45,7 @@ function show_order_info(user){
         })
         return;
     }else{
-        import('../order_module.js').then(func=>{
+        import('./module/order_module.js').then(func=>{
             func.get_order_info(get_order_number()).then(result=>{
                 if(result["data"] && result["data"]["contact"]["email"]==user["data"]["email"]){
                     const order_number=document.getElementById("order_number");
@@ -139,7 +139,7 @@ sign_in_img.addEventListener("click", function(){
 })
 
 sign_out.addEventListener("click", function(){
-    import("../sign_module.js").then(func => {
+    import("./module/sign_module.js").then(func => {
         func.delete_sign().then(result=>{
             window.location=window.location.href;
         })
@@ -166,18 +166,18 @@ for(let i=0;i<close_sign.length;i++){
 
 sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){
-        import("../sign_module.js").then(func => {
+        import("./module/sign_module.js").then(func => {
             func.SignIn();
         })
     }else{
-        import("../sign_module.js").then(func => {
+        import("./module/sign_module.js").then(func => {
             func.create_user();
         })
     } 
 })
 
 switch_sign_up.addEventListener("click", function(){
-    import("../sign_module.js").then(func => {
+    import("./module/sign_module.js").then(func => {
         if(switch_sign_up.textContent=="點此註冊"){
             func.init_sign_up()
         }else{

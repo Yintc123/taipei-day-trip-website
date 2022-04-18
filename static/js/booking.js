@@ -1,5 +1,5 @@
 console.log("hi");
-import {url_mode} from '../package.js';
+import {url_mode} from './module/package.js';
 
 const url_home=url_mode['url_home'];
 const url_thanks=url_mode['url_thanks'];
@@ -146,12 +146,12 @@ confirmation_button.addEventListener("click", function(){
             return;
         } 
         // alert('get prime 成功，prime: ' + result.card.prime);
-        import('../order_module.js').then(func=>{
+        import('./module/order_module.js').then(func=>{
             func.make_order(result.card.prime).then(result=>{
                 if (result["error"]){
                     alert("Error: "+result["message"]+"\n請重新提交訂單!")
                 }else{
-                    import("../booking_module.js").then(func_booking=>{
+                    import("./module/booking_module.js").then(func_booking=>{
                         func_booking.delete_booking().then(()=>{
                             window.location=url_thanks+"?number="+result["data"]["number"];
                         });
@@ -165,7 +165,7 @@ confirmation_button.addEventListener("click", function(){
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
-    import("../sign_module.js").then(func=>{
+    import("./module/sign_module.js").then(func=>{
         func.get_user_info().then(user=>{
             if(user["data"]!=null){
                 func.sign_in_view(user);
@@ -179,7 +179,7 @@ function init(){
             }
         })
     });
-    import("../booking_module.js").then(func=>{
+    import("./module/booking_module.js").then(func=>{
         func.get_booking().then(data=>{
             if(data==null){
                 show_without_booking_page();
@@ -334,7 +334,7 @@ sign_in_img.addEventListener("click", function(){
 })
 
 sign_out.addEventListener("click", function(){
-    import("../sign_module.js").then(func => {
+    import("./module/sign_module.js").then(func => {
         func.delete_sign().then(result=>{
             window.location=window.location.href;
         })
@@ -361,18 +361,18 @@ for(let i=0;i<close_sign.length;i++){
 
 sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){
-        import("../sign_module.js").then(func => {
+        import("./module/sign_module.js").then(func => {
             func.SignIn();
         })
     }else{
-        import("../sign_module.js").then(func => {
+        import("./module/sign_module.js").then(func => {
             func.create_user();
         })
     } 
 })
 
 switch_sign_up.addEventListener("click", function(){
-    import("../sign_module.js").then(func => {
+    import("./module/sign_module.js").then(func => {
         if(switch_sign_up.textContent=="點此註冊"){
             func.init_sign_up()
         }else{
@@ -386,7 +386,7 @@ schedule.addEventListener("click", function(){
 })
 
 delete_tour.addEventListener("click", function(){
-    import("../booking_module.js").then(func=>{
+    import("./module/booking_module.js").then(func=>{
         func.delete_booking().then(()=>{
             window.location=window.location.href;
         });

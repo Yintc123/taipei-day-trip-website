@@ -54,6 +54,7 @@ function show_order_info(user){
                     order_user.textContent="查無近期的訂單";
                     order_text.textContent="";
                 }
+                document.title="此次訂單";
                 show_order_history_or_current_order(1);
                 show_order_text();
             });

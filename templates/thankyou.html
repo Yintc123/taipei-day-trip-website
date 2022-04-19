@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel='stylesheet' href="{{url_for('static', filename='thankyou.css')}}">
+        <link rel='stylesheet' href="{{url_for('static', filename='css/thankyou.css')}}">
     </head>
     <body>
         <div id='background' class='background'>
@@ -21,6 +21,15 @@
             <br/>
             <p><span id='fail_message'>還沒有帳戶？</span><span id='click_sign_up'>點此註冊</span></p>
         </form>
+        <div class='sign_out_or_member'>
+            <div class='sign_bar'></div>
+            <img class='close_sign' src="{{url_for('static', filename='icon/icon_close.png')}}" />
+            <div class='user_img' id='user_img'></div>
+            <div>
+                <button id='member_page'>進入會員頁</button>
+                <button id='sign_out'>登出</button>
+            </div>
+        </div>
         <div class='nav_frame'>
             <div class='navigation'>
                 <h3 id='taipei'></h3>
@@ -28,6 +37,7 @@
                     <li id='greet'></li>
                     <li id='schedule'></li>
                     <li id='sign_in_or_up'></li>
+                    <li class='user_img' id='sign_in_img'></li>
                 </ul>
             </div>
         </div>
@@ -36,7 +46,7 @@
                 <div class='loading'><div class="lds-roller"><div></div><div></div><div></div></div></div>
                 <h3 id='order_user'>恭喜<span class='user_name'>您</span>完成訂單!</h3>
                 <p id='order_text'>訂單號為：<span id='order_number'></span></p>
-                <p id='order_text_p2'>可於 <a id='greeting'>Hi~<span class='user_name'>您好</span></a> 查詢所有訂單狀況</p>
+                <p id='order_text_p2'>可於 <a id='greeting'>訂單</a> 查詢所有訂單狀況</p>
                 <table id="order_table" border="1">
                     <tr>
                         <td>項目</td>
@@ -54,6 +64,6 @@
         <div class='footer'>
             <h4>COPYRIGHT © 2021台北一日遊</h4>
         </div>
-        <script type='text/javascript' src="{{url_for('static', filename='thankyou.js')}}"></script>
+        <script type='module' src="{{url_for('static', filename='js/thankyou.js')}}"></script>
     </body>
 </html>

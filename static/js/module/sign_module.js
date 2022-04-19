@@ -1,15 +1,12 @@
-// let url_sign="http://127.0.0.1:3000/api/user";
-// let url_home="http://127.0.0.1:3000/";
-// let url_thanks="http://127.0.0.1:3000/thankyou";
-let url_sign="http://3.115.234.130:3000/api/user";//EC2
-let url_home="http://3.115.234.130:3000/";//EC2
-let url_thanks="http://3.115.234.130:3000/thankyou";//EC2
+import {url_mode} from './package.js';
+
+let url_api_sign=url_mode['url_api_sign'];
+let url_home=url_mode['url_home'];
+let url_thanks=url_mode['url_thanks'];
 
 export async function get_user_info(){
-    return await fetch(url_sign).then((response) => {
+    return await fetch(url_api_sign).then((response) => {
         return response.json();
-    }).then((result) => {
-        return result;
     })
 }
 
@@ -41,7 +38,7 @@ export async function create_user(){
       form_body.push(encodedKey + "=" + encodedValue);
     }
     form_body = form_body.join("&");
-    return await fetch(url_sign,{
+    return await fetch(url_api_sign,{
         method:"POST",
         body:form_body,
         headers: {
@@ -66,7 +63,7 @@ export async function create_user(){
 }
 
 export async function delete_sign(){
-    return await fetch(url_sign, {method:"DELETE"}).then((response) => {
+    return await fetch(url_api_sign, {method:"DELETE"}).then((response) => {
         return response.json();
     }).then((result) => {
         return result;
@@ -89,7 +86,7 @@ export async function SignIn(flag){
       form_body.push(encodedKey + "=" + encodedValue);
     }
     form_body = form_body.join("&");
-    return await fetch(url_sign,{
+    return await fetch(url_api_sign,{
         method:"PATCH",
         body:form_body,
         headers: {
@@ -114,25 +111,76 @@ export async function SignIn(flag){
     })
 }
 
-export function sign_in_view(user){
+export async function modify_user_info(user_id, user_img_blob){
+    let name=document.getElementById('name_input').value;
+    let email=document.getElementById('email_input').value;
+    let password=document.getElementById('password_input').value;
+    let file=user_img_blob==null?"":user_img_blob;
+    let url=url_api_sign+"/"+user_id;
+    let form=new FormData();
+    let user_info=[name, email, password, file];
+    let form_body=["name", "email", "password", "img"];
+    for (let i=0;i<form_body.length;i++){
+            form.append(form_body[i], user_info[i]);
+    }
+    return await fetch(url, {
+        method:"PATCH",
+        body:form,
+        // headers:{
+        //     "Content-type": "application/x-www-form-urlencoded;charset=utf-8"
+        // }
+    }).then(response=>{
+        return response.json();
+    })
+}
+
+export async function get_password(user_id){
+    let url=url_api_sign+"/"+user_id;
+    let form_body="id="+user_id;
+    return await fetch(url, {
+        method:"POST",
+        body:form_body,
+        headers:{
+            "Content-type": "application/x-www-form-urlencoded;charset=utf-8"
+        }
+    }).then(response=>{
+        return response.json();
+    })
+}
+
+export async function get_user_img(user_id){
+    let url=url_api_sign+"/"+user_id;
+    return await fetch(url).then(response=>{
+        return response.json();
+    }).then(img=>{
+        init_user_img(img["img"]);
+    })
+}
+
+export function sign_in_view(){
     let taipei_navigation=document.getElementById("taipei");
     let greet=document.getElementById("greet");
     let sign_in_or_up=document.getElementById("sign_in_or_up");
     let fail_message=document.getElementById("fail_message");
     let schedule=document.getElementById("schedule");
+    let user_img=document.getElementsByClassName("user_img");
     let a=document.createElement("a");
     let a2=document.createElement("a");
+    user_img[0].style.display="block";
+    user_img[1].style.display="block";
     a.href=url_home;
     a.textContent="台北一日遊";
     taipei_navigation.appendChild(a);
     a2.href=url_thanks;
-    a2.textContent="Hi ~ "+user["data"]["name"];
-    a2.style.color="blue";
-    a2.style.fontWeight="700";
+    a2.textContent="訂單";
+    a2.style.color="#757575";
+    // a2.style.fontWeight="700";
     greet.appendChild(a2);
-    sign_in_or_up.textContent="登出系統";
+    // sign_in_or_up.textContent="登出系統";
+    sign_in_or_up.style.display="none";
     fail_message.textContent="登入成功! ";
     fail_message.style.color="blue";
+    schedule.style.color="#757575";
     schedule.textContent="預定行程";
 }
 
@@ -142,13 +190,19 @@ export function sign_out_view(){
     let sign_in_or_up=document.getElementById("sign_in_or_up");
     let schedule=document.getElementById("schedule");
     let taipei_navigation=document.getElementById("taipei");
+    let user_img=document.getElementsByClassName("user_img");
     let a=document.createElement("a");
+    user_img[0].style.display="none";
+    user_img[1].style.display="none";
+    sign_in_or_up.style.display="block";
     a.href=url_home;
     a.textContent="台北一日遊";
     taipei_navigation.appendChild(a);
     greet.textContent="";
     fail_message.textContent="還沒有帳戶？";
     sign_in_or_up.textContent="登入/註冊";
+    schedule.style.fontWeight="700";
+    schedule.style.color="#757575";
     schedule.textContent="預定行程";
 }
 
@@ -178,4 +232,15 @@ export function init_sign_up(){
     fail_message.style.color="#666666";
     switch_sign_up.textContent="點此登入";
     sign_button.textContent="註冊新帳戶"
+}
+
+function init_user_img(img){
+    let user_img=document.getElementsByClassName("user_img");
+    if(img==null){
+        img="/static//icon/default_user.jpg";
+    }
+    for (let i=0;i<user_img.length;i++){
+        user_img[i].style.backgroundImage="url('"+img+"')";
+        user_img[i].style.display="block";
+    }
 }

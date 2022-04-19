@@ -15,6 +15,9 @@ a{
 a:visited{
     color:#448899;
 }
+button:hover{
+    cursor:pointer;
+}
 hr{
     margin-top:40px;
     border:1px solid #E8E8E8;
@@ -160,6 +163,7 @@ hr{
 }
 .navigation ul{
     display:flex;
+    align-items: center;
     margin:0px 0px 0px auto;
     padding-right:12px;
     padding-left:0px;
@@ -173,6 +177,73 @@ hr{
     color:red;
     cursor:pointer;
 }
+/*sign_in_view*/
+#sign_in_img{
+    border:1px solid #E8E8E8;
+    height:40px;
+    width:40px;
+    border-radius: 50%;
+    /* background-image: url('/static//icon/default_user.jpg'); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    display:none;
+}
+.sign_out_or_member{
+    z-index:10000;
+    position:fixed;
+    transform:translate(-50%, -50%);
+    width:340px;
+    top:50%;
+    left:50%;
+    /* border:1px solid; */
+    border-radius: 6px;
+    display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: #fff;
+    display:none;
+    animation-name:drop2;
+    animation-duration:1s;
+}
+@keyframes drop2{
+    from{ top:-50%;}
+    to{ top:50%;}
+}
+#user_img{
+    width:300px;
+    height:300px;
+    border-radius: 50%;
+    border:1px solid #E8E8E8;
+    margin:10px;
+    /* background-image: url('/static//icon/default_user.jpg'); */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.sign_out_or_member div{
+    /* border:1px solid; */
+    display:flex;
+    justify-content: center;
+}
+.sign_out_or_member button{
+    padding:10px 15px;
+    margin:20px 10px;
+    background-color:#448899;
+    font-size:16px;
+    color:#fff;
+    border:0px;
+    border-radius:5px;
+}
+.sign_out_or_member img{
+    width:16px;
+    height:16px;
+    position:absolute;
+    right:5px;
+    top:15px;
+}
+.sign_out_or_member img:hover{
+    cursor:pointer;
+}
+
 /* content */
 .white_background{
     min-height:200px;
@@ -390,11 +461,11 @@ hr{
     #sign_in_or_up{
         margin-left:15px;
     }
-    #greet{
+    /* #greet{
         position:absolute;
         font-size:10px;
         right:110px;
         top:-15px;
-    }
+    } */
 }
 

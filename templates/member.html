@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel='stylesheet' href="{{url_for('static', filename='css/member.css')}}">
+    </head>
+    <body>
+        <div id='background' class='background'>
+        </div>
+        <form id='sign'>
+            <div class='sign_bar'></div>
+            <div class='sign_title'>
+                <h3>登入會員帳號</h3>
+                <img class='close_sign' src="{{url_for('static', filename='icon/icon_close.png')}}" />
+            </div>
+            <input id='sign_up_name' type='text' name='name' placeholder='輸入姓名'/>
+            <input type='text' name='email' placeholder='輸入電子信箱'/>
+            <input type='password' name='password' placeholder='輸入密碼'/>
+            <button id='sign_button'type='button'>登入帳戶</button>
+            <br/>
+            <p><span id='fail_message'>還沒有帳戶？</span><span id='click_sign_up'>點此註冊</span></p>
+        </form>
+        <div class='sign_out_or_member'>
+            <div class='sign_bar'></div>
+            <img class='close_sign' src="{{url_for('static', filename='icon/icon_close.png')}}" />
+            <div class='user_img' id='user_img'></div>
+            <div>
+                <button id='member_page'>進入會員頁</button>
+                <button id='sign_out'>登出</button>
+            </div>
+        </div>
+        <div class='nav_frame'>
+            <div class='navigation'>
+                <h3 id='taipei'></h3>
+                <ul>
+                    <li id='greet'></li>
+                    <li id='schedule'></li>
+                    <li id='sign_in_or_up'></li>
+                    <li class='user_img' id='sign_in_img'></li>
+                </ul>
+            </div>
+        </div>
+        <div class='white_background'>
+            <div class='content'>
+                <div class='loading'><div class="lds-roller"><div></div><div></div><div></div></div></div>
+                <div class='user_img' id='member_img'>
+                    <div class='uplaoder_label'>
+                        <label for='img_uploader'>
+                            <input type='file' id='img_uploader' data-target='file-uploader' accept='image/png, image/jpeg'/>
+                        </label>
+                    </div>
+                    <img id='changing_img' src="{{url_for('static', filename='/icon/camera.jpg')}}"/>
+                </div>
+                <p id='fail_upload_msg'>上傳失敗，超過6Mb的圖片大小限制</p>
+                <form id='member_form'>
+                    <div>
+                        <p class='p_container'>姓名：</p>
+                        <span class='span_member' id='member_name'></span>
+                        <input class='input_member' type='text' id='name_input' name='member_name' placeholder='請輸入姓名' />
+                        <p class='user_msg' id='name_msg'></p>
+                        <img class='typing' id='typing_name' src="{{url_for('static', filename='icon/imessage-typing.webp')}}">
+                    </div>
+                    <div>
+                        <p class='p_container'>email：</p>
+                        <span class='span_member' id='member_email'></span>
+                        <input class='input_member' type='text' id='email_input' name='member_email' placeholder='請輸入email' />
+                        <p class='user_msg' id='email_msg'></p>
+                        <img class='typing' id='typing_email' src="{{url_for('static', filename='icon/imessage-typing.webp')}}">
+                    </div>
+                    <div>
+                        <p class='p_container'>密碼：</p>
+                        <span class='span_member' id='member_password'></span>
+                        <img class='eye' src="{{url_for('static', filename='/icon/eye.png')}}">
+                        <input class='input_member' type='password' id='password_input' name='password_input' placeholder='請輸入密碼' />
+                        <img class='eye_input' src="{{url_for('static', filename='/icon/eye.png')}}">
+                        <p class='user_msg' name='password_msg'></p>
+                        <img class='typing' name='typing_password' src="{{url_for('static', filename='icon/imessage-typing.webp')}}">
+                    </div>
+                    <div id='confirmation'>
+                        <p class='p_container'>確認密碼：</p>
+                        <span class='span_member' id='member_password'></span>
+                        <input class='input_member' type='password' name='password_input' placeholder='請確認密碼' />
+                        <img class='eye_input' src="{{url_for('static', filename='/icon/eye.png')}}">
+                        <p class='user_msg' name='password_msg'></p>
+                        <img class='typing' name='typing_password' src="{{url_for('static', filename='icon/imessage-typing.webp')}}">
+                    </div>
+                    <div class='form_button'>
+                        <button id='send_modified_info_button' type='button'><span>確認</span></button>
+                        <button id='modifying_info_button' type='button'><span>修改會員資料</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class='footer'>
+            <h4>COPYRIGHT © 2021台北一日遊</h4>
+        </div>
+        <script type='module' src="{{url_for('static', filename='js/member.js')}}"></script>
+    </body>
+</html>

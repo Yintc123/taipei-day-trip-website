@@ -1,7 +1,6 @@
-// export let url_booking="http://127.0.0.1:3000/api/booking";
-// export let booking="http://127.0.0.1:3000/booking";
-export let url_booking="http://3.115.234.130:3000/api/booking";//EC2
-export let booking="http://3.115.234.130:3000/booking";//EC2
+import {url_mode} from './package.js';
+
+let url_api_booking=url_mode['url_api_booking'];
 
 export async function booking_tour(attraction_id){
     let calendar=document.getElementById("calendar").value;
@@ -13,7 +12,7 @@ export async function booking_tour(attraction_id){
     form_body=form_body.join("&");
     console.log(form_body)
 
-    return await fetch(url_booking, {
+    return await fetch(url_api_booking, {
         method:"POST",
         body:form_body,
         headers:{
@@ -21,13 +20,11 @@ export async function booking_tour(attraction_id){
         }
     }).then(response => {
         return response.json();
-    }).then(result => {
-        console.log(result);
     })
 }
 
 export async function get_booking(){
-    return await fetch(url_booking).then(response=>{
+    return await fetch(url_api_booking).then(response=>{
         return response.json();
     }).then(data=>{
         return data["data"];
@@ -35,11 +32,9 @@ export async function get_booking(){
 }
 
 export async function delete_booking(){
-    return await fetch(url_booking, {
+    return await fetch(url_api_booking, {
         method:"DELETE"
     }).then(response=>{
         return response.json();
-    }).then(result=>{
-        return result;
     })
 }

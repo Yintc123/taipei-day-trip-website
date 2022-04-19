@@ -1,15 +1,16 @@
 console.log("hi");
-// let url_home='http://127.0.0.1:3000/';
-// let url_api_attraction="http://127.0.0.1:3000/api/attraction/";
-// let url_thanks="http://127.0.0.1:3000/thankyou";
-let url_home='http://3.115.234.130:3000/';//EC2
-let url_api_attraction="http://3.115.234.130:3000/api/attraction/";//EC2
-let url_thanks="http://3.115.234.130:3000/thankyou";//EC2
+import {url_mode} from './module/package.js';
+
+const url_home=url_mode['url_home'];
+const url_thanks=url_mode['url_thanks'];
+const url_member=url_mode['url_member'];
+
 let user_status=0;
+document.title="預定行程";
 // ------------------------------使用Tappay的SDK-----------------------------------
-let confirmation_button=document.getElementById("confirmation_button");
+const confirmation_button=document.getElementById("confirmation_button");
 // TPDirect.setupSDK 設定參數
-app_key="app_K64GfXE4Bm18CcyVETTYS0e9PTZmjpVyBhGh6sHQaHiImNYSoJcGjvjM1OhT";
+const app_key="app_K64GfXE4Bm18CcyVETTYS0e9PTZmjpVyBhGh6sHQaHiImNYSoJcGjvjM1OhT";
 TPDirect.setupSDK(123996, app_key, 'sandbox');
 // TPDirect.card.setup 設定外觀
 let fields = {
@@ -74,12 +75,12 @@ TPDirect.card.setup({
 });
 // TPDirect.card.onUpdate，得知目前卡片資訊的輸入狀態
 TPDirect.card.onUpdate((update) => {
-    let num_msg=document.getElementById("num_msg");
-    let date_msg=document.getElementById("date_msg");
-    let ccv_msg=document.getElementById("ccv_msg");
-    let typing_num=document.getElementById("typing_num");
-    let typing_exp=document.getElementById("typing_exp");
-    let typing_ccv=document.getElementById("typing_ccv");
+    const num_msg=document.getElementById("num_msg");
+    const date_msg=document.getElementById("date_msg");
+    const ccv_msg=document.getElementById("ccv_msg");
+    const typing_num=document.getElementById("typing_num");
+    const typing_exp=document.getElementById("typing_exp");
+    const typing_ccv=document.getElementById("typing_ccv");
 
     if(update.canGetPrime){
         
@@ -136,27 +137,27 @@ TPDirect.card.onUpdate((update) => {
 });
 // TPDirect.card.getPrime 取得 Prime
 confirmation_button.addEventListener("click", function(){
-    control_confirmation_btn_loading(1);
+    switch_loading_status(1);
     TPDirect.card.getPrime((result)=>{
         if (result.status !== 0 || !check_filled_user_info()) {
-            check_filled_card_info();
-            control_confirmation_btn_loading(0);
+            show_fail_creditcard_msg();
+            switch_loading_status(0);
             // alert('get prime error ' + result.msg);
             return;
         } 
         // alert('get prime 成功，prime: ' + result.card.prime);
-        import('./order_module.js').then(func=>{
+        import('./module/order_module.js').then(func=>{
             func.make_order(result.card.prime).then(result=>{
                 if (result["error"]){
                     alert("Error: "+result["message"]+"\n請重新提交訂單!")
                 }else{
-                    import("./booking_module.js").then(func_booking=>{
+                    import("./module/booking_module.js").then(func_booking=>{
                         func_booking.delete_booking().then(()=>{
                             window.location=url_thanks+"?number="+result["data"]["number"];
                         });
                     });
                 }
-                control_confirmation_btn_loading(0);
+                switch_loading_status(0);
             });
         })
     });
@@ -164,11 +165,12 @@ confirmation_button.addEventListener("click", function(){
 //-----------------------------------Function--------------------------------------
 //--------------------------------頁面處理(V)-------------------------------//
 function init(){
-    import("./sign_module.js").then(func=>{
+    import("./module/sign_module.js").then(func=>{
         func.get_user_info().then(user=>{
             if(user["data"]!=null){
                 func.sign_in_view(user);
-                load_user(user);
+                func.get_user_img(user["data"]["id"]);
+                show_user_name(user);
                 load_user_info(user);
                 user_status=1;
             }else{
@@ -177,33 +179,32 @@ function init(){
             }
         })
     });
-    import("./booking_module.js").then(func=>{
+    import("./module/booking_module.js").then(func=>{
         func.get_booking().then(data=>{
             if(data==null){
-                without_booking();
+                show_without_booking_page();
             }else{
-                load_booking_info(data);
-                load_total_cost(data);
+                show_booking_info(data);
             }
         });
     })
 }
-function load_user(user){
-    let user_name=document.getElementById("user_name");
+function show_user_name(user){
+    const user_name=document.getElementById("user_name");
     user_name.textContent=user["data"]["name"];
 }
-function load_image(data){
-    let img=document.querySelector(".attraction_img");
+function show_attraction_image(data){
+    const img=document.querySelector(".attraction_img");
     img.style.backgroundImage="url('"+data["attraction"]["image"]+"')";
 }
-function load_booking_info(data){
-    let content=document.querySelector(".content_container_1");
-    let loading=document.querySelector(".loading");
-    let tour_name=document.getElementById("tour_name");
-    let tour_date=document.getElementById("tour_date");
-    let tour_time=document.getElementById("tour_time");
-    let tour_cost=document.getElementById("tour_cost");
-    let tour_adrs=document.getElementById("tour_adrs");
+function show_booking_info(data){
+    const content=document.querySelector(".content_container_1");
+    const loading=document.querySelector(".loading");
+    const tour_name=document.getElementById("tour_name");
+    const tour_date=document.getElementById("tour_date");
+    const tour_time=document.getElementById("tour_time");
+    const tour_cost=document.getElementById("tour_cost");
+    const tour_adrs=document.getElementById("tour_adrs");
     tour_name.textContent=data["attraction"]["name"];
     tour_date.textContent=data["date"];
     tour_cost.textContent=data["price"];
@@ -213,17 +214,18 @@ function load_booking_info(data){
     }else{
         tour_time.textContent="下午4點到晚上9點";
     }
-    load_image(data);
+    show_attraction_image(data);
     content.style.display="block";
     loading.style.display="none";
+    show_total_cost(data);
 }
 
 function load_user_info(user){
-    let user_name=document.getElementById("name");
-    let user_email=document.getElementById("email");
-    let name_msg=document.getElementById("name_msg");
-    let email_msg=document.getElementById("email_msg");
-    if(user["data"]==null){
+    const user_name=document.getElementById("name");
+    const user_email=document.getElementById("email");
+    const name_msg=document.getElementById("name_msg");
+    const email_msg=document.getElementById("email_msg");
+    if(user["data"]==null || user_name==null){
         return ;
     }
     user_name.value=user["data"]["name"];
@@ -234,16 +236,16 @@ function load_user_info(user){
     email_msg.textContent="Done!";
 }
 
-function load_total_cost(data){
-    let total_cost=document.getElementById("total_cost");
+function show_total_cost(data){
+    const total_cost=document.getElementById("total_cost");
     total_cost.textContent=data["price"];
 }
 
-function without_booking(){
-    let loading=document.querySelector(".loading");
-    let content_container_1=document.querySelector(".content_container_1");
-    let container=document.createElement("div");
-    let message=document.createElement("p");
+function show_without_booking_page(){
+    const loading=document.querySelector(".loading");
+    const content_container_1=document.querySelector(".content_container_1");
+    const container=document.createElement("div");
+    const message=document.createElement("p");
     container.className="p_container";
     message.textContent="目前沒有任何待預定的行程";
     while(content_container_1.firstChild){
@@ -255,9 +257,9 @@ function without_booking(){
     loading.style.display="none";
 }
 
-function control_confirmation_btn_loading(swch){
-    let lds_ellipsis=document.getElementById("lds-ellipsis");
-    let cfm_btn_txt=document.getElementById("cfm_btn_txt");
+function switch_loading_status(swch){
+    const lds_ellipsis=document.getElementById("lds-ellipsis");
+    const cfm_btn_txt=document.getElementById("cfm_btn_txt");
     if(swch==1){
         cfm_btn_txt.style.display="none";
         lds_ellipsis.style.display="inline-block";
@@ -269,79 +271,108 @@ function control_confirmation_btn_loading(swch){
 }
 
 function loading_for_confirmation(swch){
-    let loading_confirmation=document.getElementById("loading_for_confirmation");
+    const loading_confirmation=document.getElementById("loading_for_confirmation");
     if(swch==0){
         loading_confirmation.style.display="none";
     }else{
         loading_confirmation.style.display="block";
     }
 }
-//--------------------------------監聽事件-------------------------------//
 
-let sign_in_or_up=document.getElementById("sign_in_or_up");
-let background=document.getElementById("background");
-let close_sign=document.getElementById("close_sign");
-let sign=document.getElementById("sign");
-let sign_button=document.getElementById("sign_button");
-let switch_sign_up=document.getElementById("click_sign_up");
-let schedule=document.getElementById("schedule");
-let delete_tour=document.getElementById("delete_tour");
-let phone_input=document.getElementById("phone");
-let name_input=document.getElementById("name");
-let email_input=document.getElementById("email");
+function call_member_page(swch){
+    const sign_out_or_member=document.getElementsByClassName("sign_out_or_member")[0];
+    if(swch==1){
+        sign_out_or_member.style.display="block";
+    }else{
+        sign_out_or_member.style.display="none";
+    }   
+}
+
+function show_fail_creditcard_msg(){
+    const num_msg=document.getElementById("num_msg");
+    const date_msg=document.getElementById("date_msg");
+    const ccv_msg=document.getElementById("ccv_msg");
+    let msg=[num_msg, date_msg, ccv_msg];
+    for(let index in msg){
+        if(msg[index].textContent!="Done!" && msg[index].textContent!="信用卡的卡號有誤"){
+            msg[index].style.color="red";
+            msg[index].textContent="請填寫此欄位!";
+
+        }
+    }
+}
+//--------------------------------監聽事件-------------------------------//
+const background=document.getElementById("background");
+const close_sign=document.getElementsByClassName("close_sign");
+const sign=document.getElementById("sign");
+const sign_button=document.getElementById("sign_button");
+const switch_sign_up=document.getElementById("click_sign_up");
+const schedule=document.getElementById("schedule");
+const delete_tour=document.getElementById("delete_tour");
+const phone_input=document.getElementById("phone");
+const name_input=document.getElementById("name");
+const email_input=document.getElementById("email");
+const sign_in_img=document.getElementById("sign_in_img");
+const sign_out=document.getElementById("sign_out");
+const member_page=document.getElementById("member_page");
 
 window.addEventListener("keyup", function(e){//放開鍵盤剎那，觸發該事件
-    let card_number=document.getElementById("card-number");
-    let card_expiration_date=document.getElementById("card-expiration-date");
-    let card_ccv=document.getElementById("card-ccv");
-    input_list=[phone_input, name_input, email_input, card_number, card_expiration_date, card_ccv]
-
-    for(index in input_list){
+    const card_number=document.getElementById("card-number");
+    const card_expiration_date=document.getElementById("card-expiration-date");
+    const card_ccv=document.getElementById("card-ccv");
+    let input_list=[phone_input, name_input, email_input, card_number, card_expiration_date, card_ccv]
+    for(let index in input_list){
         if(document.activeElement===input_list[index] && (e.code=="Enter" || e.code=="NumpadEnter")){
             confirmation_button.click();
         }
     }
 });
 
-sign_in_or_up.addEventListener("click", function(){
-    import("./sign_module.js").then(func => {
-        if(sign_in_or_up.textContent=="登出系統"){
-            func.delete_sign().then(result=>{
-                window.location=document.referrer;//退回上一頁
-            });
-        }else{
-            func.init_sign_in()
-            background.style.display="block";
-            sign.style.display="block";
-        } 
+sign_in_img.addEventListener("click", function(){
+    background.style.display="block";
+    call_member_page(1);
+})
+
+sign_out.addEventListener("click", function(){
+    import("./module/sign_module.js").then(func => {
+        func.delete_sign().then(result=>{
+            window.location=window.location.href;
+        })
     })
-    
-});
+})
+
+member_page.addEventListener("click", function(){
+    window.location=url_member;
+})
 
 background.addEventListener("click", function(){
     background.style.display="none";
     sign.style.display="none";
+    call_member_page(0);
 })
 
-close_sign.addEventListener("click", function(){
-    background.style.display="none";
-    sign.style.display="none";
-})
+for(let i=0;i<close_sign.length;i++){
+    close_sign[i].addEventListener("click", function(){
+        background.style.display="none";
+        sign.style.display="none";
+        call_member_page(0);
+    })
+}
 
 sign_button.addEventListener("click", function(){
     if(sign_button.textContent=="登入帳戶"){
-        import("./sign_module.js").then(func => {
+        import("./module/sign_module.js").then(func => {
             func.SignIn();
         })
     }else{
-        import("./sign_module.js").then(func => {
+        import("./module/sign_module.js").then(func => {
             func.create_user();
         })
     } 
 })
 
 switch_sign_up.addEventListener("click", function(){
-    import("./sign_module.js").then(func => {
+    import("./module/sign_module.js").then(func => {
         if(switch_sign_up.textContent=="點此註冊"){
             func.init_sign_up()
         }else{
@@ -355,7 +386,7 @@ schedule.addEventListener("click", function(){
 })
 
 delete_tour.addEventListener("click", function(){
-    import("./booking_module.js").then(func=>{
+    import("./module/booking_module.js").then(func=>{
         func.delete_booking().then(()=>{
             window.location=window.location.href;
         });
@@ -363,8 +394,8 @@ delete_tour.addEventListener("click", function(){
 })
 
 phone_input.addEventListener("input", function(){
-    let typing_phone=document.getElementById("typing_phone");
-    let phone_msg=document.getElementById("phone_msg");
+    const typing_phone=document.getElementById("typing_phone");
+    const phone_msg=document.getElementById("phone_msg");
     phone_msg.style.display="none";
     typing_phone.style.display="block";
     if(phone_input.value.length==10){
@@ -384,15 +415,15 @@ phone_input.addEventListener("input", function(){
 })
 
 name_input.addEventListener("input", function(){
-    let typing_name=document.getElementById("typing_name");
-    let name_msg=document.getElementById("name_msg");
+    const typing_name=document.getElementById("typing_name");
+    const name_msg=document.getElementById("name_msg");
     name_msg.style.display="none";
     typing_name.style.display="block";
 })
 
 name_input.addEventListener("change", function(){
-    let typing_name=document.getElementById("typing_name");
-    let name_msg=document.getElementById("name_msg");
+    const typing_name=document.getElementById("typing_name");
+    const name_msg=document.getElementById("name_msg");
     typing_name.style.display="none";
     name_msg.style.display="block";
     if(name_input.value==""){
@@ -405,15 +436,15 @@ name_input.addEventListener("change", function(){
 })
 
 email_input.addEventListener("input", function(){
-    let typing_email=document.getElementById("typing_email");
-    let email_msg=document.getElementById("email_msg");
+    const typing_email=document.getElementById("typing_email");
+    const email_msg=document.getElementById("email_msg");
     email_msg.style.display="none";
     typing_email.style.display="block";
 })
 
 email_input.addEventListener("change", function(){
-    let typing_email=document.getElementById("typing_email");
-    let email_msg=document.getElementById("email_msg");
+    const typing_email=document.getElementById("typing_email");
+    const email_msg=document.getElementById("email_msg");
     typing_email.style.display="none";
     email_msg.style.display="block";
     if(email_input.value==""){
@@ -429,40 +460,25 @@ email_input.addEventListener("change", function(){
 })
 //------------------------------------data---------------------------------------
 function check_filled_user_info(){
-    let name=document.getElementById("name");
-    let email=document.getElementById("email");
-    let phone=document.getElementById("phone");
-    let name_msg=document.getElementById("name_msg");
-    let email_msg=document.getElementById("email_msg");
-    let phone_msg=document.getElementById("phone_msg");
+    const name=document.getElementById("name");
+    const email=document.getElementById("email");
+    const phone=document.getElementById("phone");
+    const name_msg=document.getElementById("name_msg");
+    const email_msg=document.getElementById("email_msg");
+    const phone_msg=document.getElementById("phone_msg");
     if(name_msg.textContent=="Done!" && email_msg.textContent=="Done!" && phone_msg.textContent=="Done!"){
         return true;
     }else{
         if (name.value=="" || email.value=="" || phone.value==""){
-            input=[name, email, phone]
-            for(index in input){
+            let input=[name, email, phone]
+            for(let index in input){
                 if(input[index].value==""){
-                    console.log(input[index]);
                     input[index].focus();
                     return false;
                 }
             }
         }
         return false;
-    }
-}
-
-function check_filled_card_info(){
-    let num_msg=document.getElementById("num_msg");
-    let date_msg=document.getElementById("date_msg");
-    let ccv_msg=document.getElementById("ccv_msg");
-    msg=[num_msg, date_msg, ccv_msg];
-    for(index in msg){
-        if(msg[index].textContent!="Done!" && msg[index].textContent!="信用卡的卡號有誤"){
-            msg[index].style.color="red";
-            msg[index].textContent="請填寫此欄位!";
-
-        }
     }
 }
 //-------------------------------------Run----------------------------------------

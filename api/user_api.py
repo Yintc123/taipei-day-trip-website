@@ -1,10 +1,11 @@
+import base64
 from flask import Blueprint
 from flask import Blueprint, make_response, request, jsonify
 from dotenv import load_dotenv, dotenv_values
 import jwt, datetime
-from database.handle_user_data import Handle_member as handle_user
+from database.handle_user_data import Handle_user as handle_user
 
-env='.env'
+env='.env' # 執行環境
 load_dotenv(override=True)
 
 user_key=dotenv_values(env)["user_key"] # jwt_key
@@ -52,6 +53,7 @@ def patch_user():
         "id":None,
         "name":None,
         "email":None,
+        # "img":None
     }}
     print(request.files)
     email=request.form["email"]
@@ -75,6 +77,7 @@ def patch_user():
         resp=make_response(jsonify({"ok":True}))
         for info in user["data"]:
             user["data"][info]=user_info[info]
+        print(user)
         payload=user
         payload["exp"]=datetime.datetime.utcnow()+datetime.timedelta(days=30) #設定token於30天到期
         token_user=jwt.encode(payload, user_key, algorithm="HS256") #token加密
@@ -93,4 +96,80 @@ def patch_user():
 def delete_user():
     resp=make_response(jsonify({"ok":True}))
     resp.set_cookie(key="token_user", expires=0) # 將cookie的到期時間設定為0，清除cookie
+    return resp
+
+url=restful_api+'/<user_id>'
+@app3.route(url, methods=["POST"])
+def get_password(user_id):
+    token_user=request.cookies.get("token_user")
+    user_info=jwt.decode(token_user, user_key, algorithms="HS256")
+    if user_info==None or user_info["data"]["id"]!=int(user_id):
+        error["message"]="密碼查詢錯誤，不得查詢他人密碼"
+        return jsonify(error)
+    con_user=handle_user()
+    result=con_user.get_user_info_by_id(user_id)
+    return jsonify(result["password"])
+
+@app3.route(url, methods=["GET"])
+def get_user_what_u_need(user_id):
+    user_img={
+        "img":None
+    }
+    token_user=request.cookies.get("token_user")
+    user_info=jwt.decode(token_user, user_key, algorithms="HS256")
+    if user_info==None or user_info["data"]["id"]!=int(user_id):
+        error["message"]="查詢錯誤，不得查詢他人資料"
+        return jsonify(error)
+    con_user=handle_user()
+    result=con_user.get_user_info_by_id(user_id)
+    if(result["img"]!=None):
+        img_data=base64.b64encode(result["img"]) # 將blob轉為base64
+        user_img["img"]="data:image/jpeg;charset=utf-8;base64,"+img_data.decode("utf-8")
+    return jsonify(user_img)
+
+
+@app3.route(url, methods=["PATCH"])
+def modify_user_info(user_id):
+    user_info={
+        "name":None,
+        "email":None,
+        "password":None,
+        "img":None
+    }
+    
+    token_user=request.cookies.get("token_user")
+    payload=jwt.decode(token_user, user_key, algorithms="HS256")
+    if payload==None or payload["data"]["id"]!=int(user_id):
+        error["message"]="資料修改錯誤，不得修改他人資料"
+        return jsonify(error)
+    
+    for info in user_info:
+        if info=="img":
+            # request.files.get(info).read()轉成blob以儲存於mysql
+            user_info[info]=None if request.files.get(info)=="" else request.files.get(info)
+            if user_info[info]==None:
+                continue
+            user_info[info]=user_info[info].read()
+        else:
+            user_info[info]=request.form.get(info) if request.form.get(info)!="" else None
+    con_user=handle_user()
+    result=con_user.modify_user_info(user_id,
+                                     user_info["name"],
+                                     user_info["email"],
+                                     user_info["password"],
+                                     user_info["img"]
+                                     )
+    if result==1:
+        error["message"]="此帳號已被使用"
+        return jsonify(error)
+    
+    payload["data"]["name"]=user_info["name"] if user_info["name"]!=None else payload["data"]["name"]
+    payload["data"]["email"]=user_info["email"] if user_info["email"]!=None else payload["data"]["email"]
+    token_user=jwt.encode(payload, user_key, algorithm="HS256") #token加密
+    resp=make_response(jsonify({"ok":True}))
+    resp.set_cookie(
+            key="token_user",
+            value=token_user,
+    )
+    print(payload)
     return resp

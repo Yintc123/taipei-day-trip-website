@@ -4,9 +4,9 @@ import jwt
 from Tappay_api.conn_to_tappay_api import connect_to_tappay_api as tappay
 from database.handle_order_data import Handle_order as handle_order
 from database.handle_attraction_data import Handle_DB as handle_attraction
-from database.handle_user_data import Handle_member as handle_user
+from database.handle_user_data import Handle_user as handle_user
 
-env=".env"
+env=".env" # 執行環境
 load_dotenv(override=True)
 
 key_booking=dotenv_values(env)["booking_key"] # jwt_key
@@ -134,12 +134,8 @@ def get_orders_by_user(user_id):
     orders=handle_order()
     attraction=handle_attraction()
     orders.user_id=user_id
-    # orders.user_id=1
     order_info_list=orders.check_order_by_user_id()
     for order_info in order_info_list:
         at=attraction.get_data_by_id(order_info["attraction_id"])["name"]
         order_info["attraction"]=at
-        
-    # attraction.get_data_by_id(self, order_info["data"]["trip"])
-    # print(order_info)
     return jsonify(order_info_list)

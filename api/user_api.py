@@ -111,7 +111,7 @@ def get_password(user_id):
     return jsonify(result["password"])
 
 @app3.route(url, methods=["GET"])
-def get_user_what_u_need(user_id):
+def get_user_img(user_id):
     user_img={
         "img":None
     }
@@ -171,5 +171,4 @@ def modify_user_info(user_id):
             key="token_user",
             value=token_user,
     )
-    print(payload)
     return resp

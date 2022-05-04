@@ -1,5 +1,6 @@
 from flask import *
 from dotenv import load_dotenv, dotenv_values
+from flask_cors import CORS
 from api.attractions_api import app2
 from api.user_api import app3
 from api.tour_api import app4
@@ -11,6 +12,7 @@ load_dotenv(override=True)
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
+CORS(app)
 
 # Pages
 @app.route("/")

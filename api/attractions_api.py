@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 import math
 from database.handle_attraction_data import Handle_DB as handle
+from flask_cors import CORS
 
 error={
         "error":True,
@@ -8,6 +9,7 @@ error={
 }
 
 app2=Blueprint("attractions_api",__name__)
+CORS(app2)
 
 @app2.route("/")
 def api_index():

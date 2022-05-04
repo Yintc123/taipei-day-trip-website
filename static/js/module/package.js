@@ -18,18 +18,18 @@ const url={
         
     },
     "production":{
-        'url_home':'https://3.115.234.130:3000/',
-        'url_attraction':'https://3.115.234.130:3000/attraction/',
-        'url_booking':'https://3.115.234.130:3000/booking',
-        'url_thanks':'https://3.115.234.130:3000/thankyou',
-        'url_member':'https://3.115.234.130:3000/member',
+        'url_home':'https://'+dn+'/',
+        'url_attraction':'https://'+dn+'/attraction/',
+        'url_booking':'https://'+dn+'/booking',
+        'url_thanks':'https://'+dn+'/thankyou',
+        'url_member':'https://'+dn+'/member',
         'url_api_attraction':'https://'+dn+'/api/attraction/',
         'url_api_attraction_keyword':'https://'+dn+'/api/attractions?keyword=',
         'url_api_sign':'https://'+dn+'/api/user',
-        'url_api_orders':'https://3.115.234.130:3000/api/orders',
-        'url_api_order':'https://3.115.234.130:3000/api/order/',
-        'url_api_user_order':'https://3.115.234.130:3000/api/user_order/',
-        'url_api_booking':'https://3.115.234.130:3000/api/booking',
+        'url_api_orders':'https://'+dn+'/api/orders',
+        'url_api_order':'https://'+dn+'/api/order/',
+        'url_api_user_order':'https://'+dn+'/api/user_order/',
+        'url_api_booking':'https://'+dn+'/api/booking',
     }
 };
 

@@ -12,6 +12,9 @@ a{
 a:visited{
     color:#448899;
 }
+#taipei a{
+    color:#448899; 
+}
 button:hover{
     cursor:pointer;
 }

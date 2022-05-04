@@ -20,9 +20,9 @@ const url={
         'url_booking':'http://3.115.234.130:3000/booking',
         'url_thanks':'http://3.115.234.130:3000/thankyou',
         'url_member':'http://3.115.234.130:3000/member',
-        'url_api_attraction':'http://3.115.234.130:3000/api/attraction/',
-        'url_api_attraction_keyword':'http://3.115.234.130:3000/api/attractions?keyword=',
-        'url_api_sign':'http://3.115.234.130:3000/api/user',
+        'url_api_attraction':'https://3.115.234.130:3000/api/attraction/',
+        'url_api_attraction_keyword':'https://3.115.234.130:3000/api/attractions?keyword=',
+        'url_api_sign':'https://3.115.234.130:3000/api/user',
         'url_api_orders':'http://3.115.234.130:3000/api/orders',
         'url_api_order':'http://3.115.234.130:3000/api/order/',
         'url_api_user_order':'http://3.115.234.130:3000/api/user_order/',
@@ -30,8 +30,8 @@ const url={
     }
 };
 
-const env='develop';
-// const env='production';
+// const env='develop';
+const env='production';
 
 export const url_mode=url[env];
 

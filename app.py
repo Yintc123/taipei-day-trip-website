@@ -37,6 +37,6 @@ app.register_blueprint(app4, url_prefix="/api")
 app.register_blueprint(app5, url_prefix="/api")
 
 app.debug=True
-app.run(host=dotenv_values(env)["app_host"], port=3000)#change port to 3000
+app.run(host=dotenv_values(env)["app_host"], port=3000, ssl_context=("/etc/ssl/tour_certificate.crt", "/etc/ssl/tour_private.key"))#change port to 3000
 # app.run(host="127.0.0.1", port=3000) #test on my computer
 

@@ -1,3 +1,6 @@
+const dn="tour.yin888.info";
+const ip="3.115.234.130:3000"
+
 const url={
     "develop":{
         'url_home':'http://127.0.0.1:3000/',
@@ -20,9 +23,9 @@ const url={
         'url_booking':'https://3.115.234.130:3000/booking',
         'url_thanks':'https://3.115.234.130:3000/thankyou',
         'url_member':'https://3.115.234.130:3000/member',
-        'url_api_attraction':'https://3.115.234.130:3000/api/attraction/',
-        'url_api_attraction_keyword':'https://3.115.234.130:3000/api/attractions?keyword=',
-        'url_api_sign':'https://3.115.234.130:3000/api/user',
+        'url_api_attraction':'https://'+dn+'/api/attraction/',
+        'url_api_attraction_keyword':'https://'+dn+'/api/attractions?keyword=',
+        'url_api_sign':'https://'+dn+'/api/user',
         'url_api_orders':'https://3.115.234.130:3000/api/orders',
         'url_api_order':'https://3.115.234.130:3000/api/order/',
         'url_api_user_order':'https://3.115.234.130:3000/api/user_order/',

@@ -197,6 +197,7 @@ export function sign_out_view(){
     sign_in_or_up.style.display="block";
     a.href=url_home;
     a.textContent="台北一日遊";
+    a.style.color="#448899";
     taipei_navigation.appendChild(a);
     greet.textContent="";
     fail_message.textContent="還沒有帳戶？";

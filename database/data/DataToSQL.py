@@ -2,16 +2,16 @@ import json
 import mysql.connector
 from dotenv import load_dotenv, dotenv_values
 
-env=str('.env.'+dotenv_values('.env')["MODE"]) # 執行環境
+env='.env' # 執行環境
 load_dotenv(override=True)
 
 mydb=mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password=dotenv_values(env)['mysql_password'],
+    host=dotenv_values(env)['RDS_host'],
+    user=dotenv_values(env)['user'],
+    password=dotenv_values(env)['password'],
     database="taipei_scene",
     auth_plugin="mysql_native_password",
-    port=dotenv_values(env)['mysql_port'],
+    port=dotenv_values(env)['port'],
 )
 
 mycursor=mydb.cursor()
@@ -21,10 +21,11 @@ mycursor=mydb.cursor()
 
 # locations=data["result"]["results"]
 # loca_keys=list(locations[0].keys())
-# print(loca_key)
+# print(loca_keys)
 
 # -----------------Create Database---------------
-# mycursor.execute("CREATE DATABASE Taipei_Scene")
+# mycursor.execute("CREATE DATABASE taipei_scene")
+
 # mycursor.execute("SHOW DATABASES")
 # for x in mycursor:
 #     print(x)
@@ -59,7 +60,7 @@ mycursor=mydb.cursor()
 #     "latitude",
 # ]
 
-# # 將欄位引入table
+# # # 將欄位引入table
 # for key in loca_keys:
 #     if key=="file":
 #         mycursor.execute("ALTER TABLE scene_picture ADD images VARCHAR(255)")
@@ -81,6 +82,10 @@ mycursor=mydb.cursor()
 #         mycursor.execute("ALTER TABLE scene_info ADD %s VARCHAR(255)" %key)
 
 # mycursor.execute("DESCRIBE scene_picture")#顯示欄位參數
+# for x in mycursor:
+#     print(x)
+
+# mycursor.execute("DESCRIBE scene_info")#顯示欄位參數
 # for x in mycursor:
 #     print(x)
 # ------------------------------------------------
@@ -106,24 +111,34 @@ mycursor=mydb.cursor()
 #             "INSERT INTO scene_picture(id, images) VALUES(%s, %s)", 
 #             [row[0], row[1]]
 #     )
-    # mydb.commit()
+#     mydb.commit()
 
-# mycursor.execute("DELETE FROM scene_picture")
-# mydb.commit()
+# # mycursor.execute("DELETE FROM scene_picture")
+# # mydb.commit()
 
 # print("ok")
         
+# mycursor.execute("SELECT*FROM scene_picture")
+# data=mycursor.fetchall()
+# print(data)
 
+# mycursor.execute("SELECT*FROM scene_info")
+# data=mycursor.fetchall()
+# print(data)
 
 
 # ------------------member------------------------------
 # mycursor.execute("CREATE TABLE member (id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT, name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, time DATETIME NOT NULL DEFAULT NOW())")
 
-mycursor.execute("ALTER TABLE member ADD img MEDIUMBLOB")
+# mycursor.execute("ALTER TABLE member ADD img MEDIUMBLOB")
 # mycursor.execute("ALTER TABLE member MODIFY COLUMN img MEDIUMBLOB")
 
 # mycursor.execute("ALTER TABLE member DROP COLUMN img")
 # mycursor.execute("DROP TABLE member")
+
+# mycursor.execute("DESCRIBE member")#顯示欄位參數
+# for x in mycursor:
+#     print(x)
 # ------------------order------------------------------
 # mycursor.execute("CREATE TABLE order_table(id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT, order_number BIGINT NOT NULL, attraction_id BIGINT NOT NULL, user_id BIGINT NOT NULL, time DATETIME NOT NULL DEFAULT NOW())")
 
@@ -135,3 +150,7 @@ mycursor.execute("ALTER TABLE member ADD img MEDIUMBLOB")
 # mycursor.execute("ALTER TABLE order_table ADD trip_date VARCHAR(255) NOT NULL")
 
 # mycursor.execute("DROP TABLE order_table")
+
+# mycursor.execute("DESCRIBE order_table")#顯示欄位參數
+# for x in mycursor:
+#     print(x)

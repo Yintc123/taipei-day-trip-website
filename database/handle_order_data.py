@@ -16,17 +16,19 @@ class Handle_order():
         try:
             self.conn=db.con_pool.get_connection()
             self.cur=self.conn.cursor(dictionary=True)
-            print("successful access to the connection")
+            # print("successful access to the connection")
         except:
-            print("error in the connection")
+            # print("error in the connection")
+            return 0
             
     def close(self):
         try:
             self.cur.close()#cursor.close()釋放從資料庫取得的資源，兩個皆須關閉
             self.conn.close()#connection.close()方法可關閉對連線池的連線，並釋放相關資源
-            print("close the connection successfully")
+            # print("close the connection successfully")
         except:
-            print("error in closing the connection")
+            # print("error in closing the connection")
+            return 0
     
     def create_order_number(self, time):
         query="SELECT order_number FROM order_table WHERE order_number LIKE %s"

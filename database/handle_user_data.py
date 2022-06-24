@@ -17,17 +17,19 @@ class Handle_user():
         try:
             self.conn=db.con_pool.get_connection()
             self.cur=self.conn.cursor(dictionary=True)
-            print("successful access to the connection")
+            # print("successful access to the connection")
         except:
-            print("error in the connection")
+            # print("error in the connection")
+            return 0
             
     def close(self):
         try:
             self.cur.close()#cursor.close()釋放從資料庫取得的資源，兩個皆須關閉
             self.conn.close()#connection.close()方法可關閉對連線池的連線，並釋放相關資源
-            print("close the connection successfully")
+            # print("close the connection successfully")
         except:
-            print("error in closing the connection")
+            # print("error in closing the connection")
+            return 0
         
     def get_user_info(self, email):
         try:
@@ -38,7 +40,8 @@ class Handle_user():
             self.close()
             return user
         except:
-            print("error in get_user_info")
+            # print("error in get_user_info")
+            return 0
     
     def create_user(self, name, email, password):
         try:
@@ -53,7 +56,8 @@ class Handle_user():
             else:
                 return 1 #註冊失敗，重複的 Email 或其他原因
         except:
-            print("error in create_user")
+            # print("error in create_user")
+            return 0
             
     def get_user_info_by_id(self, user_id):
         self.connection()

@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, make_response, request
 from dotenv import load_dotenv, dotenv_values
-from flask_cors import CORS
+# from flask_cors import CORS
 import jwt
 from Tappay_api.conn_to_tappay_api import connect_to_tappay_api as tappay
 from database.handle_order_data import Handle_order as handle_order
@@ -21,7 +21,7 @@ error={
 # prime="test_3a2fb2b7e892b914a03c95dd4dd5dc7970c908df67a49527c0a648b2bc9" #測試用
 
 app5=Blueprint("order_api", __name__)
-CORS(app5)
+# CORS(app5)
 
 orders_url="/orders"
 @app5.route(orders_url, methods=["POST"])

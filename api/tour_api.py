@@ -1,7 +1,7 @@
 import datetime
 from flask import Blueprint, make_response, request, jsonify
 from dotenv import load_dotenv, dotenv_values
-from flask_cors import CORS
+# from flask_cors import CORS
 import jwt
 from database.handle_attraction_data import Handle_DB as handle
 
@@ -12,7 +12,7 @@ key_booking=dotenv_values(env)["booking_key"] # jwt_key
 key_user=dotenv_values(env)["user_key"] # jwt_key
 
 app4=Blueprint("tour_api", __name__)
-CORS(app4)
+# CORS(app4)
 
 error={
         "error":True,

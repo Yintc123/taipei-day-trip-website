@@ -1,7 +1,13 @@
+from dotenv import dotenv_values, load_dotenv
 from flask import Blueprint, request, jsonify
 import math
+import requests
 from database.handle_attraction_data import Handle_DB as handle
-from flask_cors import CORS
+from .api_aws import Aws_s3_api
+# from flask_cors import CORS
+
+env=".env"
+load_dotenv(override=True)
 
 error={
         "error":True,
@@ -9,7 +15,9 @@ error={
 }
 
 app2=Blueprint("attractions_api",__name__)
-CORS(app2)
+# CORS(app2)
+
+cdn_url=dotenv_values(env)["url_cdn"]
 
 @app2.route("/")
 def api_index():
@@ -25,6 +33,12 @@ def api_attractions():
         data_detail=data["data"]
         page=int(request.args.get("page")) if request.args.get("page")!=None and request.args.get("page")!="" else 0
         keyword=request.args.get("keyword") if request.args.get("keyword")!=None else ""
+
+        json_filename=str(page)+"-"+keyword+".json"
+        cdn_stock_data=requests.get(cdn_url+json_filename) # 確認cdn上有無資料
+        if cdn_stock_data:
+            return cdn_stock_data.json()
+
         con_db=handle(page=page, keyword=keyword)
         count=con_db.get_total_column_count()
         if count==0:#資料庫未找到資料，count會顯示為0而不是None
@@ -45,6 +59,10 @@ def api_attractions():
         locations=con_db.get_all_data()
         for where in locations:
             data_detail.append(con_db.get_needs(where))
+        
+        s3=Aws_s3_api()
+        s3.upload_json_data(data, json_filename) # 將資料上傳至s3
+
         return jsonify(data)
     except:
         fail_message="伺服器目前當機，請稍後連線"

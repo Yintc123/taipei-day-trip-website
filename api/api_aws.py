@@ -1,7 +1,6 @@
 import json
 from dotenv import load_dotenv, dotenv_values
 import boto3
-import os
 
 env=".env" # 執行環境
 load_dotenv(override=True)

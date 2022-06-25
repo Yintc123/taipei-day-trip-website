@@ -4,7 +4,6 @@ import math
 import requests
 from database.handle_attraction_data import Handle_DB as handle
 from .api_aws import Aws_s3_api
-# from flask_cors import CORS
 
 env=".env"
 load_dotenv(override=True)
@@ -15,7 +14,6 @@ error={
 }
 
 app2=Blueprint("attractions_api",__name__)
-# CORS(app2)
 
 cdn_url=dotenv_values(env)["url_cdn"]
 

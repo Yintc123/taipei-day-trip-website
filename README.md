@@ -1,22 +1,20 @@
 # Taipei Day Trip Website 台北一日遊
 
 ## 網址
-https://message-board.yin888.info/
+https://tour.yin888.info/
 
 ## 簡介
-留下想分享訊息及圖片。
+匯集台北的旅遊景點，導覽並深度解析各景點的特色。
 
 ## 功能
 *  訪客
-    *   匿名
-    *   暱稱
-*  留言
-    *   訊息
-    *   圖片 ( 圖片格式 png, jpeg )
-    *   刪除留言
+    *   景點資訊
+    *   景點交通
+*  會員
+    *   景點導覽
 
 ## 網頁架構
-![pic_web_framework](readme_pictures/mb_web_framework.png)
+![pic_web_framework](readme_pictures/web_framework.png)
 
 ## 使用工具
 *   AWS
@@ -25,13 +23,9 @@ https://message-board.yin888.info/
     *   RDS
     <br/>雲端關聯式資料庫，此專案使用其中 MySQL 資料庫。
     *   S3
-    <br/>雲端物件儲存，用於儲存留言圖片，避免浪費資料庫資源。
+    <br/>雲端物件儲存，用於儲存景點資訊，避免浪費資料庫資源。
     *   CloudFront
     <br/>低延遲內容交付網路 ( CDN ) ，將資料儲存至全球各地的多個伺服器節點。
-    *   Amazon Machine Image ( AMI )
-    <br/>AWS 提供技術支援並維護的映像，此專案用於複製 EC2 作為 Load Balancer導流的對象。
-    *   Application Load Balancer
-    <br/>適合處理 HTTP 與 HTTPS 流量的負載平衡，分散流量減輕 EC2 負擔。
 *   Python
     *   flask
     <br/>開發網頁應用框架。
@@ -39,6 +33,11 @@ https://message-board.yin888.info/
     <br/>取用.env的資訊，避免洩漏私密資訊。
     *   mysql.connector.pooling
     <br/>使用連線池，有效利用資料庫資源。
+    *   jwt
+    <br/>保存會員登入狀態、身分認證及挾帶非私密的資料。
+    *   boto3
+    <br/>AWS 開發套件，上傳資料至 AWS S3 。
+
 *   JavaScript
     <br/>網頁程式撰寫， DOM 控制。
 *   Others

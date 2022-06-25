@@ -2,7 +2,6 @@ import base64
 from flask import Blueprint
 from flask import Blueprint, make_response, request, jsonify
 from dotenv import load_dotenv, dotenv_values
-# from flask_cors import CORS
 import jwt, datetime
 from database.handle_user_data import Handle_user as handle_user
 
@@ -12,7 +11,6 @@ load_dotenv(override=True)
 user_key=dotenv_values(env)["user_key"] # jwt_key
 
 app3=Blueprint("user_api", __name__)
-# CORS(app3)
 
 error={
         "error":True,

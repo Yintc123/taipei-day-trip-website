@@ -37,9 +37,11 @@ https://tour.yin888.info/
     <br/>保存會員登入狀態、身分認證及挾帶非私密的資料。
     *   boto3
     <br/>AWS 開發套件，上傳資料至 AWS S3 。
-
 *   JavaScript
     <br/>網頁程式撰寫， DOM 控制。
+*   API
+    *   TapPay
+    <br/>安全電子商務服務，金流服務API。 ( https://www.tappaysdk.com/zh/ )
 *   Others
     *   Docker
     <br/>輕量級的虛擬化技術，跨平台部屬專案。

@@ -58,7 +58,7 @@ def patch_user():
     print(request.files)
     email=request.form["email"]
     password=request.form["password"]
-    if email=="": # 判斷是否輸入帳號，應該給前端去擋
+    if email=="":
         fail_message="請輸入帳號"
         error["message"]=fail_message
         return error

@@ -51,10 +51,14 @@ https://tour.yin888.info/
     <br/>版本控管工具。
 
 ## 問題解決
-1. 問題：圖片儲存
+1. 問題：資料庫儲存圖片資料適合使用 Base64 還是 Blob 格式
     * 解決方案：
-        - [ ] 123
-        - [x] 456
+        - [ ] Base64
+            *   儲存格式大小為Blob格式的 1.3 倍
+        - [x] Blob
+            *   從資料庫取出資料需再經過 base64 編譯，才能透過透過 API 使用
+
+    參考資料：https://stackoverflow.com/questions/29284266/mysql-base64-vs-blob
 
 2. 問題：垃圾桶能刪除對應的留言區塊
     * 尋找真因：

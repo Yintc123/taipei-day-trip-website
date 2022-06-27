@@ -37,6 +37,7 @@ class Handle_DB():
                 img_list.append(url["images"])
             return img_list
         except:
+            self.close()
             # print("error in get_images")
             return  0
             
@@ -64,6 +65,7 @@ class Handle_DB():
                     data_info[title]=data[title]
             return data_info
         except:
+            self.close()
             # print("error in get_needs")
             return 0
             
@@ -76,6 +78,7 @@ class Handle_DB():
             self.close()
             return total_count
         except:
+            self.close()
             # print("error in get_total_column_count")
             return 0
             
@@ -88,6 +91,7 @@ class Handle_DB():
             self.close()
             return locations
         except:
+            self.close()
             # print("error in get_all_data")
             return 0
             
@@ -100,6 +104,7 @@ class Handle_DB():
             self.close()
             return location
         except:
+            self.close()
         #    print("error in get_data_by_id")
             return 0
         
@@ -112,6 +117,7 @@ class Handle_DB():
             self.close()
             return count
         except:
+            self.close()
         #    print("error in get_count_by_id")
             return 0
            

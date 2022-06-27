@@ -40,6 +40,7 @@ class Handle_user():
             self.close()
             return user
         except:
+            self.close()
             # print("error in get_user_info")
             return 0
     
@@ -56,34 +57,43 @@ class Handle_user():
             else:
                 return 1 #註冊失敗，重複的 Email 或其他原因
         except:
+            self.close()
             # print("error in create_user")
-            return 0
+            return 2
             
     def get_user_info_by_id(self, user_id):
-        self.connection()
-        query_user="SELECT*FROM member WHERE id=%s"
-        self.cur.execute(query_user %user_id)
-        user_info=self.cur.fetchone()
-        self.close()
-        return user_info
+        try:
+            self.connection()
+            query_user="SELECT*FROM member WHERE id=%s"
+            self.cur.execute(query_user %user_id)
+            user_info=self.cur.fetchone()
+            self.close()
+            return user_info
+        except:
+            self.close()
+            return 0    
     
     def modify_user_info(self, user_id, name, email, password, img):
-        v={
-            "name":name,
-            "email":email,
-            "password":password,
-            "img":img
-        }
-        query="UPDATE member SET {}=%s WHERE id="+user_id
-        self.connection()
-        for var in v:
-            if(v[var]!=None):
-                if var=="email":
-                    result=self.get_user_info(email)
-                    self.connection() # 前一個function會將所有connection和cursor關閉
-                    if (result!=None and result["id"]!=int(user_id)):
-                        return 1
-                self.cur.execute(query.format(escape_column_name(var)),(v[var], ))
-        self.conn.commit()
-        self.close()
-        return 0
+        try:
+            v={
+                "name":name,
+                "email":email,
+                "password":password,
+                "img":img
+            }
+            query="UPDATE member SET {}=%s WHERE id="+user_id
+            self.connection()
+            for var in v:
+                if(v[var]!=None):
+                    if var=="email":
+                        result=self.get_user_info(email)
+                        self.connection() # 前一個function會將所有connection和cursor關閉
+                        if (result!=None and result["id"]!=int(user_id)):
+                            return 1
+                    self.cur.execute(query.format(escape_column_name(var)),(v[var], ))
+            self.conn.commit()
+            self.close()
+            return 0
+        except:
+            self.close()
+            return 0  

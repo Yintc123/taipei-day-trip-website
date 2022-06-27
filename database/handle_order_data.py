@@ -31,40 +31,56 @@ class Handle_order():
             return 0
     
     def create_order_number(self, time):
-        query="SELECT order_number FROM order_table WHERE order_number LIKE %s"
-        self.connection()
-        self.cur.execute(query, (("%"+time+"%"), ))
-        result=self.cur.fetchall()
-        self.close()
-        if not result: # 空list
-            order_number=int(str(time)+"0001")
-        else:
-            order_number=result[len(result)-1]["order_number"]+1
-            
-        return order_number
+        try:
+            query="SELECT order_number FROM order_table WHERE order_number LIKE %s"
+            self.connection()
+            self.cur.execute(query, (("%"+time+"%"), ))
+            result=self.cur.fetchall()
+            self.close()
+            if not result: # 空list
+                order_number=int(str(time)+"0001")
+            else:
+                order_number=result[len(result)-1]["order_number"]+1
+                
+            return order_number
+        except:
+            self.close()
+            return 0
         
     def create_order(self):
-        query="INSERT INTO order_table (order_number, attraction_id, user_id, price, phone, trip_date, order_status) VALUES(%s, %s, %s, %s, %s, %s, %s)"
-        time=datetime.now().strftime('%Y%m%d')
-        order_number=self.create_order_number(time)
-        self.connection()
-        self.cur.execute(query, (order_number, self.attraction_id, self.user_id, self.price, self.phone, self.trip_date, self.order_status))
-        self.conn.commit()
-        self.close()
-        return order_number
+        try:
+            query="INSERT INTO order_table (order_number, attraction_id, user_id, price, phone, trip_date, order_status) VALUES(%s, %s, %s, %s, %s, %s, %s)"
+            time=datetime.now().strftime('%Y%m%d')
+            order_number=self.create_order_number(time)
+            self.connection()
+            self.cur.execute(query, (order_number, self.attraction_id, self.user_id, self.price, self.phone, self.trip_date, self.order_status))
+            self.conn.commit()
+            self.close()
+            return order_number
+        except:
+            self.close()
+            return 0
     
     def check_order(self, order_number):
-        query="SELECT*FROM order_table WHERE order_number=%s"
-        self.connection()
-        self.cur.execute(query %order_number)
-        order_info=self.cur.fetchone()
-        self.close()
-        return order_info
+        try:
+            query="SELECT*FROM order_table WHERE order_number=%s"
+            self.connection()
+            self.cur.execute(query %order_number)
+            order_info=self.cur.fetchone()
+            self.close()
+            return order_info
+        except:
+            self.close()
+            return 0
     
     def check_order_by_user_id(self):
-        query="SELECT*FROM order_table WHERE user_id=%s"
-        self.connection()
-        self.cur.execute(query %self.user_id)
-        order_info=self.cur.fetchall()
-        self.close()
-        return order_info
+        try:
+            query="SELECT*FROM order_table WHERE user_id=%s"
+            self.connection()
+            self.cur.execute(query %self.user_id)
+            order_info=self.cur.fetchall()
+            self.close()
+            return order_info
+        except:
+            self.close()
+            return 0

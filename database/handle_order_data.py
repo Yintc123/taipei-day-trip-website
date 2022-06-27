@@ -17,18 +17,18 @@ class Handle_order():
             self.conn=db.con_pool.get_connection()
             self.cur=self.conn.cursor(dictionary=True)
             # print("successful access to the connection")
-        except:
+        except Exception as e:
             # print("error in the connection")
-            return 0
+            return e
             
     def close(self):
         try:
             self.cur.close()#cursor.close()釋放從資料庫取得的資源，兩個皆須關閉
             self.conn.close()#connection.close()方法可關閉對連線池的連線，並釋放相關資源
             # print("close the connection successfully")
-        except:
+        except Exception as e:
             # print("error in closing the connection")
-            return 0
+            return e
     
     def create_order_number(self, time):
         try:
@@ -43,9 +43,9 @@ class Handle_order():
                 order_number=result[len(result)-1]["order_number"]+1
                 
             return order_number
-        except:
+        except Exception as e:
             self.close()
-            return 0
+            return e
         
     def create_order(self):
         try:
@@ -57,9 +57,9 @@ class Handle_order():
             self.conn.commit()
             self.close()
             return order_number
-        except:
+        except Exception as e:
             self.close()
-            return 0
+            return e
     
     def check_order(self, order_number):
         try:
@@ -69,9 +69,9 @@ class Handle_order():
             order_info=self.cur.fetchone()
             self.close()
             return order_info
-        except:
+        except Exception as e:
             self.close()
-            return 0
+            return e
     
     def check_order_by_user_id(self):
         try:
@@ -81,6 +81,6 @@ class Handle_order():
             order_info=self.cur.fetchall()
             self.close()
             return order_info
-        except:
+        except Exception as e:
             self.close()
-            return 0
+            return e

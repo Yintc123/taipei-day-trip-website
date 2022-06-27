@@ -12,18 +12,18 @@ class Handle_DB():
             self.conn=db.con_pool.get_connection()
             self.cur=self.conn.cursor(dictionary=True)
             # print("successful access to the connection")
-        except:
+        except Exception as e:
             # print("error in the connection")
-            return 0
+            return e
             
     def close(self):
         try:
             self.cur.close()#cursor.close()釋放從資料庫取得的資源，兩個皆須關閉
             self.conn.close()#connection.close()方法可關閉對連線池的連線，並釋放相關資源
             # print("close the connection successfully")
-        except:
+        except Exception as e:
             # print("error in closing the connection")
-            return 0
+            return e
     
     def get_images(self, id):
         try:
@@ -36,10 +36,10 @@ class Handle_DB():
             for url in images:
                 img_list.append(url["images"])
             return img_list
-        except:
+        except Exception as e:
             self.close()
             # print("error in get_images")
-            return  0
+            return  e
             
     def get_needs(self, data):
         try:
@@ -64,10 +64,10 @@ class Handle_DB():
                 else:
                     data_info[title]=data[title]
             return data_info
-        except:
+        except Exception as e:
             self.close()
             # print("error in get_needs")
-            return 0
+            return e
             
     def get_total_column_count(self):
         try:
@@ -77,10 +77,10 @@ class Handle_DB():
             total_count=self.cur.fetchone()["COUNT(id)"]
             self.close()
             return total_count
-        except:
+        except Exception as e:
             self.close()
             # print("error in get_total_column_count")
-            return 0
+            return e
             
     def get_all_data(self):
         try:
@@ -90,10 +90,10 @@ class Handle_DB():
             locations=self.cur.fetchall()
             self.close()
             return locations
-        except:
+        except Exception as e:
             self.close()
             # print("error in get_all_data")
-            return 0
+            return e
             
     def get_data_by_id(self, id):
         try:
@@ -103,10 +103,10 @@ class Handle_DB():
             location=self.cur.fetchone()
             self.close()
             return location
-        except:
+        except Exception as e:
             self.close()
         #    print("error in get_data_by_id")
-            return 0
+            return e
         
     def get_count_by_id(self, id):
         try:
@@ -116,10 +116,10 @@ class Handle_DB():
             count=self.cur.fetchone()["COUNT(id)"]
             self.close()
             return count
-        except:
+        except Exception as e:
             self.close()
         #    print("error in get_count_by_id")
-            return 0
+            return e
            
     def get_needed_info_for_order(self, attraction_id):
         output={}
